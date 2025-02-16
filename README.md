@@ -1,5 +1,13 @@
 # RAVEN
-Real-time Analysis of Variable Environmental Networks
+<p align="center">
+    <img src="docs/_static/logo.png" alt="RAVEN Logo" width="200"/>
+</p>
+
+<p align="center">
+    Real-time Analysis of Variable Environmental Networks
+</p>
+
+
 
 # Overview
 RAVEN is an AI/ML-enhanced platform that integrates real-time environmental physics
