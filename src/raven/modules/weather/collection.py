@@ -11,7 +11,3 @@ def collect_tomorrow(apikey: str):  # type:ignore
     response = requests.get(url, headers=headers)
 
     return response.json()
-
-
-api_key = "9DXEymmoXuBAbEdEBrlGu5cY0VSCFeO8"
-collect_tomorrow(api_key)
