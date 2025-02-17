@@ -16,8 +16,8 @@ to detect, analyze, and predict environmental patterns and anomalies, providing
 researchers and urban planners with actionable insights through an API.
 
 # Features
-- Real-time data ingestion
-- Data cleaning and preprocessing
+- Real-time multi-source data ingestion
+- Data processing and transformation
 - Anomaly detection
 - Pattern recognition
 - Predictive modeling
