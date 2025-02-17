@@ -11,13 +11,15 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
-        python-version: '3.12'
+        python-version: '3.13'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install pip-tools
+        pip-compile pyproject.toml -o requirements.txt
         pip install -r requirements.txt
-        pip install --upgrade black mypy pytest pytest-cov
+        pip install black mypy pytest pytest-cov types-requests
 
     - name: Check formatting with Black
       run: black . --check
