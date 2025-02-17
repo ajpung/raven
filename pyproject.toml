@@ -8,10 +8,12 @@ version = "0.1.0"
 description = "Environmental Analysis Platform"
 requires-python = ">=3.10"
 dependencies = [
+    "numpy",
+    "scipy",
+    "pandas",
     "requests",
     "fastapi",
-    "pandas",
-    "numpy",
+    "types-requests",
 ]
 
 [tool.setuptools]
@@ -20,9 +22,12 @@ packages = ["raven"]
 
 [project.optional-dependencies]
 dev = [
-    "pytest",
-    "pytest-cov",
-    "black",
     "mypy",
-    "types-requests",
+    "black",
+    "sphinx",
+    "pytest",
+    "ipykernel",
+    "pytest-cov",
+    "myst-parser",
+    "sphinx-rtd-theme",
 ]
