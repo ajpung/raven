@@ -63,5 +63,9 @@ cython_debug/
 .coverage
 
 # Credentials
-/docs/api_keys.json
+docs/api_keys.json
+examples/Untitled.ipynb
 
+# Jupyter Notebook
+.coverage
+.coverage.*

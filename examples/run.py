@@ -1,16 +1,17 @@
-import config
-
 import azure.cosmos.documents as documents
 import azure.cosmos.cosmos_client as cosmos_client
 import azure.cosmos.exceptions as exceptions
 from azure.cosmos.partition_key import PartitionKey
 import datetime
+from raven.core.api_base import collect_keys
 
+# Read configuration from docs/api_keys.json
+keys = collect_keys()
 
-HOST = config.settings["host"]
-MASTER_KEY = config.settings["master_key"]
-DATABASE_ID = config.settings["database_id"]
-CONTAINER_ID = config.settings["container_id"]
+HOST = keys["CosmosDB"]["host"]
+MASTER_KEY = keys["CosmosDB"]["master_key"]
+DATABASE_ID = keys["CosmosDB"]["database_id"]
+CONTAINER_ID = keys["CosmosDB"]["container_id"]
 
 
 def create_items(container):
