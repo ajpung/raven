@@ -12,7 +12,6 @@ dependencies = [
     "fastapi",
     "pandas",
     "numpy",
-    "types-request",
 ]
 
 [tool.setuptools]
@@ -25,4 +24,5 @@ dev = [
     "pytest-cov",
     "black",
     "mypy",
+    "types-requests",
 ]
