@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "raven"
+version = "0.1.0"
+description = "Environmental Analysis Platform"
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+    "fastapi",
+    "pandas",
+    "numpy",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["raven"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "mypy",
+    "types-requests",
+]
