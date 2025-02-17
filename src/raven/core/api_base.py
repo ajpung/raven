@@ -1,8 +1,8 @@
 import json
-from typing import Dict
+from typing import Dict, Any
 
 
-def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, str]:
+def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, Any]:
     """
     Reads API keys from JSON file
 
@@ -13,5 +13,6 @@ def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, str]:
         dict: A dictionary representing the JSON data, or None if an error occurs.
     """
     with open(file_path, "r") as file:
-        data: Dict[str, str] = json.load(file)
-        return data
+        data: Dict[str, Any] = json.load(file)
+
+    return data

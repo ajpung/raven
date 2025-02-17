@@ -38,4 +38,6 @@ dev = [
     "sphinx-rtd-theme",
 ]
 
+[tool.poetry.package]
+include = ["py.typed"]
 

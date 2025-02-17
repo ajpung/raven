@@ -4,6 +4,7 @@ import azure.cosmos.exceptions as exceptions
 from azure.cosmos.partition_key import PartitionKey
 import datetime
 from raven.core.api_base import collect_keys
+from raven.modules.weather.collection import collect_weather
 
 # Read configuration from docs/api_keys.json
 keys = collect_keys()
@@ -14,18 +15,13 @@ DATABASE_ID = keys["CosmosDB"]["database_id"]
 CONTAINER_ID = keys["CosmosDB"]["container_id"]
 
 
-def create_items(container):
+def create_items(container, provider="Tomorrow-io"):
     print("\nCreating Items\n")
 
     # Create a SalesOrder object. This object has nested properties and various types including numbers, DateTimes and strings.
     # This can be saved as JSON as is without converting into rows/columns.
-    sales_order = get_sales_order("SalesOrder1")
+    sales_order = get_sales_order(provider)
     container.create_item(body=sales_order)
-
-    # As your app evolves, let's say your object has a new schema. You can insert SalesOrderV2 objects without any
-    # changes to the database tier.
-    sales_order2 = get_sales_order_v2("SalesOrder2")
-    container.create_item(body=sales_order2)
 
 
 def scale_container(container):
@@ -47,7 +43,7 @@ def scale_container(container):
 
     except exceptions.CosmosHttpResponseError as e:
         if e.status_code == 400:
-            print("Cannot read container throuthput.")
+            print("Cannot read container throughput.")
             print(e.http_error_message)
         else:
             raise
