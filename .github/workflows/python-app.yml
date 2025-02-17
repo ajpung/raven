@@ -20,6 +20,7 @@ jobs:
         pip-compile pyproject.toml -o requirements.txt
         pip install -r requirements.txt
         pip install black mypy pytest
+        pip install types-requests  # Add this line
 
     - name: Check formatting with Black
       run: black . --check
