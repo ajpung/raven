@@ -12,6 +12,7 @@ dependencies = [
     "fastapi",
     "pandas",
     "numpy",
+    "types-request",
 ]
 
 [tool.setuptools]
