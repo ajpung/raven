@@ -1,28 +1,9 @@
 import json
 import requests
-from typing import Dict, Any
+from typing import Dict, Any, cast
 
 
-def collect_tomorrow(apikey: str):  # type:ignore
-    """
-    Collects weather data from Tomorrow.io API
-
-    Args:
-        apikey: API key for Tomorrow.io
-
-    Returns:
-        dict: Weather data from Tomorrow.io API
-    """
-    url = (
-        f"https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey={apikey}"
-    )
-    headers = {"accept": "application/json", "accept-encoding": "deflate, gzip, br"}
-    response = requests.get(url, headers=headers)
-
-    return response.json()
-
-
-def collect_api_key(file_path: str = "./docs/api_keys.json") -> Dict[str, str]:
+def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, str]:
     """
     Reads API keys from JSON file
 
@@ -35,3 +16,13 @@ def collect_api_key(file_path: str = "./docs/api_keys.json") -> Dict[str, str]:
     with open(file_path, "r") as file:
         data: Dict[str, str] = json.load(file)
         return data
+
+
+def collect_tomorrow(apikey: str) -> Dict[str, Any]:
+    url = (
+        f"https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey={apikey}"
+    )
+    headers = {"accept": "application/json", "accept-encoding": "deflate, gzip, br"}
+    response = requests.get(url, headers=headers)
+
+    return cast(Dict[str, Any], response.json())
