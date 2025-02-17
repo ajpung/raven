@@ -19,7 +19,8 @@ jobs:
         pip install pip-tools
         pip-compile pyproject.toml -o requirements.txt
         pip install -r requirements.txt
-        pip install black mypy pytest pytest-cov types-requests
+        pip install black "black[jupyter]" mypy
+        pip install pytest pytest-cov types-requests
 
     - name: Check formatting with Black
       run: black . --check
