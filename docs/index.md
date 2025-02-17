@@ -6,7 +6,7 @@
 
 Environmental analysis platform that integrates multiple data streams to detect patterns and provide insights.
 
-```myst
+```
 :::{toctree}
 :maxdepth: 2
 :caption: Contents
