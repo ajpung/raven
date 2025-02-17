@@ -4,6 +4,4 @@ html_theme_options = {
     "display_version": False,
 }
 
-extensions = [
-    'myst_parser'
-]
+extensions = ["myst_parser"]
