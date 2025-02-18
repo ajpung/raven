@@ -30,6 +30,7 @@ def collect_tomorrow(apikey: str) -> Dict[str, Any]:
     response = requests.get(url)
     return cast(Dict[str, Any], response.json())
 
+
 def collect_openwx(apikey: str, lat: float, lon: float) -> Dict[str, Any]:
     """
     Collects weather data from Tomorrow.io
