@@ -14,6 +14,7 @@ MASTER_KEY = keys["CosmosDB"]["master_key"]
 DATABASE_ID = keys["CosmosDB"]["database_id"]
 CONTAINER_ID = keys["CosmosDB"]["container_id"]
 
+
 def get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID):
     # Initialize the Cosmos DB client
     client = cosmos_client.CosmosClient(
@@ -23,8 +24,10 @@ def get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID):
 
     # Get or create the database
     database_name = DATABASE_ID
-    try: database = client.get_database_client(database_name)
-    except: database = client.create_database(database_name)
+    try:
+        database = client.get_database_client(database_name)
+    except:
+        database = client.create_database(database_name)
 
     # Get or create the container with appropriate partitioning
     container_name = CONTAINER_ID
@@ -35,22 +38,23 @@ def get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID):
         container = database.create_container(
             id=container_name,
             partition_key=PartitionKey(path="/date"),
-            offer_throughput=400  # Minimum throughput, adjust as needed
+            offer_throughput=400,  # Minimum throughput, adjust as needed
         )
 
     return container
 
+
 def store_weather_readings(CONTAINER_ID):
     # Create document for first source (Tomorrow.io)
     dtnow = datetime.datetime.now(datetime.UTC)
-    tstmp = dtnow.strftime('%y%m%dT%H:%M:%S')
+    tstmp = dtnow.strftime("%y%m%dT%H:%M:%S")
     tomorrow_doc = {
-        'id': f'tmrw_{tstmp}',
-        'source': 'tomorrow_io',
-        'type': 'weather_reading',
-        'timestamp': dtnow.isoformat(),
-        'date': dtnow.strftime('%Y-%m-%d'),
-        'location': 'toronto',
+        "id": f"tmrw_{tstmp}",
+        "source": "tomorrow_io",
+        "type": "weather_reading",
+        "timestamp": dtnow.isoformat(),
+        "date": dtnow.strftime("%Y-%m-%d"),
+        "location": "toronto",
         #'temperature': tomorrow_data['data']['temperature'],
         #'humidity': tomorrow_data['data']['humidity'],
         # Other Tomorrow.io specific fields
@@ -58,6 +62,7 @@ def store_weather_readings(CONTAINER_ID):
 
     # Store both documents
     container.create_item(body=tomorrow_doc)
+
 
 container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
 
