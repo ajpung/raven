@@ -85,3 +85,6 @@ build/
 # Backup files
 *~
 *.bak
+
+# Documentation
+*.xlsx

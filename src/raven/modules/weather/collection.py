@@ -29,3 +29,17 @@ def collect_tomorrow(apikey: str) -> Dict[str, Any]:
     )
     response = requests.get(url)
     return cast(Dict[str, Any], response.json())
+
+def collect_openwx(apikey: str, lat: float, lon: float) -> Dict[str, Any]:
+    """
+    Collects weather data from Tomorrow.io
+
+    :param apikey: API key for Tomorrow.io
+    :return: Weather data from Tomorrow.io API
+    """
+    url = (
+        f"https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey={apikey}"
+        f"https://api.openweathermap.org/data/2.5/weather?lat={lat} & lon={lon} & appid={apikey}"
+    )
+    response = requests.get(url)
+    return cast(Dict[str, Any], response.json())
