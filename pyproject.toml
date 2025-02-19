@@ -10,10 +10,20 @@ requires-python = ">=3.10"
 dependencies = [
     "numpy",
     "scipy",
+    "config",
     "pandas",
-    "requests",
     "fastapi",
+    "requests",
+    "psycopg2",
+    "ipykernel",
+    "pip==25.0.1",
+    "azure-cosmos",
+    "pandas-stubs",
+    "black[jupyter]",
     "types-requests",
+    "requests_cache",
+    "retry_requests",
+    "openmeteo_requests"
 ]
 
 [tool.setuptools]
@@ -31,3 +41,10 @@ dev = [
     "myst-parser",
     "sphinx-rtd-theme",
 ]
+
+[tool.poetry.package]
+include = ["py.typed"]
+
+[tool.mypy.overrides]
+module = "retry_requests.*"
+ignore_missing_imports = true

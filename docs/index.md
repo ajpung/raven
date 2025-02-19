@@ -1,18 +1,11 @@
-# Welcome to RAVEN's documentation!
+# RAVEN Documentation
 
-![RAVEN Logo](_static/logo.png)
+RAVEN (Real-time Analysis of Variable Environmental Networks) is a comprehensive environmental analysis platform that integrates multiple data streams to detect patterns and provide insights through a unified API.
 
-## RAVEN (Real-time Analysis of Variable Environmental Networks)
+## Features
 
-Environmental analysis platform that integrates multiple data streams to detect patterns and provide insights.
-
-```
-:::{toctree}
-:maxdepth: 2
-:caption: Contents
-
-installation
-usage
-api
-modules
-:::
+- Real-time environmental data collection and analysis
+- Integration of multiple data sources (weather, air quality, UV, electromagnetic)
+- Machine learning-powered pattern detection
+- RESTful API for data access and analysis
+- Scalable cloud deployment on Azure
