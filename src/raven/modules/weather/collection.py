@@ -7,15 +7,26 @@ import requests_cache
 from retry_requests import retry  # type: ignore
 
 
-def collect_weather(lat: float, lon: float) -> List[Dict[str, Any]]:
+def collect_weather(site: list, lat: float, lon: float) -> Dict[str, Any]:
     """
     Collects weather data from the specified provider
-    :param provider: Weather data provider
+
+    :param site: Weather provider to use
+    :param lat: Latitude of the location
+    :param lon: Longitude of the location
+
     :return: Weather data from the specified provider
     """
-    tmrw_data = collect_tomorrow(lat, lon)
-    opwx_data = collect_openwx(lat, lon)
-    return [tmrw_data, opwx_data]
+    # Call appropriate provider
+    if site == "tmrwio":
+        wx_data = collect_tomorrow(lat, lon)
+    elif site == "openwx":
+        wx_data = collect_openwx(lat, lon)
+    elif site == "openmt":
+        wx_data = collect_openmt(lat, lon)
+    else:
+        wx_data = {}
+    return wx_data
 
 
 def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
