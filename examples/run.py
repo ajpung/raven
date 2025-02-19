@@ -58,14 +58,9 @@ def create_wx_item(wx_id: str, container, lat: float, lon: float):
     return response
 
 
-wx_id = "tmrwio"
-lat = 38.422508
-lon = -85.797633
-
-
 def store_wx_data(wx_id, lat: float, lon: float):
     container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
     create_wx_item(wx_id, container, lat, lon)
 
 
-store_wx_data(wx_id, lat, lon)
+store_wx_data(wx_id="tmrwio", lat=38.422508, lon=-85.797633)
