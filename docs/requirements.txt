@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+furo
+>>>>>>> azure-db-backup
 sphinx
 myst-parser
 sphinx-rtd-theme

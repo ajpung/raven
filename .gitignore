@@ -22,6 +22,12 @@ pip-delete-this-directory.txt
 
 # Sphinx documentation
 docs/_build/
+_build/
+.doctrees/
+generated/
+docs/api/
+docs/_autosummary/
+>>>>>>> azure-db-backup
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -46,11 +52,30 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+=======
+raven-env/
+**/Lib/site-packages/
+site-packages/
+python*/
+pip-selfcheck.json
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+**/.pytest_cache/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+**/.mypy_cache/
 
 # Pyre type checker
 .pyre/
 
 # pytype _static type analyzer
+# pytype static type analyzer
 .pytype/
 
 # Cython debug symbols
@@ -65,3 +90,33 @@ cython_debug/
 # Credentials
 /docs/api_keys.json
 
+
+# Credentials
+/docs/api_keys.json
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+*.swp
+*.swo
+
+# Local development settings
+local_settings.py
+settings_local.py
+
+# Database files
+*.db
+*.sqlite3
+
+# Log files
+logs/
+*.log
+*.log.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
