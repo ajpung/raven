@@ -7,7 +7,7 @@ import requests_cache
 from retry_requests import retry  # type: ignore
 
 
-def collect_weather(site: list, lat: float, lon: float) -> Dict[str, Any]:
+def collect_weather(site: str, lat: float, lon: float) -> Dict[str, Any]:
     """
     Collects weather data from the specified provider
 
