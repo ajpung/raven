@@ -1,0 +1,197 @@
+From 0a8f59809d17471d23bf3ea6769eb3a145d0398c Mon Sep 17 00:00:00 2001
+From: ajpung <83614749+ajpung@users.noreply.github.com>
+Date: Mon, 17 Feb 2025 18:16:10 -0500
+Subject: [PATCH 03/13] chore: major upgrades to ensure unneeded files are not
+ kept, and things run smoothly moving forward with Azure
+
+---
+ .gitignore                              | 16 ++++++++++++++-
+ examples/run.py                         | 12 ++++--------
+ mypy.ini                                | 21 ++++++++++----------
+ pyproject.toml                          |  2 ++
+ src/raven/core/api_base.py              |  9 +++++----
+ src/raven/modules/weather/collection.py | 26 +++++++++++++++++++++----
+ src/raven/py.typed                      |  0
+ 7 files changed, 59 insertions(+), 27 deletions(-)
+ create mode 100644 src/raven/py.typed
+
+diff --git a/.gitignore b/.gitignore
+index 724f710..ed9657a 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -68,4 +68,18 @@ examples/Untitled.ipynb
+ 
+ # Jupyter Notebook
+ .coverage
+-.coverage.*
+\ No newline at end of file
++.coverage.*
++
++# Python bytecode
++__pycache__/
++*.py[cod]
++*$py.class
++
++# Distribution / packaging
++dist/
++build/
++*.egg-info/
++
++# Backup files
++*~
++*.bak
+\ No newline at end of file
+diff --git a/examples/run.py b/examples/run.py
+index f12ebfb..ae7ab5e 100644
+--- a/examples/run.py
++++ b/examples/run.py
+@@ -4,6 +4,7 @@ import azure.cosmos.exceptions as exceptions
+ from azure.cosmos.partition_key import PartitionKey
+ import datetime
+ from raven.core.api_base import collect_keys
++from raven.modules.weather.collection import collect_weather
+ 
+ # Read configuration from docs/api_keys.json
+ keys = collect_keys()
+@@ -14,19 +15,14 @@ DATABASE_ID = keys["CosmosDB"]["database_id"]
+ CONTAINER_ID = keys["CosmosDB"]["container_id"]
+ 
+ 
+-def create_items(container):
++def create_items(container, provider="Tomorrow-io"):
+     print("\nCreating Items\n")
+ 
+     # Create a SalesOrder object. This object has nested properties and various types including numbers, DateTimes and strings.
+     # This can be saved as JSON as is without converting into rows/columns.
+-    sales_order = get_sales_order("SalesOrder1")
++    sales_order = get_sales_order(provider)
+     container.create_item(body=sales_order)
+ 
+-    # As your app evolves, let's say your object has a new schema. You can insert SalesOrderV2 objects without any
+-    # changes to the database tier.
+-    sales_order2 = get_sales_order_v2("SalesOrder2")
+-    container.create_item(body=sales_order2)
+-
+ 
+ def scale_container(container):
+     print("\nScaling Container\n")
+@@ -47,7 +43,7 @@ def scale_container(container):
+ 
+     except exceptions.CosmosHttpResponseError as e:
+         if e.status_code == 400:
+-            print("Cannot read container throuthput.")
++            print("Cannot read container throughput.")
+             print(e.http_error_message)
+         else:
+             raise
+diff --git a/mypy.ini b/mypy.ini
+index 82e9177..44f90d1 100644
+--- a/mypy.ini
++++ b/mypy.ini
+@@ -1,12 +1,13 @@
+ [mypy]
+-python_version = 3.10
+-disallow_untyped_defs = True
+-check_untyped_defs = True
+-warn_redundant_casts = True
+-warn_unused_ignores = True
+-warn_return_any = True
+-strict_optional = True
+-disallow_incomplete_defs = True
++python_version = 3.13
+ 
+-[mypy.plugins.numpy.*]
+-ignore_missing_imports = True
+\ No newline at end of file
++# Only analyze files in src directory
++files = src
++
++# Tell mypy which directory to use as the package root
++mypy_path = src
++namespace_packages = True
++explicit_package_bases = True
++
++# Make sure mypy doesn't search for modules in your project root
++no_implicit_optional = True
+\ No newline at end of file
+diff --git a/pyproject.toml b/pyproject.toml
+index 5de7fbb..7199cb8 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -38,4 +38,6 @@ dev = [
+     "sphinx-rtd-theme",
+ ]
+ 
++[tool.poetry.package]
++include = ["py.typed"]
+ 
+diff --git a/src/raven/core/api_base.py b/src/raven/core/api_base.py
+index 152ada9..132b41d 100644
+--- a/src/raven/core/api_base.py
++++ b/src/raven/core/api_base.py
+@@ -1,8 +1,8 @@
+ import json
+-from typing import Dict
++from typing import Dict, Any
+ 
+ 
+-def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, str]:
++def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, Any]:
+     """
+     Reads API keys from JSON file
+ 
+@@ -13,5 +13,6 @@ def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, str]:
+         dict: A dictionary representing the JSON data, or None if an error occurs.
+     """
+     with open(file_path, "r") as file:
+-        data: Dict[str, str] = json.load(file)
+-        return data
++        data: Dict[str, Any] = json.load(file)
++
++    return data
+diff --git a/src/raven/modules/weather/collection.py b/src/raven/modules/weather/collection.py
+index 7b61550..fa928ee 100644
+--- a/src/raven/modules/weather/collection.py
++++ b/src/raven/modules/weather/collection.py
+@@ -1,13 +1,31 @@
+-import json
+ import requests
+ from typing import Dict, Any, cast
++from raven.core.api_base import collect_keys
++
++
++def collect_weather(provider: str) -> Dict[str, Any]:
++    """
++    Collects weather data from the specified provider
++    :param provider: Weather data provider
++    :return: Weather data from the specified provider
++    """
++    keys = collect_keys()
++    if provider == "Tomorrow-io":
++        data = collect_tomorrow(keys["Tomorrow-io"])
++    else:
++        raise ValueError(f"Provider {provider} is not supported")
++    return data
+ 
+ 
+ def collect_tomorrow(apikey: str) -> Dict[str, Any]:
++    """
++    Collects weather data from Tomorrow.io
++
++    :param apikey: API key for Tomorrow.io
++    :return: Weather data from Tomorrow.io API
++    """
+     url = (
+         f"https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey={apikey}"
+     )
+-    headers = {"accept": "application/json", "accept-encoding": "deflate, gzip, br"}
+-    response = requests.get(url, headers=headers)
+-
++    response = requests.get(url)
+     return cast(Dict[str, Any], response.json())
+diff --git a/src/raven/py.typed b/src/raven/py.typed
+new file mode 100644
+index 0000000..e69de29
+-- 
+2.45.1.windows.1
+

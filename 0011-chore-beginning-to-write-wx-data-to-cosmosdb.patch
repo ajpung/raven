@@ -1,0 +1,135 @@
+From 676458ddec74241dde72ec0a27501916eebcbc67 Mon Sep 17 00:00:00 2001
+From: ajpung <83614749+ajpung@users.noreply.github.com>
+Date: Wed, 19 Feb 2025 07:10:32 -0500
+Subject: [PATCH 11/13] chore: beginning to write wx data to cosmosdb
+
+---
+ examples/run.py                         | 53 ++++++++++++-------------
+ src/raven/modules/weather/collection.py | 21 +++++++---
+ 2 files changed, 41 insertions(+), 33 deletions(-)
+
+diff --git a/examples/run.py b/examples/run.py
+index 99c617d..21e374d 100644
+--- a/examples/run.py
++++ b/examples/run.py
+@@ -1,10 +1,10 @@
+-import azure.cosmos.documents as documents
+-import azure.cosmos.exceptions as exceptions
+-from raven.core.api_base import collect_keys
+-from raven.modules.weather.collection import collect_weather
++import datetime
++
+ import azure.cosmos.cosmos_client as cosmos_client
+ from azure.cosmos.partition_key import PartitionKey
+-import datetime
++
++from raven.core.api_base import collect_keys
++from raven.modules.weather.collection import collect_weather
+ 
+ # Read configuration from docs/api_keys.json
+ keys = collect_keys()
+@@ -16,10 +16,10 @@ CONTAINER_ID = keys["CosmosDB"]["container_id"]
+ 
+ 
+ def get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID):
+-    # Initialize the Cosmos DB client
++    # Initialize the Cosmos DB client - fix the credential format
+     client = cosmos_client.CosmosClient(
+         url=HOST,
+-        credential={"masterKey": MASTER_KEY},
++        credential=MASTER_KEY,  # Just pass the key directly
+     )
+ 
+     # Get or create the database
+@@ -37,34 +37,31 @@ def get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID):
+         # Create with partition key on date for efficient time-based queries
+         container = database.create_container(
+             id=container_name,
+-            partition_key=PartitionKey(path="/date"),
+-            offer_throughput=400,  # Minimum throughput, adjust as needed
++            partition_key=PartitionKey(
++                path="/location/lat"
++            ),  # Use latitude as partition key
++            offer_throughput=400,
+         )
+ 
+     return container
+ 
+ 
+-def store_weather_readings(CONTAINER_ID):
+-    # Create document for first source (Tomorrow.io)
++def store_weather_readings(wx_id, container):
++    # Create document for weather source
+     dtnow = datetime.datetime.now(datetime.UTC)
+-    tstmp = dtnow.strftime("%y%m%dT%H:%M:%S")
+-    tomorrow_doc = {
+-        "id": f"tmrw_{tstmp}",
+-        "source": "tomorrow_io",
+-        "type": "weather_reading",
+-        "timestamp": dtnow.isoformat(),
+-        "date": dtnow.strftime("%Y-%m-%d"),
+-        "location": "toronto",
+-        #'temperature': tomorrow_data['data']['temperature'],
+-        #'humidity': tomorrow_data['data']['humidity'],
+-        # Other Tomorrow.io specific fields
+-    }
++    tstmp = dtnow.strftime("%y%m%dT%H%M%S")  # Removed colons which might cause issues
++    raw_doc = collect_weather(site=wx_id, lat=38.422508, lon=-85.797633)
++    weather_doc = raw_doc["data"]
+ 
+-    # Store both documents
+-    container.create_item(body=tomorrow_doc)
++    # Add required 'id' field to the document
++    weather_doc["id"] = f"{wx_id}_{tstmp}"
+ 
++    # Store the document
++    response = container.create_item(body=weather_doc)
++    print(f"Document created with id: {response['id']}")
++    return response
+ 
+-container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
+ 
+-# Now you can use this container in your store_weather_readings function
+-store_weather_readings(container)
++# Collect / store weather data
++container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
++store_weather_readings("tmrwio", container)
+diff --git a/src/raven/modules/weather/collection.py b/src/raven/modules/weather/collection.py
+index d9ce4bb..851f55a 100644
+--- a/src/raven/modules/weather/collection.py
++++ b/src/raven/modules/weather/collection.py
+@@ -7,15 +7,26 @@ import requests_cache
+ from retry_requests import retry  # type: ignore
+ 
+ 
+-def collect_weather(lat: float, lon: float) -> List[Dict[str, Any]]:
++def collect_weather(site: list, lat: float, lon: float) -> Dict[str, Any]:
+     """
+     Collects weather data from the specified provider
+-    :param provider: Weather data provider
++
++    :param site: Weather provider to use
++    :param lat: Latitude of the location
++    :param lon: Longitude of the location
++
+     :return: Weather data from the specified provider
+     """
+-    tmrw_data = collect_tomorrow(lat, lon)
+-    opwx_data = collect_openwx(lat, lon)
+-    return [tmrw_data, opwx_data]
++    # Call appropriate provider
++    if site == "tmrwio":
++        wx_data = collect_tomorrow(lat, lon)
++    elif site == "openwx":
++        wx_data = collect_openwx(lat, lon)
++    elif site == "openmt":
++        wx_data = collect_openmt(lat, lon)
++    else:
++        wx_data = {}
++    return wx_data
+ 
+ 
+ def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
+-- 
+2.45.1.windows.1
+

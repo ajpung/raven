@@ -1,0 +1,49 @@
+From 20ca9220cd0328201e47a7a1ff819cfdccf1749d Mon Sep 17 00:00:00 2001
+From: ajpung <83614749+ajpung@users.noreply.github.com>
+Date: Mon, 17 Feb 2025 18:29:34 -0500
+Subject: [PATCH 04/13] chore: removing unnecessary files, cleaning up Git
+ confusion
+
+---
+ .gitignore      | 2 ++
+ __init__.py     | 0
+ docs/conf.py    | 5 -----
+ src/__init__.py | 0
+ 4 files changed, 2 insertions(+), 5 deletions(-)
+ delete mode 100644 __init__.py
+ delete mode 100644 docs/conf.py
+ delete mode 100644 src/__init__.py
+
+diff --git a/.gitignore b/.gitignore
+index ed9657a..4b7f0c9 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -69,6 +69,8 @@ examples/Untitled.ipynb
+ # Jupyter Notebook
+ .coverage
+ .coverage.*
++/venv
++.venv
+ 
+ # Python bytecode
+ __pycache__/
+diff --git a/__init__.py b/__init__.py
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/docs/conf.py b/docs/conf.py
+deleted file mode 100644
+index ff15b4f..0000000
+--- a/docs/conf.py
++++ /dev/null
+@@ -1,5 +0,0 @@
+-html_theme = "furo"
+-html_logo = "_static/logo.png"
+-html_theme_options = {
+-    "style_nav_header_background": "#2c3e50"  # Optional: changes sidebar color
+-}
+diff --git a/src/__init__.py b/src/__init__.py
+deleted file mode 100644
+index e69de29..0000000
+-- 
+2.45.1.windows.1
+

@@ -1,0 +1,31 @@
+From aeee1cb0bd493b6813c732ba5edefa0dbc752660 Mon Sep 17 00:00:00 2001
+From: ajpung <83614749+ajpung@users.noreply.github.com>
+Date: Tue, 18 Feb 2025 07:38:37 -0500
+Subject: [PATCH 08/13] .
+
+---
+ src/raven/modules/weather/collection.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/raven/modules/weather/collection.py b/src/raven/modules/weather/collection.py
+index 6c1d588..985de72 100644
+--- a/src/raven/modules/weather/collection.py
++++ b/src/raven/modules/weather/collection.py
+@@ -30,6 +30,7 @@ def collect_tomorrow(apikey: str) -> Dict[str, Any]:
+     response = requests.get(url)
+     return cast(Dict[str, Any], response.json())
+ 
++
+ def collect_openwx(apikey: str, lat: float, lon: float) -> Dict[str, Any]:
+     """
+     Collects weather data from Tomorrow.io
+@@ -42,4 +43,4 @@ def collect_openwx(apikey: str, lat: float, lon: float) -> Dict[str, Any]:
+         f"https://api.openweathermap.org/data/2.5/weather?lat={lat} & lon={lon} & appid={apikey}"
+     )
+     response = requests.get(url)
+-    return cast(Dict[str, Any], response.json())
+\ No newline at end of file
++    return cast(Dict[str, Any], response.json())
+-- 
+2.45.1.windows.1
+

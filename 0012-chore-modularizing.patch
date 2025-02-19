@@ -1,0 +1,77 @@
+From 614aa5e5ec27e14ff3c892677806f2a55e3e0468 Mon Sep 17 00:00:00 2001
+From: ajpung <83614749+ajpung@users.noreply.github.com>
+Date: Wed, 19 Feb 2025 07:21:30 -0500
+Subject: [PATCH 12/13] chore: modularizing
+
+---
+ examples/run.py                         | 26 ++++++++++++++-----------
+ src/raven/modules/weather/collection.py |  2 +-
+ 2 files changed, 16 insertions(+), 12 deletions(-)
+
+diff --git a/examples/run.py b/examples/run.py
+index 21e374d..5a7e389 100644
+--- a/examples/run.py
++++ b/examples/run.py
+@@ -37,31 +37,35 @@ def get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID):
+         # Create with partition key on date for efficient time-based queries
+         container = database.create_container(
+             id=container_name,
+-            partition_key=PartitionKey(
+-                path="/location/lat"
+-            ),  # Use latitude as partition key
+-            offer_throughput=400,
++            partition_key=PartitionKey(path="/data"),
++            offer_throughput=400,  # Minimum throughput, adjust as needed
+         )
+ 
+     return container
+ 
+ 
+-def store_weather_readings(wx_id, container):
++def create_wx_item(wx_id: str, container, lat: float, lon: float):
+     # Create document for weather source
+     dtnow = datetime.datetime.now(datetime.UTC)
+     tstmp = dtnow.strftime("%y%m%dT%H%M%S")  # Removed colons which might cause issues
+-    raw_doc = collect_weather(site=wx_id, lat=38.422508, lon=-85.797633)
++    raw_doc = collect_weather(site=wx_id, lat=lat, lon=lon)
+     weather_doc = raw_doc["data"]
+ 
+-    # Add required 'id' field to the document
+     weather_doc["id"] = f"{wx_id}_{tstmp}"
+ 
+     # Store the document
+     response = container.create_item(body=weather_doc)
+-    print(f"Document created with id: {response['id']}")
+     return response
+ 
+ 
+-# Collect / store weather data
+-container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
+-store_weather_readings("tmrwio", container)
++wx_id = "tmrwio"
++lat = 38.422508
++lon = -85.797633
++
++
++def store_wx_data(wx_id, lat: float, lon: float):
++    container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
++    create_wx_item(wx_id, container, lat, lon)
++
++
++store_wx_data(wx_id, lat, lon)
+diff --git a/src/raven/modules/weather/collection.py b/src/raven/modules/weather/collection.py
+index 851f55a..3f6e33a 100644
+--- a/src/raven/modules/weather/collection.py
++++ b/src/raven/modules/weather/collection.py
+@@ -7,7 +7,7 @@ import requests_cache
+ from retry_requests import retry  # type: ignore
+ 
+ 
+-def collect_weather(site: list, lat: float, lon: float) -> Dict[str, Any]:
++def collect_weather(site: str, lat: float, lon: float) -> Dict[str, Any]:
+     """
+     Collects weather data from the specified provider
+ 
+-- 
+2.45.1.windows.1
+

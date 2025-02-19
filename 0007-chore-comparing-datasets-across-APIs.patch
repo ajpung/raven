@@ -1,0 +1,51 @@
+From a5f0f8bd6991819389e93b92ab6089b27fe1b74c Mon Sep 17 00:00:00 2001
+From: ajpung <83614749+ajpung@users.noreply.github.com>
+Date: Tue, 18 Feb 2025 07:38:18 -0500
+Subject: [PATCH 07/13] chore: comparing datasets across APIs
+
+---
+ .gitignore                              |  5 ++++-
+ src/raven/modules/weather/collection.py | 14 ++++++++++++++
+ 2 files changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/.gitignore b/.gitignore
+index 4b7f0c9..f7ffbb3 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -84,4 +84,7 @@ build/
+ 
+ # Backup files
+ *~
+-*.bak
+\ No newline at end of file
++*.bak
++
++# Documentation
++*.xlsx
+\ No newline at end of file
+diff --git a/src/raven/modules/weather/collection.py b/src/raven/modules/weather/collection.py
+index fa928ee..6c1d588 100644
+--- a/src/raven/modules/weather/collection.py
++++ b/src/raven/modules/weather/collection.py
+@@ -29,3 +29,17 @@ def collect_tomorrow(apikey: str) -> Dict[str, Any]:
+     )
+     response = requests.get(url)
+     return cast(Dict[str, Any], response.json())
++
++def collect_openwx(apikey: str, lat: float, lon: float) -> Dict[str, Any]:
++    """
++    Collects weather data from Tomorrow.io
++
++    :param apikey: API key for Tomorrow.io
++    :return: Weather data from Tomorrow.io API
++    """
++    url = (
++        f"https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey={apikey}"
++        f"https://api.openweathermap.org/data/2.5/weather?lat={lat} & lon={lon} & appid={apikey}"
++    )
++    response = requests.get(url)
++    return cast(Dict[str, Any], response.json())
+\ No newline at end of file
+-- 
+2.45.1.windows.1
+

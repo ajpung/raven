@@ -1,0 +1,32 @@
+From 4e7a8bd4c7b7df8a48702ad371d14f79c2f0ec65 Mon Sep 17 00:00:00 2001
+From: ajpung <83614749+ajpung@users.noreply.github.com>
+Date: Wed, 19 Feb 2025 07:24:10 -0500
+Subject: [PATCH 13/13] chore: towards modularity
+
+---
+ examples/run.py | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/examples/run.py b/examples/run.py
+index 5a7e389..0a052fc 100644
+--- a/examples/run.py
++++ b/examples/run.py
+@@ -58,14 +58,9 @@ def create_wx_item(wx_id: str, container, lat: float, lon: float):
+     return response
+ 
+ 
+-wx_id = "tmrwio"
+-lat = 38.422508
+-lon = -85.797633
+-
+-
+ def store_wx_data(wx_id, lat: float, lon: float):
+     container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
+     create_wx_item(wx_id, container, lat, lon)
+ 
+ 
+-store_wx_data(wx_id, lat, lon)
++store_wx_data(wx_id="tmrwio", lat=38.422508, lon=-85.797633)
+-- 
+2.45.1.windows.1
+

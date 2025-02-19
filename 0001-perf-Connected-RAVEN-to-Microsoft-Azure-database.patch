@@ -1,0 +1,489 @@
+From 25c1d74cefc298afd7b9d312e6447c4a4ad38e0c Mon Sep 17 00:00:00 2001
+From: ajpung <83614749+ajpung@users.noreply.github.com>
+Date: Mon, 17 Feb 2025 16:33:04 -0500
+Subject: [PATCH 01/13] perf: Connected RAVEN to Microsoft Azure database
+
+---
+ .idea/misc.xml                          |   2 +-
+ .idea/raven.iml                         |   3 +-
+ README.md                               |  29 ++-
+ docs/api_keys.json                      |   2 +-
+ docs/conf.py                            |   6 +-
+ docs/index.md                           |  23 +--
+ docs/requirements.txt                   |   1 +
+ examples/run.py                         | 237 ++++++++++++++++++++++++
+ pyproject.toml                          |  12 +-
+ src/raven/modules/weather/collection.py |  33 ++--
+ 10 files changed, 300 insertions(+), 48 deletions(-)
+ create mode 100644 examples/run.py
+
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+index 33c88d2..79e2540 100644
+--- a/.idea/misc.xml
++++ b/.idea/misc.xml
+@@ -3,5 +3,5 @@
+   <component name="Black">
+     <option name="sdkName" value="Python 3.12 (collapse_data)" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (raven)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+diff --git a/.idea/raven.iml b/.idea/raven.iml
+index 3b86481..5e4f3ee 100644
+--- a/.idea/raven.iml
++++ b/.idea/raven.iml
+@@ -2,9 +2,10 @@
+ <module type="PYTHON_MODULE" version="4">
+   <component name="NewModuleRootManager">
+     <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+       <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.13 (raven)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.13" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+diff --git a/README.md b/README.md
+index e96d9d4..e6f9847 100644
+--- a/README.md
++++ b/README.md
+@@ -7,19 +7,38 @@
+     Real-time Analysis of Variable Environmental Networks
+ </p>
+ 
++## Status
++[![Documentation Status](https://readthedocs.org/projects/raven-tool/badge/?version=latest)](https://raven-tool.readthedocs.io/en/latest/?badge=latest)
++[![GitHub Actions](https://github.com/ajpung/raven/workflows/RAVEN%20CI/badge.svg)](https://github.com/yourusername/raven/actions) 
++[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ajpung_raven&metric=alert_status)](https://sonarcloud.io/dashboard?id=yourusername_raven)
++[![Python Version](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/) 
++[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+ 
+-
+-# Overview
+-RAVEN is an AI/ML-enhanced platform that integrates real-time environmental physics
++## Overview
++RAVEN is an ML-enhanced platform that integrates real-time environmental physics
+ data streams like weather, air quality, seismic, oceanic, and electromagnetic data
+ to detect, analyze, and predict environmental patterns and anomalies, providing
+ researchers and urban planners with actionable insights through an API.
+ 
+-# Features
++## Documentation
++Complete documentation is available at [ReadTheDocs](https://raven-tool.readthedocs.io/en/latest/).
++
++## Features
+ - Real-time multi-source data ingestion
+ - Data processing and transformation
+ - Anomaly detection
+ - Pattern recognition
+ - Predictive modeling
+ - API for data access
+-- Large Language Models (LLM) for data analysis
+\ No newline at end of file
++- Large Language Models (LLM) for data analysis
++
++## Getting Started
++Create a virtual environment, install packages, activate, and export the environment
++for use in Jupyter notebooks:
++
++```
++python -m venv raven-env
++.\raven-env\Scripts\activate
++python -m pip install -e .
++python -m ipykernel install --user --name=raven-env --display-name="RAVEN Environment"
++```
+\ No newline at end of file
+diff --git a/docs/api_keys.json b/docs/api_keys.json
+index f545a97..c2ee00b 100644
+--- a/docs/api_keys.json
++++ b/docs/api_keys.json
+@@ -1,3 +1,3 @@
+ {
+-  'tomorrow-io': '9DXEymmoXuBAbEdEBrlGu5cY0VSCFeO8'
++  "tomorrow-io": "9DXEymmoXuBAbEdEBrlGu5cY0VSCFeO8"
+ }
+\ No newline at end of file
+diff --git a/docs/conf.py b/docs/conf.py
+index 63781f9..ff15b4f 100644
+--- a/docs/conf.py
++++ b/docs/conf.py
+@@ -1,3 +1,5 @@
++html_theme = "furo"
+ html_logo = "_static/logo.png"
+-html_theme = "sphinx_rtd_theme"
+-extensions = ["myst_parser"]
++html_theme_options = {
++    "style_nav_header_background": "#2c3e50"  # Optional: changes sidebar color
++}
+diff --git a/docs/index.md b/docs/index.md
+index 999c0c0..08d4bcd 100644
+--- a/docs/index.md
++++ b/docs/index.md
+@@ -1,18 +1,11 @@
+-# Welcome to RAVEN's documentation!
++# RAVEN Documentation
+ 
+-![RAVEN Logo](_static/logo.png)
++RAVEN (Real-time Analysis of Variable Environmental Networks) is a comprehensive environmental analysis platform that integrates multiple data streams to detect patterns and provide insights through a unified API.
+ 
+-## RAVEN (Real-time Analysis of Variable Environmental Networks)
++## Features
+ 
+-Environmental analysis platform that integrates multiple data streams to detect patterns and provide insights.
+-
+-```
+-:::{toctree}
+-:maxdepth: 2
+-:caption: Contents
+-
+-installation
+-usage
+-api
+-modules
+-:::
+\ No newline at end of file
++- Real-time environmental data collection and analysis
++- Integration of multiple data sources (weather, air quality, UV, electromagnetic)
++- Machine learning-powered pattern detection
++- RESTful API for data access and analysis
++- Scalable cloud deployment on Azure
+\ No newline at end of file
+diff --git a/docs/requirements.txt b/docs/requirements.txt
+index 03b37eb..8b27f0f 100644
+--- a/docs/requirements.txt
++++ b/docs/requirements.txt
+@@ -1,3 +1,4 @@
++furo
+ sphinx
+ myst-parser
+ sphinx-rtd-theme
+\ No newline at end of file
+diff --git a/examples/run.py b/examples/run.py
+new file mode 100644
+index 0000000..61a7257
+--- /dev/null
++++ b/examples/run.py
+@@ -0,0 +1,237 @@
++import config
++
++import azure.cosmos.documents as documents
++import azure.cosmos.cosmos_client as cosmos_client
++import azure.cosmos.exceptions as exceptions
++from azure.cosmos.partition_key import PartitionKey
++import datetime
++
++
++HOST = config.settings["host"]
++MASTER_KEY = config.settings["master_key"]
++DATABASE_ID = config.settings["database_id"]
++CONTAINER_ID = config.settings["container_id"]
++
++
++def create_items(container):
++    print("\nCreating Items\n")
++
++    # Create a SalesOrder object. This object has nested properties and various types including numbers, DateTimes and strings.
++    # This can be saved as JSON as is without converting into rows/columns.
++    sales_order = get_sales_order("SalesOrder1")
++    container.create_item(body=sales_order)
++
++    # As your app evolves, let's say your object has a new schema. You can insert SalesOrderV2 objects without any
++    # changes to the database tier.
++    sales_order2 = get_sales_order_v2("SalesOrder2")
++    container.create_item(body=sales_order2)
++
++
++def scale_container(container):
++    print("\nScaling Container\n")
++
++    # You can scale the throughput (RU/s) of your container up and down to meet the needs of the workload. Learn more: https://aka.ms/cosmos-request-units
++    try:
++        offer = container.read_offer()
++        print("Found Offer and its throughput is '{0}'".format(offer.offer_throughput))
++
++        offer.offer_throughput += 100
++        container.replace_throughput(offer.offer_throughput)
++
++        print(
++            "Replaced Offer. Offer Throughput is now '{0}'".format(
++                offer.offer_throughput
++            )
++        )
++
++    except exceptions.CosmosHttpResponseError as e:
++        if e.status_code == 400:
++            print("Cannot read container throuthput.")
++            print(e.http_error_message)
++        else:
++            raise
++
++
++def read_item(container, doc_id, account_number):
++    print("\nReading Item by Id\n")
++
++    # We can do an efficient point read lookup on partition key and id
++    response = container.read_item(item=doc_id, partition_key=account_number)
++
++    print("Item read by Id {0}".format(doc_id))
++    print("Partition Key: {0}".format(response.get("partitionKey")))
++    print("Subtotal: {0}".format(response.get("subtotal")))
++
++
++def read_items(container):
++    print("\nReading all items in a container\n")
++
++    # NOTE: Use MaxItemCount on Options to control how many items come back per trip to the server
++    #       Important to handle throttles whenever you are doing operations such as this that might
++    #       result in a 429 (throttled request)
++    item_list = list(container.read_all_items(max_item_count=10))
++
++    print("Found {0} items".format(item_list.__len__()))
++
++    for doc in item_list:
++        print("Item Id: {0}".format(doc.get("id")))
++
++
++def query_items(container, account_number):
++    print("\nQuerying for an  Item by Partition Key\n")
++
++    # Including the partition key value of account_number in the WHERE filter results in a more efficient query
++    items = list(
++        container.query_items(
++            query="SELECT * FROM r WHERE r.partitionKey=@account_number",
++            parameters=[{"name": "@account_number", "value": account_number}],
++        )
++    )
++
++    print("Item queried by Partition Key {0}".format(items[0].get("id")))
++
++
++def replace_item(container, doc_id, account_number):
++    print("\nReplace an Item\n")
++
++    read_item = container.read_item(item=doc_id, partition_key=account_number)
++    read_item["subtotal"] = read_item["subtotal"] + 1
++    response = container.replace_item(item=read_item, body=read_item)
++
++    print(
++        "Replaced Item's Id is {0}, new subtotal={1}".format(
++            response["id"], response["subtotal"]
++        )
++    )
++
++
++def upsert_item(container, doc_id, account_number):
++    print("\nUpserting an item\n")
++
++    read_item = container.read_item(item=doc_id, partition_key=account_number)
++    read_item["subtotal"] = read_item["subtotal"] + 1
++    response = container.upsert_item(body=read_item)
++
++    print(
++        "Upserted Item's Id is {0}, new subtotal={1}".format(
++            response["id"], response["subtotal"]
++        )
++    )
++
++
++def delete_item(container, doc_id, account_number):
++    print("\nDeleting Item by Id\n")
++
++    response = container.delete_item(item=doc_id, partition_key=account_number)
++
++    print("Deleted item's Id is {0}".format(doc_id))
++
++
++def get_sales_order(item_id):
++    order1 = {
++        "id": item_id,
++        "partitionKey": "Account1",
++        "purchase_order_number": "PO18009186470",
++        "order_date": datetime.date(2005, 1, 10).strftime("%c"),
++        "subtotal": 419.4589,
++        "tax_amount": 12.5838,
++        "freight": 472.3108,
++        "total_due": 985.018,
++        "items": [
++            {
++                "order_qty": 1,
++                "product_id": 100,
++                "unit_price": 418.4589,
++                "line_price": 418.4589,
++            }
++        ],
++        "ttl": 60 * 60 * 24 * 30,
++    }
++
++    return order1
++
++
++def get_sales_order_v2(item_id):
++    # notice new fields have been added to the sales order
++    order2 = {
++        "id": item_id,
++        "partitionKey": "Account2",
++        "purchase_order_number": "PO15428132599",
++        "order_date": datetime.date(2005, 7, 11).strftime("%c"),
++        "due_date": datetime.date(2005, 7, 21).strftime("%c"),
++        "shipped_date": datetime.date(2005, 7, 15).strftime("%c"),
++        "subtotal": 6107.0820,
++        "tax_amount": 586.1203,
++        "freight": 183.1626,
++        "discount_amt": 1982.872,
++        "total_due": 4893.3929,
++        "items": [
++            {
++                "order_qty": 3,
++                "product_code": "A-123",  # notice how in item details we no longer reference a ProductId
++                "product_name": "Product 1",  # instead we have decided to denormalise our schema and include
++                "currency_symbol": "$",  # the Product details relevant to the Order on to the Order directly
++                "currency_code": "USD",  # this is a typical refactor that happens in the course of an application
++                "unit_price": 17.1,  # that would have previously required schema changes and data migrations etc.
++                "line_price": 5.7,
++            }
++        ],
++        "ttl": 60 * 60 * 24 * 30,
++    }
++
++    return order2
++
++
++def run_sample():
++    client = cosmos_client.CosmosClient(
++        HOST,
++        {"masterKey": MASTER_KEY},
++        user_agent="CosmosDBPythonQuickstart",
++        user_agent_overwrite=True,
++    )
++    try:
++        # setup database for this sample
++        try:
++            db = client.create_database(id=DATABASE_ID)
++            print("Database with id '{0}' created".format(DATABASE_ID))
++
++        except exceptions.CosmosResourceExistsError:
++            db = client.get_database_client(DATABASE_ID)
++            print("Database with id '{0}' was found".format(DATABASE_ID))
++
++        # setup container for this sample
++        try:
++            container = db.create_container(
++                id=CONTAINER_ID, partition_key=PartitionKey(path="/partitionKey")
++            )
++            print("Container with id '{0}' created".format(CONTAINER_ID))
++
++        except exceptions.CosmosResourceExistsError:
++            container = db.get_container_client(CONTAINER_ID)
++            print("Container with id '{0}' was found".format(CONTAINER_ID))
++
++        scale_container(container)
++        create_items(container)
++        read_item(container, "SalesOrder1", "Account1")
++        read_items(container)
++        query_items(container, "Account1")
++        replace_item(container, "SalesOrder1", "Account1")
++        upsert_item(container, "SalesOrder1", "Account1")
++        delete_item(container, "SalesOrder1", "Account1")
++
++        # cleanup database after sample
++        try:
++            client.delete_database(db)
++
++        except exceptions.CosmosResourceNotFoundError:
++            pass
++
++    except exceptions.CosmosHttpResponseError as e:
++        print("\nrun_sample has caught an error. {0}".format(e.message))
++
++    finally:
++        print("\nrun_sample done")
++
++
++if __name__ == "__main__":
++    run_sample()
+diff --git a/pyproject.toml b/pyproject.toml
+index a7c8eb1..5de7fbb 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -10,10 +10,16 @@ requires-python = ">=3.10"
+ dependencies = [
+     "numpy",
+     "scipy",
++    "config",
+     "pandas",
+-    "requests",
+     "fastapi",
++    "requests",
++    "psycopg2",
++    "ipykernel",
++    "pip==25.0.1",
++    "azure-cosmos",
+     "types-requests",
++    "black[jupyter]"
+ ]
+ 
+ [tool.setuptools]
+@@ -30,4 +36,6 @@ dev = [
+     "pytest-cov",
+     "myst-parser",
+     "sphinx-rtd-theme",
+-]
+\ No newline at end of file
++]
++
++
+diff --git a/src/raven/modules/weather/collection.py b/src/raven/modules/weather/collection.py
+index e755ca2..2b557f1 100644
+--- a/src/raven/modules/weather/collection.py
++++ b/src/raven/modules/weather/collection.py
+@@ -1,28 +1,9 @@
+ import json
+ import requests
+-from typing import Dict, Any
++from typing import Dict, Any, cast
+ 
+ 
+-def collect_tomorrow(apikey: str):  # type:ignore
+-    """
+-    Collects weather data from Tomorrow.io API
+-
+-    Args:
+-        apikey: API key for Tomorrow.io
+-
+-    Returns:
+-        dict: Weather data from Tomorrow.io API
+-    """
+-    url = (
+-        f"https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey={apikey}"
+-    )
+-    headers = {"accept": "application/json", "accept-encoding": "deflate, gzip, br"}
+-    response = requests.get(url, headers=headers)
+-
+-    return response.json()
+-
+-
+-def collect_api_key(file_path: str = "./docs/api_keys.json") -> Dict[str, str]:
++def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, str]:
+     """
+     Reads API keys from JSON file
+ 
+@@ -35,3 +16,13 @@ def collect_api_key(file_path: str = "./docs/api_keys.json") -> Dict[str, str]:
+     with open(file_path, "r") as file:
+         data: Dict[str, str] = json.load(file)
+         return data
++
++
++def collect_tomorrow(apikey: str) -> Dict[str, Any]:
++    url = (
++        f"https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey={apikey}"
++    )
++    headers = {"accept": "application/json", "accept-encoding": "deflate, gzip, br"}
++    response = requests.get(url, headers=headers)
++
++    return cast(Dict[str, Any], response.json())
+-- 
+2.45.1.windows.1
+
