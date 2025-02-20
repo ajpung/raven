@@ -31,6 +31,11 @@ docs/_autosummary/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# Exclude SQLite cache files
+*.cache.sqlite
+.cache.sqlite
+**/*.cache.sqlite
+
 # IPython
 profile_default/
 ipython_config.py

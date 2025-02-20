@@ -92,4 +92,21 @@ def collect_openmt(lat: float, lon: float) -> Dict[str, Any]:
     responses = openmeteo.weather_api(url, params=params)
     response = responses[0]
     current = response.Current()
-    return cast(Dict[str, Any], current.json())
+    wx_data = {
+        "temperature": current.Variables(0).Value(),
+        "relative_humidity": current.Variables(1).Value(),
+        "apparent_temperature": current.Variables(2).Value(),
+        "is_day": current.Variables(3).Value(),
+        "precipitation": current.Variables(4).Value(),
+        "rain": current.Variables(5).Value(),
+        "showers": current.Variables(6).Value(),
+        "snowfall": current.Variables(7).Value(),
+        "wx_code": current.Variables(8).Value(),
+        "cloud_cover": current.Variables(9).Value(),
+        "pressure_msl": current.Variables(10).Value(),
+        "surface_pressure": current.Variables(11).Value(),
+        "wind_speed_10m": current.Variables(12).Value(),
+        "wind_direction_10m": current.Variables(13).Value(),
+        "wind_gusts_10m": current.Variables(14).Value(),
+    }
+    return wx_data

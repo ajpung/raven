@@ -49,8 +49,14 @@ def create_wx_item(wx_id: str, container, lat: float, lon: float):
     dtnow = datetime.datetime.now(datetime.UTC)
     tstmp = dtnow.strftime("%y%m%dT%H%M%S")  # Removed colons which might cause issues
     raw_doc = collect_weather(site=wx_id, lat=lat, lon=lon)
-    weather_doc = raw_doc["data"]
 
+    # Strip down to just the weather data
+    if wx_id == "tmrwio":
+        weather_doc = raw_doc["data"]
+    elif wx_id == "openwx" or wx_id == "openmt":
+        weather_doc = raw_doc
+
+    # Add ID for storage on Azure
     weather_doc["id"] = f"{wx_id}_{tstmp}"
 
     # Store the document
@@ -62,5 +68,7 @@ def store_wx_data(wx_id, lat: float, lon: float):
     container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
     create_wx_item(wx_id, container, lat, lon)
 
-
-store_wx_data(wx_id="tmrwio", lat=38.422508, lon=-85.797633)
+lat,lon=38.422508,-85.797633
+store_wx_data(wx_id="tmrwio", lat=lat, lon=lon)
+store_wx_data(wx_id="openwx", lat=lat, lon=lon)
+store_wx_data(wx_id="openmt", lat=lat, lon=lon)
