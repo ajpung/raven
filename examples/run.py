@@ -68,7 +68,8 @@ def store_wx_data(wx_id, lat: float, lon: float):
     container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
     create_wx_item(wx_id, container, lat, lon)
 
-lat,lon=38.422508,-85.797633
+
+lat, lon = 38.422508, -85.797633
 store_wx_data(wx_id="tmrwio", lat=lat, lon=lon)
 store_wx_data(wx_id="openwx", lat=lat, lon=lon)
 store_wx_data(wx_id="openmt", lat=lat, lon=lon)
