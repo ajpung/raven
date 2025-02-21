@@ -1,13 +1,14 @@
-f# RAVEN
 <p align="center">
-    <img src="docs/_static/logo.png" alt="RAVEN Logo" width="200"/>
+    <img src="docs/_static/logo.png" alt="RAVEN Logo" width="250"/>
 </p>
-
-<p align="center">
+<h1 align="center">
+    RAVEN
+</h1>
+<h2 align="center">
     Real-time Analysis of Variable Environmental Networks
-</p>
+</h2>
 
-##
+###
 [![Documentation Status](https://readthedocs.org/projects/raven-tool/badge/?version=latest)](https://raven-tool.readthedocs.io/en/latest/?badge=latest)
 [![GitHub Actions](https://github.com/ajpung/raven/workflows/RAVEN%20CI/badge.svg)](https://github.com/yourusername/raven/actions) 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ajpung_raven&metric=alert_status)](https://sonarcloud.io/dashboard?id=yourusername_raven)
