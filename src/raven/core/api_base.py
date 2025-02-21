@@ -2,7 +2,7 @@ import json
 from typing import Dict, Any
 
 
-def collect_keys(file_path: str = "../docs/api_keys.json") -> Dict[str, Any]:
+def collect_keys(file_path: str = "../config/api_keys.json") -> Dict[str, Any]:
     """
     Reads API keys from JSON file
 

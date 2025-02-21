@@ -110,3 +110,19 @@ def collect_openmt(lat: float, lon: float) -> Dict[str, Any]:
         "wind_gusts_10m": current.Variables(14).Value(),
     }
     return wx_data
+
+
+def collect_viscrs(lat: float, lon: float) -> Dict[str, Any]:
+    """
+    Collects weather data from Visual Crossing
+
+    :return: Weather data from Visual Crossing API
+    """
+    my_keys = collect_keys()
+    apikey = my_keys["Weather"]["visual-crossing"]
+    print(lat)
+    print(lon)
+    print(apikey)
+    url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{lat}%2C%20{lon}?unitGroup=metric&&include=current&key={apikey}&contentType=json"
+    response = requests.get(url)
+    return cast(Dict[str, Any], response.json())
