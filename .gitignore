@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -22,11 +23,18 @@ pip-delete-this-directory.txt
 
 # Sphinx documentation
 docs/_build/
+docs/build/
 _build/
 .doctrees/
 generated/
 docs/api/
 docs/_autosummary/
+docs/generated/
+
+# Logos / graphics
+*.pptx
+*.ppt
+*.xlsx
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -52,6 +60,10 @@ ENV/
 env.bak/
 venv.bak/
 raven-env/
+raven-env-g/
+**/raven-env/
+**/raven-env-g/
+**/*-env/
 **/Lib/site-packages/
 site-packages/
 python*/
@@ -59,15 +71,17 @@ pip-selfcheck.json
 
 # Testing
 .pytest_cache/
+**/.pytest_cache
 .coverage
 htmlcov/
-**/.pytest_cache/
 
 # Type checking
 .mypy_cache/
+**/.mypy_cache
 .dmypy.json
 dmypy.json
-**/.mypy_cache/
+.ruff_cache/
+**/.ruff_cache/
 
 # Pyre type checker
 .pyre/
@@ -82,11 +96,16 @@ cython_debug/
 .pypirc
 
 # Credentials
-/docs/api_keys.json
+/config/api_keys.json
 
 # IDE specific files
 .idea/
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 *.sublime-project
 *.sublime-workspace
 .DS_Store
@@ -110,3 +129,9 @@ logs/
 tmp/
 temp/
 *.tmp
+
+# Backup files
+*.bak
+*~
+\#*\#
+.\#*
