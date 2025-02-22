@@ -14,7 +14,7 @@ MASTER_KEY = keys["CosmosDB"]["master_key"]
 DATABASE_ID = keys["CosmosDB"]["database_id"]
 CONTAINER_ID = keys["CosmosDB"]["container_id"]
 
-
+"""
 def get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID):
     # Initialize the Cosmos DB client - fix the credential format
     client = cosmos_client.CosmosClient(
@@ -48,7 +48,7 @@ def create_wx_item(wx_id: str, container, lat: float, lon: float):
     # Create document for weather source
     dtnow = datetime.datetime.now(datetime.UTC)
     tstmp = dtnow.strftime("%y%m%dT%H%M%S")  # Removed colons which might cause issues
-    raw_doc = collect_weather(site=wx_id, lat=lat, lon=lon)
+    raw_doc = collect_weather(lat=lat, lon=lon)
 
     # Strip down to just the weather data
     if wx_id == "tmrwio":
@@ -67,9 +67,4 @@ def create_wx_item(wx_id: str, container, lat: float, lon: float):
 def store_wx_data(wx_id, lat: float, lon: float):
     container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
     create_wx_item(wx_id, container, lat, lon)
-
-
-lat, lon = 38.422508, -85.797633
-store_wx_data(wx_id="tmrwio", lat=lat, lon=lon)
-store_wx_data(wx_id="openwx", lat=lat, lon=lon)
-store_wx_data(wx_id="openmt", lat=lat, lon=lon)
+"""
