@@ -14,7 +14,7 @@ MASTER_KEY = keys["CosmosDB"]["master_key"]
 DATABASE_ID = keys["CosmosDB"]["database_id"]
 CONTAINER_ID = keys["CosmosDB"]["container_id"]
 
-
+"""
 def get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID):
     # Initialize the Cosmos DB client - fix the credential format
     client = cosmos_client.CosmosClient(
@@ -67,3 +67,4 @@ def create_wx_item(wx_id: str, container, lat: float, lon: float):
 def store_wx_data(wx_id, lat: float, lon: float):
     container = get_container(HOST, MASTER_KEY, DATABASE_ID, CONTAINER_ID)
     create_wx_item(wx_id, container, lat, lon)
+"""
