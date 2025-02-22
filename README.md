@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="docs/_static/logo.png" alt="RAVEN Logo" width="250"/>
+    <img src="docs/_static/logo.png" alt="RAVEN Logo" width="300"/>
 </p>
 <h1 align="center">
     RAVEN
