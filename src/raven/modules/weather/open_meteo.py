@@ -76,120 +76,120 @@ def collect_openmt(lat: float, lon: float) -> Tuple[float, float, Any]:
             "direct_normal_irradiance_instant",
             "global_tilted_irradiance_instant",
             "terrestrial_radiation_instant",
-            "temp_1000_hPa",
-            "temp_975_hPa",
-            "temp_950_hPa",
-            "temp_925_hPa",
-            "temp_900_hPa",
-            "temp_850_hPa",
-            "temp_800_hPa",
-            "temp_700_hPa",
-            "temp_600_hPa",
-            "temp_500_hPa",
-            "temp_400_hPa",
-            "temp_300_hPa",
-            "temp_250_hPa",
-            "temp_200_hPa",
-            "temp_150_hPa",
-            "temp_100_hPa",
-            "temp_70_hPa",
-            "temp_50_hPa",
-            "temp_30_hPa",
-            "relhum_1000_hPa",
-            "relhum_975_hPa",
-            "relhum_950_hPa",
-            "relhum_925_hPa",
-            "relhum_900_hPa",
-            "relhum_850_hPa",
-            "relhum_800_hPa",
-            "relhum_700_hPa",
-            "relhum_600_hPa",
-            "relhum_500_hPa",
-            "relhum_400_hPa",
-            "relhum_300_hPa",
-            "relhum_250_hPa",
-            "relhum_200_hPa",
-            "relhum_150_hPa",
-            "relhum_100_hPa",
-            "relhum_70_hPa",
-            "relhum_50_hPa",
-            "relhum_30_hPa",
-            "cloud_cover_1000_hPa",
-            "cloud_cover_975_hPa",
-            "cloud_cover_950_hPa",
-            "cloud_cover_925_hPa",
-            "cloud_cover_900_hPa",
-            "cloud_cover_850_hPa",
-            "cloud_cover_800_hPa",
-            "cloud_cover_700_hPa",
-            "cloud_cover_600_hPa",
-            "cloud_cover_500_hPa",
-            "cloud_cover_400_hPa",
-            "cloud_cover_300_hPa",
-            "cloud_cover_250_hPa",
-            "cloud_cover_200_hPa",
-            "cloud_cover_150_hPa",
-            "cloud_cover_100_hPa",
-            "cloud_cover_70_hPa",
-            "cloud_cover_50_hPa",
-            "cloud_cover_30_hPa",
-            "wind_speed_1000_hPa",
-            "wind_speed_975_hPa",
-            "wind_speed_950_hPa",
-            "wind_speed_925_hPa",
-            "wind_speed_900_hPa",
-            "wind_speed_850_hPa",
-            "wind_speed_800_hPa",
-            "wind_speed_700_hPa",
-            "wind_speed_600_hPa",
-            "wind_speed_500_hPa",
-            "wind_speed_400_hPa",
-            "wind_speed_300_hPa",
-            "wind_speed_250_hPa",
-            "wind_speed_200_hPa",
-            "wind_speed_150_hPa",
-            "wind_speed_100_hPa",
-            "wind_speed_70_hPa",
-            "wind_speed_50_hPa",
-            "wind_speed_30_hPa",
-            "wind_direction_1000_hPa",
-            "wind_direction_975_hPa",
-            "wind_direction_950_hPa",
-            "wind_direction_925_hPa",
-            "wind_direction_900_hPa",
-            "wind_direction_850_hPa",
-            "wind_direction_800_hPa",
-            "wind_direction_700_hPa",
-            "wind_direction_600_hPa",
-            "wind_direction_500_hPa",
-            "wind_direction_400_hPa",
-            "wind_direction_300_hPa",
-            "wind_direction_250_hPa",
-            "wind_direction_200_hPa",
-            "wind_direction_150_hPa",
-            "wind_direction_100_hPa",
-            "wind_direction_70_hPa",
-            "wind_direction_50_hPa",
-            "wind_direction_30_hPa",
-            "geopotht_1000_hPa",
-            "geopotht_975_hPa",
-            "geopotht_950_hPa",
-            "geopotht_925_hPa",
-            "geopotht_900_hPa",
-            "geopotht_850_hPa",
-            "geopotht_800_hPa",
-            "geopotht_700_hPa",
-            "geopotht_600_hPa",
-            "geopotht_500_hPa",
-            "geopotht_400_hPa",
-            "geopotht_300_hPa",
-            "geopotht_250_hPa",
-            "geopotht_200_hPa",
-            "geopotht_150_hPa",
-            "geopotht_100_hPa",
-            "geopotht_70_hPa",
-            "geopotht_50_hPa",
-            "geopotht_30_hPa",
+            "temp_1000hpa",
+            "temp_975hpa",
+            "temp_950hpa",
+            "temp_925hpa",
+            "temp_900hpa",
+            "temp_850hpa",
+            "temp_800hpa",
+            "temp_700hpa",
+            "temp_600hpa",
+            "temp_500hpa",
+            "temp_400hpa",
+            "temp_300hpa",
+            "temp_250hpa",
+            "temp_200hpa",
+            "temp_150hpa",
+            "temp_100hpa",
+            "temp_70hpa",
+            "temp_50hpa",
+            "temp_30hpa",
+            "relhum_1000hpa",
+            "relhum_975hpa",
+            "relhum_950hpa",
+            "relhum_925hpa",
+            "relhum_900hpa",
+            "relhum_850hpa",
+            "relhum_800hpa",
+            "relhum_700hpa",
+            "relhum_600hpa",
+            "relhum_500hpa",
+            "relhum_400hpa",
+            "relhum_300hpa",
+            "relhum_250hpa",
+            "relhum_200hpa",
+            "relhum_150hpa",
+            "relhum_100hpa",
+            "relhum_70hpa",
+            "relhum_50hpa",
+            "relhum_30hpa",
+            "cloud_cover_1000hpa",
+            "cloud_cover_975hpa",
+            "cloud_cover_950hpa",
+            "cloud_cover_925hpa",
+            "cloud_cover_900hpa",
+            "cloud_cover_850hpa",
+            "cloud_cover_800hpa",
+            "cloud_cover_700hpa",
+            "cloud_cover_600hpa",
+            "cloud_cover_500hpa",
+            "cloud_cover_400hpa",
+            "cloud_cover_300hpa",
+            "cloud_cover_250hpa",
+            "cloud_cover_200hpa",
+            "cloud_cover_150hpa",
+            "cloud_cover_100hpa",
+            "cloud_cover_70hpa",
+            "cloud_cover_50hpa",
+            "cloud_cover_30hpa",
+            "wind_speed_1000hpa",
+            "wind_speed_975hpa",
+            "wind_speed_950hpa",
+            "wind_speed_925hpa",
+            "wind_speed_900hpa",
+            "wind_speed_850hpa",
+            "wind_speed_800hpa",
+            "wind_speed_700hpa",
+            "wind_speed_600hpa",
+            "wind_speed_500hpa",
+            "wind_speed_400hpa",
+            "wind_speed_300hpa",
+            "wind_speed_250hpa",
+            "wind_speed_200hpa",
+            "wind_speed_150hpa",
+            "wind_speed_100hpa",
+            "wind_speed_70hpa",
+            "wind_speed_50hpa",
+            "wind_speed_30hpa",
+            "wind_direction_1000hpa",
+            "wind_direction_975hpa",
+            "wind_direction_950hpa",
+            "wind_direction_925hpa",
+            "wind_direction_900hpa",
+            "wind_direction_850hpa",
+            "wind_direction_800hpa",
+            "wind_direction_700hpa",
+            "wind_direction_600hpa",
+            "wind_direction_500hpa",
+            "wind_direction_400hpa",
+            "wind_direction_300hpa",
+            "wind_direction_250hpa",
+            "wind_direction_200hpa",
+            "wind_direction_150hpa",
+            "wind_direction_100hpa",
+            "wind_direction_70hpa",
+            "wind_direction_50hpa",
+            "wind_direction_30hpa",
+            "geopotht_1000hpa",
+            "geopotht_975hpa",
+            "geopotht_950hpa",
+            "geopotht_925hpa",
+            "geopotht_900hpa",
+            "geopotht_850hpa",
+            "geopotht_800hpa",
+            "geopotht_700hpa",
+            "geopotht_600hpa",
+            "geopotht_500hpa",
+            "geopotht_400hpa",
+            "geopotht_300hpa",
+            "geopotht_250hpa",
+            "geopotht_200hpa",
+            "geopotht_150hpa",
+            "geopotht_100hpa",
+            "geopotht_70hpa",
+            "geopotht_50hpa",
+            "geopotht_30hpa",
         ],
         "models": [
             "best_match",
@@ -296,120 +296,120 @@ def process_openmet_hourly(lat: float, lon: float) -> DataFrame:
     direct_normal_irradiance_instant = hourly.Variables(20).ValuesAsNumpy()
     global_tilted_irradiance_instant = hourly.Variables(21).ValuesAsNumpy()
     terrestrial_radiation_instant = hourly.Variables(22).ValuesAsNumpy()
-    temp_1000_hPa = hourly.Variables(23).ValuesAsNumpy()
-    temp_975_hPa = hourly.Variables(24).ValuesAsNumpy()
-    temp_950_hPa = hourly.Variables(25).ValuesAsNumpy()
-    temp_925_hPa = hourly.Variables(26).ValuesAsNumpy()
-    temp_900_hPa = hourly.Variables(27).ValuesAsNumpy()
-    temp_850_hPa = hourly.Variables(28).ValuesAsNumpy()
-    temp_800_hPa = hourly.Variables(29).ValuesAsNumpy()
-    temp_700_hPa = hourly.Variables(30).ValuesAsNumpy()
-    temp_600_hPa = hourly.Variables(31).ValuesAsNumpy()
-    temp_500_hPa = hourly.Variables(32).ValuesAsNumpy()
-    temp_400_hPa = hourly.Variables(33).ValuesAsNumpy()
-    temp_300_hPa = hourly.Variables(34).ValuesAsNumpy()
-    temp_250_hPa = hourly.Variables(35).ValuesAsNumpy()
-    temp_200_hPa = hourly.Variables(36).ValuesAsNumpy()
-    temp_150_hPa = hourly.Variables(37).ValuesAsNumpy()
-    temp_100_hPa = hourly.Variables(38).ValuesAsNumpy()
-    temp_70_hPa = hourly.Variables(39).ValuesAsNumpy()
-    temp_50_hPa = hourly.Variables(40).ValuesAsNumpy()
-    temp_30_hPa = hourly.Variables(41).ValuesAsNumpy()
-    relhum_1000_hPa = hourly.Variables(42).ValuesAsNumpy()
-    relhum_975_hPa = hourly.Variables(43).ValuesAsNumpy()
-    relhum_950_hPa = hourly.Variables(44).ValuesAsNumpy()
-    relhum_925_hPa = hourly.Variables(45).ValuesAsNumpy()
-    relhum_900_hPa = hourly.Variables(46).ValuesAsNumpy()
-    relhum_850_hPa = hourly.Variables(47).ValuesAsNumpy()
-    relhum_800_hPa = hourly.Variables(48).ValuesAsNumpy()
-    relhum_700_hPa = hourly.Variables(49).ValuesAsNumpy()
-    relhum_600_hPa = hourly.Variables(50).ValuesAsNumpy()
-    relhum_500_hPa = hourly.Variables(51).ValuesAsNumpy()
-    relhum_400_hPa = hourly.Variables(52).ValuesAsNumpy()
-    relhum_300_hPa = hourly.Variables(53).ValuesAsNumpy()
-    relhum_250_hPa = hourly.Variables(54).ValuesAsNumpy()
-    relhum_200_hPa = hourly.Variables(55).ValuesAsNumpy()
-    relhum_150_hPa = hourly.Variables(56).ValuesAsNumpy()
-    relhum_100_hPa = hourly.Variables(57).ValuesAsNumpy()
-    relhum_70_hPa = hourly.Variables(58).ValuesAsNumpy()
-    relhum_50_hPa = hourly.Variables(59).ValuesAsNumpy()
-    relhum_30_hPa = hourly.Variables(60).ValuesAsNumpy()
-    cldcov_1000_hPa = hourly.Variables(61).ValuesAsNumpy()
-    cldcov_975_hPa = hourly.Variables(62).ValuesAsNumpy()
-    cldcov_950_hPa = hourly.Variables(63).ValuesAsNumpy()
-    cldcov_925_hPa = hourly.Variables(64).ValuesAsNumpy()
-    cldcov_900_hPa = hourly.Variables(65).ValuesAsNumpy()
-    cldcov_850_hPa = hourly.Variables(66).ValuesAsNumpy()
-    cldcov_800_hPa = hourly.Variables(67).ValuesAsNumpy()
-    cldcov_700_hPa = hourly.Variables(68).ValuesAsNumpy()
-    cldcov_600_hPa = hourly.Variables(69).ValuesAsNumpy()
-    cldcov_500_hPa = hourly.Variables(70).ValuesAsNumpy()
-    cldcov_400_hPa = hourly.Variables(71).ValuesAsNumpy()
-    cldcov_300_hPa = hourly.Variables(72).ValuesAsNumpy()
-    cldcov_250_hPa = hourly.Variables(73).ValuesAsNumpy()
-    cldcov_200_hPa = hourly.Variables(74).ValuesAsNumpy()
-    cldcov_150_hPa = hourly.Variables(75).ValuesAsNumpy()
-    cldcov_100_hPa = hourly.Variables(76).ValuesAsNumpy()
-    cldcov_70_hPa = hourly.Variables(77).ValuesAsNumpy()
-    cldcov_50_hPa = hourly.Variables(78).ValuesAsNumpy()
-    cldcov_30_hPa = hourly.Variables(79).ValuesAsNumpy()
-    wndspd_1000_hPa = hourly.Variables(80).ValuesAsNumpy()
-    wndspd_975_hPa = hourly.Variables(81).ValuesAsNumpy()
-    wndspd_950_hPa = hourly.Variables(82).ValuesAsNumpy()
-    wndspd_925_hPa = hourly.Variables(83).ValuesAsNumpy()
-    wndspd_900_hPa = hourly.Variables(84).ValuesAsNumpy()
-    wndspd_850_hPa = hourly.Variables(85).ValuesAsNumpy()
-    wndspd_800_hPa = hourly.Variables(86).ValuesAsNumpy()
-    wndspd_700_hPa = hourly.Variables(87).ValuesAsNumpy()
-    wndspd_600_hPa = hourly.Variables(88).ValuesAsNumpy()
-    wndspd_500_hPa = hourly.Variables(89).ValuesAsNumpy()
-    wndspd_400_hPa = hourly.Variables(90).ValuesAsNumpy()
-    wndspd_300_hPa = hourly.Variables(91).ValuesAsNumpy()
-    wndspd_250_hPa = hourly.Variables(92).ValuesAsNumpy()
-    wndspd_200_hPa = hourly.Variables(93).ValuesAsNumpy()
-    wndspd_150_hPa = hourly.Variables(94).ValuesAsNumpy()
-    wndspd_100_hPa = hourly.Variables(95).ValuesAsNumpy()
-    wndspd_70_hPa = hourly.Variables(96).ValuesAsNumpy()
-    wndspd_50_hPa = hourly.Variables(97).ValuesAsNumpy()
-    wndspd_30_hPa = hourly.Variables(98).ValuesAsNumpy()
-    wnddir_1000_hPa = hourly.Variables(99).ValuesAsNumpy()
-    wnddir_975_hPa = hourly.Variables(100).ValuesAsNumpy()
-    wnddir_950_hPa = hourly.Variables(101).ValuesAsNumpy()
-    wnddir_925_hPa = hourly.Variables(102).ValuesAsNumpy()
-    wnddir_900_hPa = hourly.Variables(103).ValuesAsNumpy()
-    wnddir_850_hPa = hourly.Variables(104).ValuesAsNumpy()
-    wnddir_800_hPa = hourly.Variables(105).ValuesAsNumpy()
-    wnddir_700_hPa = hourly.Variables(106).ValuesAsNumpy()
-    wnddir_600_hPa = hourly.Variables(107).ValuesAsNumpy()
-    wnddir_500_hPa = hourly.Variables(108).ValuesAsNumpy()
-    wnddir_400_hPa = hourly.Variables(109).ValuesAsNumpy()
-    wnddir_300_hPa = hourly.Variables(110).ValuesAsNumpy()
-    wnddir_250_hPa = hourly.Variables(111).ValuesAsNumpy()
-    wnddir_200_hPa = hourly.Variables(112).ValuesAsNumpy()
-    wnddir_150_hPa = hourly.Variables(113).ValuesAsNumpy()
-    wnddir_100_hPa = hourly.Variables(114).ValuesAsNumpy()
-    wnddir_70_hPa = hourly.Variables(115).ValuesAsNumpy()
-    wnddir_50_hPa = hourly.Variables(116).ValuesAsNumpy()
-    wnddir_30_hPa = hourly.Variables(117).ValuesAsNumpy()
-    geopotht_1000_hPa = hourly.Variables(118).ValuesAsNumpy()
-    geopotht_975_hPa = hourly.Variables(119).ValuesAsNumpy()
-    geopotht_950_hPa = hourly.Variables(120).ValuesAsNumpy()
-    geopotht_925_hPa = hourly.Variables(121).ValuesAsNumpy()
-    geopotht_900_hPa = hourly.Variables(122).ValuesAsNumpy()
-    geopotht_850_hPa = hourly.Variables(123).ValuesAsNumpy()
-    geopotht_800_hPa = hourly.Variables(124).ValuesAsNumpy()
-    geopotht_700_hPa = hourly.Variables(125).ValuesAsNumpy()
-    geopotht_600_hPa = hourly.Variables(126).ValuesAsNumpy()
-    geopotht_500_hPa = hourly.Variables(127).ValuesAsNumpy()
-    geopotht_400_hPa = hourly.Variables(128).ValuesAsNumpy()
-    geopotht_300_hPa = hourly.Variables(129).ValuesAsNumpy()
-    geopotht_250_hPa = hourly.Variables(130).ValuesAsNumpy()
-    geopotht_200_hPa = hourly.Variables(131).ValuesAsNumpy()
-    geopotht_150_hPa = hourly.Variables(132).ValuesAsNumpy()
-    geopotht_100_hPa = hourly.Variables(133).ValuesAsNumpy()
-    geopotht_70_hPa = hourly.Variables(134).ValuesAsNumpy()
-    geopotht_50_hPa = hourly.Variables(135).ValuesAsNumpy()
-    geopotht_30_hPa = hourly.Variables(136).ValuesAsNumpy()
+    temp_1000hpa = hourly.Variables(23).ValuesAsNumpy()
+    temp_975hpa = hourly.Variables(24).ValuesAsNumpy()
+    temp_950hpa = hourly.Variables(25).ValuesAsNumpy()
+    temp_925hpa = hourly.Variables(26).ValuesAsNumpy()
+    temp_900hpa = hourly.Variables(27).ValuesAsNumpy()
+    temp_850hpa = hourly.Variables(28).ValuesAsNumpy()
+    temp_800hpa = hourly.Variables(29).ValuesAsNumpy()
+    temp_700hpa = hourly.Variables(30).ValuesAsNumpy()
+    temp_600hpa = hourly.Variables(31).ValuesAsNumpy()
+    temp_500hpa = hourly.Variables(32).ValuesAsNumpy()
+    temp_400hpa = hourly.Variables(33).ValuesAsNumpy()
+    temp_300hpa = hourly.Variables(34).ValuesAsNumpy()
+    temp_250hpa = hourly.Variables(35).ValuesAsNumpy()
+    temp_200hpa = hourly.Variables(36).ValuesAsNumpy()
+    temp_150hpa = hourly.Variables(37).ValuesAsNumpy()
+    temp_100hpa = hourly.Variables(38).ValuesAsNumpy()
+    temp_70hpa = hourly.Variables(39).ValuesAsNumpy()
+    temp_50hpa = hourly.Variables(40).ValuesAsNumpy()
+    temp_30hpa = hourly.Variables(41).ValuesAsNumpy()
+    relhum_1000hpa = hourly.Variables(42).ValuesAsNumpy()
+    relhum_975hpa = hourly.Variables(43).ValuesAsNumpy()
+    relhum_950hpa = hourly.Variables(44).ValuesAsNumpy()
+    relhum_925hpa = hourly.Variables(45).ValuesAsNumpy()
+    relhum_900hpa = hourly.Variables(46).ValuesAsNumpy()
+    relhum_850hpa = hourly.Variables(47).ValuesAsNumpy()
+    relhum_800hpa = hourly.Variables(48).ValuesAsNumpy()
+    relhum_700hpa = hourly.Variables(49).ValuesAsNumpy()
+    relhum_600hpa = hourly.Variables(50).ValuesAsNumpy()
+    relhum_500hpa = hourly.Variables(51).ValuesAsNumpy()
+    relhum_400hpa = hourly.Variables(52).ValuesAsNumpy()
+    relhum_300hpa = hourly.Variables(53).ValuesAsNumpy()
+    relhum_250hpa = hourly.Variables(54).ValuesAsNumpy()
+    relhum_200hpa = hourly.Variables(55).ValuesAsNumpy()
+    relhum_150hpa = hourly.Variables(56).ValuesAsNumpy()
+    relhum_100hpa = hourly.Variables(57).ValuesAsNumpy()
+    relhum_70hpa = hourly.Variables(58).ValuesAsNumpy()
+    relhum_50hpa = hourly.Variables(59).ValuesAsNumpy()
+    relhum_30hpa = hourly.Variables(60).ValuesAsNumpy()
+    cldcov_1000hpa = hourly.Variables(61).ValuesAsNumpy()
+    cldcov_975hpa = hourly.Variables(62).ValuesAsNumpy()
+    cldcov_950hpa = hourly.Variables(63).ValuesAsNumpy()
+    cldcov_925hpa = hourly.Variables(64).ValuesAsNumpy()
+    cldcov_900hpa = hourly.Variables(65).ValuesAsNumpy()
+    cldcov_850hpa = hourly.Variables(66).ValuesAsNumpy()
+    cldcov_800hpa = hourly.Variables(67).ValuesAsNumpy()
+    cldcov_700hpa = hourly.Variables(68).ValuesAsNumpy()
+    cldcov_600hpa = hourly.Variables(69).ValuesAsNumpy()
+    cldcov_500hpa = hourly.Variables(70).ValuesAsNumpy()
+    cldcov_400hpa = hourly.Variables(71).ValuesAsNumpy()
+    cldcov_300hpa = hourly.Variables(72).ValuesAsNumpy()
+    cldcov_250hpa = hourly.Variables(73).ValuesAsNumpy()
+    cldcov_200hpa = hourly.Variables(74).ValuesAsNumpy()
+    cldcov_150hpa = hourly.Variables(75).ValuesAsNumpy()
+    cldcov_100hpa = hourly.Variables(76).ValuesAsNumpy()
+    cldcov_70hpa = hourly.Variables(77).ValuesAsNumpy()
+    cldcov_50hpa = hourly.Variables(78).ValuesAsNumpy()
+    cldcov_30hpa = hourly.Variables(79).ValuesAsNumpy()
+    wndspd_1000hpa = hourly.Variables(80).ValuesAsNumpy()
+    wndspd_975hpa = hourly.Variables(81).ValuesAsNumpy()
+    wndspd_950hpa = hourly.Variables(82).ValuesAsNumpy()
+    wndspd_925hpa = hourly.Variables(83).ValuesAsNumpy()
+    wndspd_900hpa = hourly.Variables(84).ValuesAsNumpy()
+    wndspd_850hpa = hourly.Variables(85).ValuesAsNumpy()
+    wndspd_800hpa = hourly.Variables(86).ValuesAsNumpy()
+    wndspd_700hpa = hourly.Variables(87).ValuesAsNumpy()
+    wndspd_600hpa = hourly.Variables(88).ValuesAsNumpy()
+    wndspd_500hpa = hourly.Variables(89).ValuesAsNumpy()
+    wndspd_400hpa = hourly.Variables(90).ValuesAsNumpy()
+    wndspd_300hpa = hourly.Variables(91).ValuesAsNumpy()
+    wndspd_250hpa = hourly.Variables(92).ValuesAsNumpy()
+    wndspd_200hpa = hourly.Variables(93).ValuesAsNumpy()
+    wndspd_150hpa = hourly.Variables(94).ValuesAsNumpy()
+    wndspd_100hpa = hourly.Variables(95).ValuesAsNumpy()
+    wndspd_70hpa = hourly.Variables(96).ValuesAsNumpy()
+    wndspd_50hpa = hourly.Variables(97).ValuesAsNumpy()
+    wndspd_30hpa = hourly.Variables(98).ValuesAsNumpy()
+    wnddir_1000hpa = hourly.Variables(99).ValuesAsNumpy()
+    wnddir_975hpa = hourly.Variables(100).ValuesAsNumpy()
+    wnddir_950hpa = hourly.Variables(101).ValuesAsNumpy()
+    wnddir_925hpa = hourly.Variables(102).ValuesAsNumpy()
+    wnddir_900hpa = hourly.Variables(103).ValuesAsNumpy()
+    wnddir_850hpa = hourly.Variables(104).ValuesAsNumpy()
+    wnddir_800hpa = hourly.Variables(105).ValuesAsNumpy()
+    wnddir_700hpa = hourly.Variables(106).ValuesAsNumpy()
+    wnddir_600hpa = hourly.Variables(107).ValuesAsNumpy()
+    wnddir_500hpa = hourly.Variables(108).ValuesAsNumpy()
+    wnddir_400hpa = hourly.Variables(109).ValuesAsNumpy()
+    wnddir_300hpa = hourly.Variables(110).ValuesAsNumpy()
+    wnddir_250hpa = hourly.Variables(111).ValuesAsNumpy()
+    wnddir_200hpa = hourly.Variables(112).ValuesAsNumpy()
+    wnddir_150hpa = hourly.Variables(113).ValuesAsNumpy()
+    wnddir_100hpa = hourly.Variables(114).ValuesAsNumpy()
+    wnddir_70hpa = hourly.Variables(115).ValuesAsNumpy()
+    wnddir_50hpa = hourly.Variables(116).ValuesAsNumpy()
+    wnddir_30hpa = hourly.Variables(117).ValuesAsNumpy()
+    geopotht_1000hpa = hourly.Variables(118).ValuesAsNumpy()
+    geopotht_975hpa = hourly.Variables(119).ValuesAsNumpy()
+    geopotht_950hpa = hourly.Variables(120).ValuesAsNumpy()
+    geopotht_925hpa = hourly.Variables(121).ValuesAsNumpy()
+    geopotht_900hpa = hourly.Variables(122).ValuesAsNumpy()
+    geopotht_850hpa = hourly.Variables(123).ValuesAsNumpy()
+    geopotht_800hpa = hourly.Variables(124).ValuesAsNumpy()
+    geopotht_700hpa = hourly.Variables(125).ValuesAsNumpy()
+    geopotht_600hpa = hourly.Variables(126).ValuesAsNumpy()
+    geopotht_500hpa = hourly.Variables(127).ValuesAsNumpy()
+    geopotht_400hpa = hourly.Variables(128).ValuesAsNumpy()
+    geopotht_300hpa = hourly.Variables(129).ValuesAsNumpy()
+    geopotht_250hpa = hourly.Variables(130).ValuesAsNumpy()
+    geopotht_200hpa = hourly.Variables(131).ValuesAsNumpy()
+    geopotht_150hpa = hourly.Variables(132).ValuesAsNumpy()
+    geopotht_100hpa = hourly.Variables(133).ValuesAsNumpy()
+    geopotht_70hpa = hourly.Variables(134).ValuesAsNumpy()
+    geopotht_50hpa = hourly.Variables(135).ValuesAsNumpy()
+    geopotht_30hpa = hourly.Variables(136).ValuesAsNumpy()
 
     hr_data = {
         "date": pd.date_range(
@@ -445,120 +445,120 @@ def process_openmet_hourly(lat: float, lon: float) -> DataFrame:
     hr_data["direct_normal_irradiance_instant"] = direct_normal_irradiance_instant
     hr_data["global_tilted_irradiance_instant"] = global_tilted_irradiance_instant
     hr_data["terrestrial_radiation_instant"] = terrestrial_radiation_instant
-    hr_data["temp_1000_hPa"] = temp_1000_hPa
-    hr_data["temp_975_hPa"] = temp_975_hPa
-    hr_data["temp_950_hPa"] = temp_950_hPa
-    hr_data["temp_925_hPa"] = temp_925_hPa
-    hr_data["temp_900_hPa"] = temp_900_hPa
-    hr_data["temp_850_hPa"] = temp_850_hPa
-    hr_data["temp_800_hPa"] = temp_800_hPa
-    hr_data["temp_700_hPa"] = temp_700_hPa
-    hr_data["temp_600_hPa"] = temp_600_hPa
-    hr_data["temp_500_hPa"] = temp_500_hPa
-    hr_data["temp_400_hPa"] = temp_400_hPa
-    hr_data["temp_300_hPa"] = temp_300_hPa
-    hr_data["temp_250_hPa"] = temp_250_hPa
-    hr_data["temp_200_hPa"] = temp_200_hPa
-    hr_data["temp_150_hPa"] = temp_150_hPa
-    hr_data["temp_100_hPa"] = temp_100_hPa
-    hr_data["temp_70_hPa"] = temp_70_hPa
-    hr_data["temp_50_hPa"] = temp_50_hPa
-    hr_data["temp_30_hPa"] = temp_30_hPa
-    hr_data["relhum_1000_hPa"] = relhum_1000_hPa
-    hr_data["relhum_975_hPa"] = relhum_975_hPa
-    hr_data["relhum_950_hPa"] = relhum_950_hPa
-    hr_data["relhum_925_hPa"] = relhum_925_hPa
-    hr_data["relhum_900_hPa"] = relhum_900_hPa
-    hr_data["relhum_850_hPa"] = relhum_850_hPa
-    hr_data["relhum_800_hPa"] = relhum_800_hPa
-    hr_data["relhum_700_hPa"] = relhum_700_hPa
-    hr_data["relhum_600_hPa"] = relhum_600_hPa
-    hr_data["relhum_500_hPa"] = relhum_500_hPa
-    hr_data["relhum_400_hPa"] = relhum_400_hPa
-    hr_data["relhum_300_hPa"] = relhum_300_hPa
-    hr_data["relhum_250_hPa"] = relhum_250_hPa
-    hr_data["relhum_200_hPa"] = relhum_200_hPa
-    hr_data["relhum_150_hPa"] = relhum_150_hPa
-    hr_data["relhum_100_hPa"] = relhum_100_hPa
-    hr_data["relhum_70_hPa"] = relhum_70_hPa
-    hr_data["relhum_50_hPa"] = relhum_50_hPa
-    hr_data["relhum_30_hPa"] = relhum_30_hPa
-    hr_data["cldcov_1000_hPa"] = cldcov_1000_hPa
-    hr_data["cldcov_975_hPa"] = cldcov_975_hPa
-    hr_data["cldcov_950_hPa"] = cldcov_950_hPa
-    hr_data["cldcov_925_hPa"] = cldcov_925_hPa
-    hr_data["cldcov_900_hPa"] = cldcov_900_hPa
-    hr_data["cldcov_850_hPa"] = cldcov_850_hPa
-    hr_data["cldcov_800_hPa"] = cldcov_800_hPa
-    hr_data["cldcov_700_hPa"] = cldcov_700_hPa
-    hr_data["cldcov_600_hPa"] = cldcov_600_hPa
-    hr_data["cldcov_500_hPa"] = cldcov_500_hPa
-    hr_data["cldcov_400_hPa"] = cldcov_400_hPa
-    hr_data["cldcov_300_hPa"] = cldcov_300_hPa
-    hr_data["cldcov_250_hPa"] = cldcov_250_hPa
-    hr_data["cldcov_200_hPa"] = cldcov_200_hPa
-    hr_data["cldcov_150_hPa"] = cldcov_150_hPa
-    hr_data["cldcov_100_hPa"] = cldcov_100_hPa
-    hr_data["cldcov_70_hPa"] = cldcov_70_hPa
-    hr_data["cldcov_50_hPa"] = cldcov_50_hPa
-    hr_data["cldcov_30_hPa"] = cldcov_30_hPa
-    hr_data["wndspd_1000_hPa"] = wndspd_1000_hPa
-    hr_data["wndspd_975_hPa"] = wndspd_975_hPa
-    hr_data["wndspd_950_hPa"] = wndspd_950_hPa
-    hr_data["wndspd_925_hPa"] = wndspd_925_hPa
-    hr_data["wndspd_900_hPa"] = wndspd_900_hPa
-    hr_data["wndspd_850_hPa"] = wndspd_850_hPa
-    hr_data["wndspd_800_hPa"] = wndspd_800_hPa
-    hr_data["wndspd_700_hPa"] = wndspd_700_hPa
-    hr_data["wndspd_600_hPa"] = wndspd_600_hPa
-    hr_data["wndspd_500_hPa"] = wndspd_500_hPa
-    hr_data["wndspd_400_hPa"] = wndspd_400_hPa
-    hr_data["wndspd_300_hPa"] = wndspd_300_hPa
-    hr_data["wndspd_250_hPa"] = wndspd_250_hPa
-    hr_data["wndspd_200_hPa"] = wndspd_200_hPa
-    hr_data["wndspd_150_hPa"] = wndspd_150_hPa
-    hr_data["wndspd_100_hPa"] = wndspd_100_hPa
-    hr_data["wndspd_70_hPa"] = wndspd_70_hPa
-    hr_data["wndspd_50_hPa"] = wndspd_50_hPa
-    hr_data["wndspd_30_hPa"] = wndspd_30_hPa
-    hr_data["wnddir_1000_hPa"] = wnddir_1000_hPa
-    hr_data["wnddir_975_hPa"] = wnddir_975_hPa
-    hr_data["wnddir_950_hPa"] = wnddir_950_hPa
-    hr_data["wnddir_925_hPa"] = wnddir_925_hPa
-    hr_data["wnddir_900_hPa"] = wnddir_900_hPa
-    hr_data["wnddir_850_hPa"] = wnddir_850_hPa
-    hr_data["wnddir_800_hPa"] = wnddir_800_hPa
-    hr_data["wnddir_700_hPa"] = wnddir_700_hPa
-    hr_data["wnddir_600_hPa"] = wnddir_600_hPa
-    hr_data["wnddir_500_hPa"] = wnddir_500_hPa
-    hr_data["wnddir_400_hPa"] = wnddir_400_hPa
-    hr_data["wnddir_300_hPa"] = wnddir_300_hPa
-    hr_data["wnddir_250_hPa"] = wnddir_250_hPa
-    hr_data["wnddir_200_hPa"] = wnddir_200_hPa
-    hr_data["wnddir_150_hPa"] = wnddir_150_hPa
-    hr_data["wnddir_100_hPa"] = wnddir_100_hPa
-    hr_data["wnddir_70_hPa"] = wnddir_70_hPa
-    hr_data["wnddir_50_hPa"] = wnddir_50_hPa
-    hr_data["wnddir_30_hPa"] = wnddir_30_hPa
-    hr_data["geopotht_1000_hPa"] = geopotht_1000_hPa
-    hr_data["geopotht_975_hPa"] = geopotht_975_hPa
-    hr_data["geopotht_950_hPa"] = geopotht_950_hPa
-    hr_data["geopotht_925_hPa"] = geopotht_925_hPa
-    hr_data["geopotht_900_hPa"] = geopotht_900_hPa
-    hr_data["geopotht_850_hPa"] = geopotht_850_hPa
-    hr_data["geopotht_800_hPa"] = geopotht_800_hPa
-    hr_data["geopotht_700_hPa"] = geopotht_700_hPa
-    hr_data["geopotht_600_hPa"] = geopotht_600_hPa
-    hr_data["geopotht_500_hPa"] = geopotht_500_hPa
-    hr_data["geopotht_400_hPa"] = geopotht_400_hPa
-    hr_data["geopotht_300_hPa"] = geopotht_300_hPa
-    hr_data["geopotht_250_hPa"] = geopotht_250_hPa
-    hr_data["geopotht_200_hPa"] = geopotht_200_hPa
-    hr_data["geopotht_150_hPa"] = geopotht_150_hPa
-    hr_data["geopotht_100_hPa"] = geopotht_100_hPa
-    hr_data["geopotht_70_hPa"] = geopotht_70_hPa
-    hr_data["geopotht_50_hPa"] = geopotht_50_hPa
-    hr_data["geopotht_30_hPa"] = geopotht_30_hPa
+    hr_data["temp_1000hpa"] = temp_1000hpa
+    hr_data["temp_975hpa"] = temp_975hpa
+    hr_data["temp_950hpa"] = temp_950hpa
+    hr_data["temp_925hpa"] = temp_925hpa
+    hr_data["temp_900hpa"] = temp_900hpa
+    hr_data["temp_850hpa"] = temp_850hpa
+    hr_data["temp_800hpa"] = temp_800hpa
+    hr_data["temp_700hpa"] = temp_700hpa
+    hr_data["temp_600hpa"] = temp_600hpa
+    hr_data["temp_500hpa"] = temp_500hpa
+    hr_data["temp_400hpa"] = temp_400hpa
+    hr_data["temp_300hpa"] = temp_300hpa
+    hr_data["temp_250hpa"] = temp_250hpa
+    hr_data["temp_200hpa"] = temp_200hpa
+    hr_data["temp_150hpa"] = temp_150hpa
+    hr_data["temp_100hpa"] = temp_100hpa
+    hr_data["temp_70hpa"] = temp_70hpa
+    hr_data["temp_50hpa"] = temp_50hpa
+    hr_data["temp_30hpa"] = temp_30hpa
+    hr_data["relhum_1000hpa"] = relhum_1000hpa
+    hr_data["relhum_975hpa"] = relhum_975hpa
+    hr_data["relhum_950hpa"] = relhum_950hpa
+    hr_data["relhum_925hpa"] = relhum_925hpa
+    hr_data["relhum_900hpa"] = relhum_900hpa
+    hr_data["relhum_850hpa"] = relhum_850hpa
+    hr_data["relhum_800hpa"] = relhum_800hpa
+    hr_data["relhum_700hpa"] = relhum_700hpa
+    hr_data["relhum_600hpa"] = relhum_600hpa
+    hr_data["relhum_500hpa"] = relhum_500hpa
+    hr_data["relhum_400hpa"] = relhum_400hpa
+    hr_data["relhum_300hpa"] = relhum_300hpa
+    hr_data["relhum_250hpa"] = relhum_250hpa
+    hr_data["relhum_200hpa"] = relhum_200hpa
+    hr_data["relhum_150hpa"] = relhum_150hpa
+    hr_data["relhum_100hpa"] = relhum_100hpa
+    hr_data["relhum_70hpa"] = relhum_70hpa
+    hr_data["relhum_50hpa"] = relhum_50hpa
+    hr_data["relhum_30hpa"] = relhum_30hpa
+    hr_data["cldcov_1000hpa"] = cldcov_1000hpa
+    hr_data["cldcov_975hpa"] = cldcov_975hpa
+    hr_data["cldcov_950hpa"] = cldcov_950hpa
+    hr_data["cldcov_925hpa"] = cldcov_925hpa
+    hr_data["cldcov_900hpa"] = cldcov_900hpa
+    hr_data["cldcov_850hpa"] = cldcov_850hpa
+    hr_data["cldcov_800hpa"] = cldcov_800hpa
+    hr_data["cldcov_700hpa"] = cldcov_700hpa
+    hr_data["cldcov_600hpa"] = cldcov_600hpa
+    hr_data["cldcov_500hpa"] = cldcov_500hpa
+    hr_data["cldcov_400hpa"] = cldcov_400hpa
+    hr_data["cldcov_300hpa"] = cldcov_300hpa
+    hr_data["cldcov_250hpa"] = cldcov_250hpa
+    hr_data["cldcov_200hpa"] = cldcov_200hpa
+    hr_data["cldcov_150hpa"] = cldcov_150hpa
+    hr_data["cldcov_100hpa"] = cldcov_100hpa
+    hr_data["cldcov_70hpa"] = cldcov_70hpa
+    hr_data["cldcov_50hpa"] = cldcov_50hpa
+    hr_data["cldcov_30hpa"] = cldcov_30hpa
+    hr_data["wndspd_1000hpa"] = wndspd_1000hpa
+    hr_data["wndspd_975hpa"] = wndspd_975hpa
+    hr_data["wndspd_950hpa"] = wndspd_950hpa
+    hr_data["wndspd_925hpa"] = wndspd_925hpa
+    hr_data["wndspd_900hpa"] = wndspd_900hpa
+    hr_data["wndspd_850hpa"] = wndspd_850hpa
+    hr_data["wndspd_800hpa"] = wndspd_800hpa
+    hr_data["wndspd_700hpa"] = wndspd_700hpa
+    hr_data["wndspd_600hpa"] = wndspd_600hpa
+    hr_data["wndspd_500hpa"] = wndspd_500hpa
+    hr_data["wndspd_400hpa"] = wndspd_400hpa
+    hr_data["wndspd_300hpa"] = wndspd_300hpa
+    hr_data["wndspd_250hpa"] = wndspd_250hpa
+    hr_data["wndspd_200hpa"] = wndspd_200hpa
+    hr_data["wndspd_150hpa"] = wndspd_150hpa
+    hr_data["wndspd_100hpa"] = wndspd_100hpa
+    hr_data["wndspd_70hpa"] = wndspd_70hpa
+    hr_data["wndspd_50hpa"] = wndspd_50hpa
+    hr_data["wndspd_30hpa"] = wndspd_30hpa
+    hr_data["wnddir_1000hpa"] = wnddir_1000hpa
+    hr_data["wnddir_975hpa"] = wnddir_975hpa
+    hr_data["wnddir_950hpa"] = wnddir_950hpa
+    hr_data["wnddir_925hpa"] = wnddir_925hpa
+    hr_data["wnddir_900hpa"] = wnddir_900hpa
+    hr_data["wnddir_850hpa"] = wnddir_850hpa
+    hr_data["wnddir_800hpa"] = wnddir_800hpa
+    hr_data["wnddir_700hpa"] = wnddir_700hpa
+    hr_data["wnddir_600hpa"] = wnddir_600hpa
+    hr_data["wnddir_500hpa"] = wnddir_500hpa
+    hr_data["wnddir_400hpa"] = wnddir_400hpa
+    hr_data["wnddir_300hpa"] = wnddir_300hpa
+    hr_data["wnddir_250hpa"] = wnddir_250hpa
+    hr_data["wnddir_200hpa"] = wnddir_200hpa
+    hr_data["wnddir_150hpa"] = wnddir_150hpa
+    hr_data["wnddir_100hpa"] = wnddir_100hpa
+    hr_data["wnddir_70hpa"] = wnddir_70hpa
+    hr_data["wnddir_50hpa"] = wnddir_50hpa
+    hr_data["wnddir_30hpa"] = wnddir_30hpa
+    hr_data["geopotht_1000hpa"] = geopotht_1000hpa
+    hr_data["geopotht_975hpa"] = geopotht_975hpa
+    hr_data["geopotht_950hpa"] = geopotht_950hpa
+    hr_data["geopotht_925hpa"] = geopotht_925hpa
+    hr_data["geopotht_900hpa"] = geopotht_900hpa
+    hr_data["geopotht_850hpa"] = geopotht_850hpa
+    hr_data["geopotht_800hpa"] = geopotht_800hpa
+    hr_data["geopotht_700hpa"] = geopotht_700hpa
+    hr_data["geopotht_600hpa"] = geopotht_600hpa
+    hr_data["geopotht_500hpa"] = geopotht_500hpa
+    hr_data["geopotht_400hpa"] = geopotht_400hpa
+    hr_data["geopotht_300hpa"] = geopotht_300hpa
+    hr_data["geopotht_250hpa"] = geopotht_250hpa
+    hr_data["geopotht_200hpa"] = geopotht_200hpa
+    hr_data["geopotht_150hpa"] = geopotht_150hpa
+    hr_data["geopotht_100hpa"] = geopotht_100hpa
+    hr_data["geopotht_70hpa"] = geopotht_70hpa
+    hr_data["geopotht_50hpa"] = geopotht_50hpa
+    hr_data["geopotht_30hpa"] = geopotht_30hpa
 
     hr_df = pd.DataFrame(data=hr_data)
     hr_df["latitude"] = lat
