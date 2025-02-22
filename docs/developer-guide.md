@@ -69,16 +69,30 @@ To view the documentation, open the `index.html` file in the `_build/html/` dire
 RAVEN uses metric units throughoutRAVEN uses units to ensure consistency and accuracy in data, and are
 defined as follows:
 
-|   Parameter   | Unit |
-|:-------------:|:----:|
-|   Distance    |  km  |
-|  Temperature  |  °C  |
-|  Wind speed   | m/s  |
-| Precipitation |  mm  |
-|  Pressure     |  hPa |
-|  Humidity     |   %  |
+|   Parameter   |   Unit   |   |    Parameter    |   Unit   |
+|:-------------:|:--------:|:-:|:---------------:|:--------:|
+|  Cloud cover  |    %     |   | Solar radiation | $W/m^2$  | 
+|   Dewpoint    |   $°C$   |   |  Solar energy   | $MJ/m^2$ |
+|   Humidity    |    %     |   |   Temperature   |   $°C$   |
+| Precipitation |   $mm$   |   |   Wind speed    | $km/hr$  |
+|   Pressure    |  $hPa$   |   |   Visibility    |   $km$   |
+|     Snow      |   $cm$   |
+
 
 ## Weather Codes
+RAVEN also utilizes weather code information to provide a more detailed
+description of the weather conditions. Codes are interpreted from the list
+of all codes found across each weather API. RAVEN weather codes are defined
+as follows:
+
 |   Value    |  Code   |
 |:----------:|:-------:|
 |     0      | Unkonwn |
+
+## HTTP Response Codes
+RAVEN uses HTTP response codes to provide information about the status of
+certain API requests. Response codes are defined as follows:
+
+| Value |  Code   |
+|:-----:|:-------:|
+|  200  | Unkonwn |

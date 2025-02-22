@@ -15,17 +15,14 @@ html_theme = "furo"
 html_logo = "_static/logo.png"
 
 html_theme_options = {
-    "light_css_variables": {
-        # Light mode variables
-    },
     "dark_css_variables": {
-        "color-foreground-primary": "var(--color-foreground-primary)",
-        "color-background-primary": "#131416",
-        "color-background-secondary": "#1a1c1e",
+        "color-foreground-primary": "#ffffff",  # White text
+        "color-foreground-secondary": "#a1a1a1",  # Lighter grey for secondary text
+        "color-background-primary": "#131416",  # Dark background
+        "color-background-secondary": "#1a1c1e",  # Slightly lighter dark background
+        "color-foreground-muted": "#a1a1a1",  # For muted text
     },
     "dark_mode_theme": "dark",
-    "logo_only": True,
-    "display_version": False,
 }
 
 # The master toctree document

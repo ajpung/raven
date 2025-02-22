@@ -30,6 +30,7 @@ generated/
 docs/api/
 docs/_autosummary/
 docs/generated/
+docs/_static/original_logo.png
 
 # Logos / graphics
 *.pptx
