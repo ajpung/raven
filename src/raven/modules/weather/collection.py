@@ -1,4 +1,4 @@
-from typing import Dict, Any, Collection
+from typing import Any, Collection
 import openmeteo_requests  # type: ignore
 from retry_requests import retry  # type: ignore
 
@@ -11,8 +11,6 @@ from raven.modules.weather.visual_crossing import collect_viscrs
 def collect_weather(lat: float, lon: float) -> list[Collection[str | float | Any]]:
     """
     Collects weather data from the specified provider
-
-    :param site: Weather provider to use
     :param lat: Latitude of the location
     :param lon: Longitude of the location
 
