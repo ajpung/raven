@@ -2,3 +2,4 @@ furo
 sphinx
 myst-parser
 sphinx-rtd-theme
+sphinx.ext.mathjax
