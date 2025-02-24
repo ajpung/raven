@@ -9,10 +9,10 @@ copyright = "2025"
 author = "Apung"
 
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.napoleon",
     "myst_parser",
+    "sphinx.ext.autodoc",
     "sphinx.ext.mathjax",
+    "sphinx.ext.napoleon",
 ]
 
 # Theme configuration
