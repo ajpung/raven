@@ -7,7 +7,8 @@ from retry_requests import retry  # type: ignore
 from raven.core.api_base import collect_keys
 
 """
-Inherent units:
+Units taken from https://docs.tomorrow.io/reference/weather-data-layers#field-descriptors
+
 __Clouds__
 Altitude: km
 Cover: %
@@ -62,6 +63,50 @@ GHI: W/m^2
 
 __Snow__
 Accumulation: mm
+
+__Trees__
+treeAcacia: 0 - 5 (0:None, 1:Very Low, 2:Low, 3:Medium, 4:High, 5:Very High)
+treeAsh: "
+treeBeech: "
+treeBirch: "
+treeCedar: "
+treeCottonwood: "
+treeCypress: "
+treeElder: "
+treeElm: "
+treeHemlock: "
+treeHickory: "
+treeIndex: "
+treeJuniper: "
+treeMahogany: "
+treeMaple: "
+treeMulberry: "
+treeOak: "
+treePine: "
+treeSpruce: "
+treeSycamore: "
+treeWalnut: "
+treeWillow: "
+
+__Visibility__
+visibility: km
+
+__Weeds__
+weedGrassIndex: 0 - 5 (0:None, 1:Very Low, 2:Low, 3:Medium, 4:High, 5:Very High)
+WeedIndex: 0 - 5 (0:None, 1:Very Low, 2:Low, 3:Medium, 4:High, 5:Very High)
+
+__Waves__
+SignificantHeight: m
+Direction: degrees
+MeanPeriod: seconds
+
+__Wind__
+Speed: m/s
+Gust: m/s
+Direction: degrees
+windWaveSignificantHeight: m
+windWaveDirection: degrees
+windWaveMeanPeriod: seconds
 """
 
 
@@ -76,4 +121,19 @@ def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
     apikey = my_keys["Weather"]["tomorrow-io"]
     url = f"https://api.tomorrow.io/v4/weather/realtime?location={lat},{lon}&apikey={apikey}&units=metric"
     response = requests.get(url)
-    return cast(Dict[str, Any], response.json())
+    data = cast(Dict[str, Any], response.json())
+
+    # Apply Unit Corrections
+    # (snow)
+    data["data"]["values"]["snowIntensity"] = (
+        data["data"]["values"]["snowIntensity"] / 10
+    )  # mm (ingest) > cm (expected)
+    # (wind)
+    data["data"]["values"]["windSpeed"] = (
+        data["data"]["values"]["windSpeed"] * 3.6
+    )  # m/s (ingest) > km/hr (expected)
+    data["data"]["values"]["windGust"] = (
+        data["data"]["values"]["windGust"] * 3.6
+    )  # m/s (ingest) > km/hr (expected)
+
+    return data

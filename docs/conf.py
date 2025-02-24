@@ -8,7 +8,12 @@ project = "RAVEN"
 copyright = "2025"
 author = "Apung"
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon", "myst_parser"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "myst_parser",
+    "sphinx.ext.mathjax",
+]
 
 # Theme configuration
 html_theme = "furo"
