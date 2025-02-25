@@ -36,9 +36,6 @@ html_theme_options = {
 # The master toctree document
 master_doc = "index"
 
-# File extensions to include
-source_suffix = [".rst", ".md"]
-
 exclude_patterns = [
     "_build",
     "Thumbs.db",
@@ -49,10 +46,13 @@ exclude_patterns = [
     "http-codes.md",
 ]
 
-html_additional_pages = {}
+# In conf.py
+html_additional_pages: dict[str, str] = {}
+
+# Fix the type mismatch - this should be a list not a dict
 html_context = {"extra_docs": ["units", "weather-codes", "http-codes"]}
 
-source_suffix = {
+source_suffix: dict[str, str] = {
     ".rst": "restructuredtext",
     ".md": "markdown",
 }
