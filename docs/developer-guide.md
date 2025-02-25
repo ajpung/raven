@@ -74,9 +74,3 @@ Weather codes and HTTP response codes are used to provide more detailed informat
 about the weather and status of certain API requests. Weather codes can be found in 
 the [Weather Codes Guide](./weather-codes.md), and HTTP response codes can be found in
 the [HTTP Codes Guide](./http-codes.md).
-
-See our <a href="units.html">Units Reference</a> for details about measurement units.
-
-For weather code information, check the <a href="weather-codes.html">Weather Codes documentation</a>.
-
-HTTP status codes are described in the <a href="http-codes.html">HTTP Response Codes</a> reference.
