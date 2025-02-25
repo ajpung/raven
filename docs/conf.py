@@ -48,3 +48,16 @@ exclude_patterns = [
     "weather-codes.md",
     "http-codes.md",
 ]
+
+html_additional_pages = {}
+html_context = {"extra_docs": ["units", "weather-codes", "http-codes"]}
+
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
+
+# Explicitly include all your files
+master_doc = "index"
+include_patterns = ["*.md", "*.rst"]  # Include all markdown and restructuredtext files
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "README.md"]
