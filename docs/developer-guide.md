@@ -67,29 +67,10 @@ To view the documentation, open the `index.html` file in the `_build/html/` dire
 ## Units
 
 RAVEN uses metric units throughoutRAVEN uses units to ensure consistency and accuracy in data, and are
-defined in the [Units Guide](units.md).
+defined in the {ref}`Units Reference <units>`.
 
 ## Codes
 Weather codes and HTTP response codes are used to provide more detailed information
 about the weather and status of certain API requests. Weather codes can be found in 
-the [Weather Codes Guide](weather-codes.md), and HTTP response codes can be found in
-the [HTTP Codes Guide](http-codes.md).
-
-
-## Weather Codes
-RAVEN also utilizes weather code information to provide a more detailed
-description of the weather conditions. Codes are interpreted from the list
-of all codes found across each weather API. RAVEN weather codes are defined
-as follows:
-
-|   Value    |  Code   |
-|:----------:|:-------:|
-|     0      | Unkonwn |
-
-## HTTP Response Codes
-RAVEN uses HTTP response codes to provide information about the status of
-certain API requests. Response codes are defined as follows:
-
-| Value |  Code   |
-|:-----:|:-------:|
-|  200  | Unkonwn |
+the [Weather Codes Guide](./weather-codes.md), and HTTP response codes can be found in
+the [HTTP Codes Guide](./http-codes.md).

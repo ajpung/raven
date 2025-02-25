@@ -1,4 +1,6 @@
 furo
 sphinx
-myst-parser
+linkify
+sphinx>=4.0.0
+myst-parser>=0.15.0
 sphinx-rtd-theme
