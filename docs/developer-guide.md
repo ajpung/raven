@@ -19,7 +19,7 @@ How to run tests and add new ones...
 ## Removing unwanted files
 To remove unwanted files, exit the IDE and run the following command via
 command prompt:
-```commandline
+```bash
 cd <repository directory>
 rmdir /s /q <environment directory>
 
@@ -28,20 +28,20 @@ git clean -f
 
 To count the number of files within the repository, use either of the following
 commands:
-```commandline
+```bash
 git ls-files | wc -l
 ```
 (Total files)
-```commandline
+```bash
 dir /s /a /b | find /c ":"
 ```
 (Total files and directories)
-```commandline
+```bash
 for /d %d in (*) do @echo %d & dir /s /a /b "%d" | find /c ":"
 ```
 
 To aggressively kill all Python and PyCharm processes, use:
-```commandline
+```bash
 taskkill /F /IM python.exe
 taskkill /F /IM pythonw.exe
 taskkill /F /IM python3.exe
@@ -55,11 +55,11 @@ these commands will also kill all Python and PyCharm processes, so use with caut
 
 ## Testing Documentation
 To test the documentation, begin by installing the documentation dependencies:
-```commandline
+```bash
 pip install sphinx sphinx-rtd-theme myst-parser
 ```
 Then, navigate to the `docs/` directory and run the following command:
-```commandline
+```bash
 sphinx-build -b html . _build/html
 ```
 To view the documentation, open the `index.html` file in the `_build/html/` directory.
@@ -67,16 +67,13 @@ To view the documentation, open the `index.html` file in the `_build/html/` dire
 ## Units
 
 RAVEN uses metric units throughoutRAVEN uses units to ensure consistency and accuracy in data, and are
-defined as follows:
+defined in the [Units Guide](units.md).
 
-|   Parameter   |   Unit   |   |    Parameter    |   Unit   |
-|:-------------:|:--------:|:-:|:---------------:|:--------:|
-|  Cloud cover  |    %     |   | Solar radiation | $W/m^2$  | 
-|   Dewpoint    |   $°C$   |   |  Solar energy   | $MJ/m^2$ |
-|   Humidity    |    %     |   |   Temperature   |   $°C$   |
-| Precipitation |   $mm$   |   |   Wind speed    | $km/hr$  |
-|   Pressure    |  $hPa$   |   |   Visibility    |   $km$   |
-|     Snow      |   $cm$   |
+## Codes
+Weather codes and HTTP response codes are used to provide more detailed information
+about the weather and status of certain API requests. Weather codes can be found in 
+the [Weather Codes Guide](weather-codes.md), and HTTP response codes can be found in
+the [HTTP Codes Guide](http-codes.md).
 
 
 ## Weather Codes

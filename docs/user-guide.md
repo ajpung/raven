@@ -47,12 +47,6 @@
 ### Getting Started
 from raven import Client
 
-# Initialize the RAVEN client
-client = Client()
-
-# Get weather data for a location
-weather_data = client.get_weather(lat=40.7128, lon=-74.0060)
-
 ## Common Operations
 - How to fetch weather data
 - How to analyze patterns
