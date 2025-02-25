@@ -13,9 +13,16 @@ RAVEN (Real-time Analysis of Variable Environmental Networks) is a comprehensive
 ## Documentation Contents
 
 ```{toctree}
-:maxdepth: 2
+:maxdepth: 1
 :caption: Contents
 
 user-guide
 developer-guide
 api-reference
+
+:hidden:
+
+units
+weather-codes
+http-codes
+```

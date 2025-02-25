@@ -6,6 +6,123 @@ import requests_cache
 from retry_requests import retry  # type: ignore
 from pandas import DataFrame
 
+"""
+Units taken from https://open-meteo.com/en/docs
+
+__Clouds__
+Altitude: km
+Cover: %
+
+__Energy__
+Conv. avail. pot. energ: J/kg
+
+__Health__
+Concern: 
+Pollute: 
+FireIdx: 
+GrassIdx:  
+mepConcern: 
+mepIndex: 
+
+__Moon__
+Phase: 
+
+__Particulate__
+Matter10: 
+Matter25: 
+pollutant: 
+
+__Precip__
+Hail predict: 
+Humidity: % 
+Rain: mm
+Showers: mm
+Ice accum: 
+Intensity: 
+Probability: %
+Type: 
+Evapotranspiration: mm
+Total precip: mm
+
+__Pressure__
+Sea Level: hPa 
+Surface Level: hPa 
+
+__Radiation__
+Shortwave: W/m^2
+Direct: W/m^2
+Diffuse: W/m^2
+Global tilted irradiance: W/m^2
+
+__Soil__
+Moisture (Volumetric): m^3/m^3 
+Temperature: C 
+
+__Solar__
+DIF: 
+DIR: 
+GHI: 
+
+__Snow__
+Accumulation: cm
+Depth: m
+
+__Swells__
+(Primary & Secondary)
+Direction: 
+Mean Period: 
+Significant Height: 
+
+__Temp__
+Dewpoint: C 
+Temp: C
+Apparent: C 
+
+__Trees__
+treeAcacia: 
+treeAsh: 
+treeBeech: 
+treeBirch: 
+treeCedar: 
+treeCottonwood: 
+treeCypress: 
+treeElder: 
+treeElm: 
+treeHemlock: 
+treeHickory: 
+treeIndex: 
+treeJuniper: 
+treeMahogany: 
+treeMaple: 
+treeMulberry: 
+treeOak: 
+treePine: 
+treeSpruce: 
+treeSycamore: 
+treeWalnut: 
+treeWillow: 
+
+__Visibility__
+visibility: m 
+
+__Weeds__
+weedGrassIndex: 
+WeedIndex: 
+
+__Waves__
+SignificantHeight: 
+Direction: 
+MeanPeriod: 
+
+__Wind__
+Speed: km/h
+Gust: km/h
+Direction: degrees 
+windWaveSignificantHeight: 
+windWaveDirection: 
+windWaveMeanPeriod: 
+"""
+
 
 def collect_openmt(lat: float, lon: float) -> Tuple[float, float, Any]:
     """
