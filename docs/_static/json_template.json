@@ -1,0 +1,123 @@
+{
+	"datetime":{
+		"date": null,
+		"time": null,
+		"utc_epoch": null
+	},
+	"location": {
+		"latitude": null,
+		"longitude": null,
+		"altitude": null,
+		"name": null,
+		"country": null
+	},
+	"data":{
+		"model": null,
+		"clouds": {
+			"base": null,
+			"ceiling": null,
+			"altitude": null,
+			"cover": null,
+		},
+		"energy": {
+			"conv_avail_pot": null,
+			"conv_inhibition": null,
+			"lifted_index": null,
+			"bndry_layer_height": null,
+			"geopotential": null,
+			"tabulated": {
+				"heights": null,
+				"values": null
+			}
+		},
+		"moon": {
+			"phase": null,
+			"moonrise": null,
+			"moonset": null
+		},
+		"particulates":{
+			"species": null,
+			"pollutant": null,
+			"matter": null
+		}, 
+		"precipitation": {
+			"rain": {
+				"intensity": null,
+				"probability": null,
+				"accumulated": null
+			},
+			"snow": {
+				"intensity": null,
+				"probability": null,
+				"accumulated": null
+			},
+			"sleet": {
+				"intensity": null,
+				"probability": null,
+				"accumulated": null
+			},
+			"ice": {
+				"intensity": null,
+				"probability": null,
+				"accumulated": null
+			},
+			"hail": {
+				"intensity": null,
+				"probability": null,
+				"accumulated": null
+			},
+			"evapotranspiration": null
+		},
+		"pressure": {
+			"tabulated": {
+				"heights": null,
+				"values": null
+			},
+			"sea_level": null,
+			"surface": null
+		},
+		"radiation": {
+			"diffuse_ghi": null,
+			"diffuse_inst": null,
+			"direct_ghi": null,
+			"direct_inst": null,
+			"cape": null,
+			"glob_tilt_irrad": null,
+			"glob_horz_rad": null,
+			"shortwave_ghi": null,
+			"shortwave_inst": null,
+		},
+		"soil": {
+			"vol_moisture": null,
+			"temperature": null,
+		},
+		"sun": {
+			"sunrise": null,
+			"sunset": null
+		},
+		"temperature": {
+			"tabulated": {
+				"heights": null,
+				"values": null
+			},
+			"measured": null,
+			"apparent": null,
+			"dewpoint": null,
+			"humidity": null
+		},
+		"visibility": {
+			"distance": null
+		},
+		"wind": {
+			"speed": null,
+			"gust": null,
+			"direction": null
+		},
+		"waves": {
+			"height": null,
+			"direction": null,
+			"period": null
+		}
+		
+	}
+}
