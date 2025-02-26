@@ -111,19 +111,28 @@ windWaveMeanPeriod: seconds
 """
 
 
-def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
+def gather_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
     """
     Collects weather data from Tomorrow.io
 
-    :param apikey: API key for Tomorrow.io
-    :return: Weather data from Tomorrow.io API
+    :param lat: Latitude of the location
+    :param lon: Longitude of the location
+    :return data: Weather data from Tomorrow.io API
     """
     my_keys = collect_keys()
     apikey = my_keys["Weather"]["tomorrow-io"]
     url = f"https://api.tomorrow.io/v4/weather/realtime?location={lat},{lon}&apikey={apikey}&units=metric"
     response = requests.get(url)
     data = cast(Dict[str, Any], response.json())
+    return data
 
+
+def correct_tomorrow(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, int]:
+    """
+    Corrects the data from Tomorrow.io (units, date/time)
+    :param data: Weather data from Tomorrow.io API
+    :return: Corrected weather data
+    """
     # Apply Unit Corrections
     # (snow)
     data["data"]["values"]["snowIntensity"] = (
@@ -152,9 +161,23 @@ def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
     utc_epoch = int(
         datetime.datetime.strptime(data["data"]["time"], time_format).timestamp()
     )
+    return data, date, time, utc_epoch
 
+
+def fill_json_tmrw(
+    data, date, time, utc_epoch, json_file: str = "../docs/_static/json_template.json"
+):
+    """
+    Fills the JSON template with the data from Tomorrow.io
+    :param data: Weather data from Tomorrow.io API
+    :param date: Date in API request
+    :param time: Time in API request
+    :param utc_epoch: Epoch time in API request
+    :param json_file: JSON template file
+    :return: JSON template filled with data from Tomorrow.io
+    """
     # ----- Read / fill JSON template -----
-    tmrw_dict = json.load(open("../docs/_static/json_template.json"))
+    tmrw_dict = json.load(open(json_file))
     # Datetime
     tmrw_dict["datetime"]["date"] = date
     tmrw_dict["datetime"]["time"] = time
@@ -215,4 +238,20 @@ def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
     tmrw_dict["data"]["wind"]["direction"] = data["data"]["values"]["windDirection"]
     tmrw_dict["data"]["wind"]["gust"] = data["data"]["values"]["windGust"]
     tmrw_dict["data"]["wind"]["speed"] = data["data"]["values"]["windSpeed"]
+    return tmrw_dict
+
+
+def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
+    """
+    Collects, corrects, and formats weather data from Tomorrow.io
+    :param lat: Latitude of the location
+    :param lon: Longitude of the location
+    :return tmrw_dict: Weather data from Tomorrow.io API
+    """
+    # Collect data from API
+    data = gather_tomorrow(lat, lon)
+    # Correct data
+    data, date, time, utc_epoch = correct_tomorrow(data)
+    # Fill JSON template
+    tmrw_dict = fill_json_tmrw(data, date, time, utc_epoch)
     return tmrw_dict
