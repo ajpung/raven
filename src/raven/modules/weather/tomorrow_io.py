@@ -138,7 +138,7 @@ def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
     )  # m/s (ingest) > km/hr (expected)
 
     # Convert datetime to epoch using DateTime
-    time_frmat = "%Y-%m-%dT%H:%M:%SZ"
+    time_format = "%Y-%m-%dT%H:%M:%SZ"
     date = (
         datetime.datetime.strptime(data["data"]["time"], time_format)
         .date()
@@ -150,9 +150,7 @@ def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
         .strftime("%H:%M:%S")
     )
     utc_epoch = int(
-        datetime.datetime.strptime(
-            data["data"]["time"], time_format
-        ).timestamp()
+        datetime.datetime.strptime(data["data"]["time"], time_format).timestamp()
     )
 
     # ----- Read / fill JSON template -----
