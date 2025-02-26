@@ -13,11 +13,12 @@
 	},
 	"data":{
 		"model": null,
+		"code": null,
 		"clouds": {
 			"base": null,
 			"ceiling": null,
 			"altitude": null,
-			"cover": null,
+			"cover": null
 		},
 		"energy": {
 			"conv_avail_pot": null,
@@ -29,6 +30,10 @@
 				"heights": null,
 				"values": null
 			}
+		},
+		"health": {
+			"uv_concern": null,
+			"uv_index": null
 		},
 		"moon": {
 			"phase": null,
@@ -44,7 +49,8 @@
 			"rain": {
 				"intensity": null,
 				"probability": null,
-				"accumulated": null
+				"accumulated": null,
+				"frz_rain_int": null
 			},
 			"snow": {
 				"intensity": null,
@@ -64,9 +70,11 @@
 			"hail": {
 				"intensity": null,
 				"probability": null,
-				"accumulated": null
+				"accumulated": null,
+				"size": null
 			},
-			"evapotranspiration": null
+			"evapotranspiration": null,
+			"probability": null
 		},
 		"pressure": {
 			"tabulated": {
@@ -85,11 +93,11 @@
 			"glob_tilt_irrad": null,
 			"glob_horz_rad": null,
 			"shortwave_ghi": null,
-			"shortwave_inst": null,
+			"shortwave_inst": null
 		},
 		"soil": {
 			"vol_moisture": null,
-			"temperature": null,
+			"temperature": null
 		},
 		"sun": {
 			"sunrise": null,
@@ -118,6 +126,5 @@
 			"direction": null,
 			"period": null
 		}
-		
 	}
 }

@@ -1,10 +1,11 @@
+import datetime
+import json
 from typing import Dict, Any, cast
 
 import openmeteo_requests  # type: ignore
 import requests
-from retry_requests import retry  # type: ignore
-
 from raven.core.api_base import collect_keys
+from retry_requests import retry  # type: ignore
 
 """
 Units taken from https://docs.tomorrow.io/reference/weather-data-layers#field-descriptors
@@ -136,4 +137,85 @@ def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
         data["data"]["values"]["windGust"] * 3.6
     )  # m/s (ingest) > km/hr (expected)
 
-    return data
+    # Convert datetime to epoch using DateTime
+    date = (
+        datetime.datetime.strptime(data["data"]["time"], "%Y-%m-%dT%H:%M:%SZ")
+        .date()
+        .strftime("%Y-%m-%d")
+    )
+    time = (
+        datetime.datetime.strptime(data["data"]["time"], "%Y-%m-%dT%H:%M:%SZ")
+        .time()
+        .strftime("%H:%M:%S")
+    )
+    utc_epoch = int(
+        datetime.datetime.strptime(
+            data["data"]["time"], "%Y-%m-%dT%H:%M:%SZ"
+        ).timestamp()
+    )
+
+    # TODO: Write datetime-to-epoch converter
+
+    # ----- Read / fill JSON template -----
+    tmrw_dict = json.load(open("../docs/_static/json_template.json"))
+    # Datetime
+    tmrw_dict["datetime"]["date"] = date
+    tmrw_dict["datetime"]["time"] = time
+    tmrw_dict["datetime"]["epoch"] = utc_epoch
+    # Location
+    tmrw_dict["location"]["latitutde"] = data["location"]["lat"]
+    tmrw_dict["location"]["longitutde"] = data["location"]["lon"]
+    # Clouds
+    tmrw_dict["data"]["clouds"]["base"] = data["data"]["values"]["cloudBase"]
+    tmrw_dict["data"]["clouds"]["ceiling"] = data["data"]["values"]["cloudCeiling"]
+    tmrw_dict["data"]["clouds"]["cover"] = data["data"]["values"]["cloudCover"]
+    # Temp
+    tmrw_dict["data"]["temperature"]["dewpoint"] = data["data"]["values"]["dewPoint"]
+    tmrw_dict["data"]["temperature"]["measured"] = data["data"]["values"]["temperature"]
+    tmrw_dict["data"]["temperature"]["apparent"] = data["data"]["values"][
+        "temperatureApparent"
+    ]
+    tmrw_dict["data"]["temperature"]["humidity"] = data["data"]["values"]["humidity"]
+    # Precipitation
+    tmrw_dict["data"]["precipitation"]["rain"]["frz_rain_int"] = data["data"]["values"][
+        "freezingRainIntensity"
+    ]
+    tmrw_dict["data"]["precipitation"]["rain"]["intensity"] = data["data"]["values"][
+        "rainIntensity"
+    ]
+    tmrw_dict["data"]["precipitation"]["hail"]["probability"] = data["data"]["values"][
+        "hailProbability"
+    ]
+    tmrw_dict["data"]["precipitation"]["hail"]["size"] = data["data"]["values"][
+        "hailSize"
+    ]
+    tmrw_dict["data"]["precipitation"]["sleet"]["intensity"] = data["data"]["values"][
+        "sleetIntensity"
+    ]
+    tmrw_dict["data"]["precipitation"]["snow"]["intensity"] = data["data"]["values"][
+        "snowIntensity"
+    ]
+    tmrw_dict["data"]["precipitation"]["probability"] = data["data"]["values"][
+        "precipitationProbability"
+    ]
+    # Pressure
+    tmrw_dict["data"]["pressure"]["sea_level"] = data["data"]["values"][
+        "pressureSeaLevel"
+    ]
+    tmrw_dict["data"]["pressure"]["surface_level"] = data["data"]["values"][
+        "pressureSurfaceLevel"
+    ]
+    # Health
+    tmrw_dict["data"]["health"]["uv_concern"] = data["data"]["values"][
+        "uvHealthConcern"
+    ]
+    tmrw_dict["data"]["health"]["uv_index"] = data["data"]["values"]["uvIndex"]
+    # Visibility
+    tmrw_dict["data"]["visibility"] = data["data"]["values"]["visibility"]
+    # Weather code
+    tmrw_dict["data"]["code"] = data["data"]["values"]["weatherCode"]
+    # Wind
+    tmrw_dict["data"]["wind"]["direction"] = data["data"]["values"]["windDirection"]
+    tmrw_dict["data"]["wind"]["gust"] = data["data"]["values"]["windGust"]
+    tmrw_dict["data"]["wind"]["speed"] = data["data"]["values"]["windSpeed"]
+    return tmrw_dict
