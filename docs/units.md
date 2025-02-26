@@ -41,7 +41,6 @@ defined as follows:
 |:---------------------------------:|:------:|
 |         Diffuse radiation         | W/m^2  |
 |         Direct radiation          | W/m^2  |
-|         Direct radiation          | W/m^2  |
 |              Energy               | MJ/m^2 |
 |               CAPE                |  J/kg  |
 |     Global tilted irradiance      | W/m^2  |
@@ -53,8 +52,6 @@ defined as follows:
 |:-------------:|:-------:|
 | Vol. moisture | m^3/m^3 |
 |  Temperature  |   °C    |
-|   Dewpoint    |   °C    |
-|   Humidity    |   °C    |
 
 
 ## Temperature
