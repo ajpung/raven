@@ -5,9 +5,10 @@ RAVEN uses metric units throughoutRAVEN uses units to ensure consistency and acc
 defined as follows:
 
 ## Clouds
-|             |   |
-|:-----------:|:-:|
-| Cloud cover | % |
+|             |    |
+|:-----------:|:--:|
+| Cloud cover | %  |
+|  Altitude   | km |
 
 
 ## Particulates
