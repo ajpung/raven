@@ -1,6 +1,6 @@
 import datetime
-from raven.core.date_time import correct_timezone
-from raven.core.date_time import datetime_to_epoch
+from src.raven.core.date_time import correct_timezone
+from src.raven.core.date_time import datetime_to_epoch
 
 
 def test_dt_convert():
