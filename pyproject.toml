@@ -17,6 +17,7 @@ dependencies = [
     "requests",
     "psycopg2",
     "ipykernel",
+    "dateparser",
     "pytest-cov",
     "pip==25.0.1",
     "azure-cosmos",
