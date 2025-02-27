@@ -17,6 +17,7 @@ dependencies = [
     "requests",
     "psycopg2",
     "ipykernel",
+    "dateparser",
     "pytest-cov",
     "pip==25.0.1",
     "azure-cosmos",
@@ -27,6 +28,7 @@ dependencies = [
     "pandas-stubs",
     "black[jupyter]",
     "types-requests",
+    "types-dateparser",
     "requests_cache",
     "retry_requests",
     "openmeteo_requests"

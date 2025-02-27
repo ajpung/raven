@@ -64,10 +64,17 @@ sphinx-build -b html . _build/html
 ```
 To view the documentation, open the `index.html` file in the `_build/html/` directory.
 
+## Dates / times
+RAVEN utilizes the [`dateparser` package](https://dateparser.readthedocs.io/en/latest/.
+- If a date/time does not have an associated timezone, it is assumed to be in UTC.
+- If a date/time has a non-UTC timezone, it will be converted to UTC.
+- Datetime-to-epoch conversions are done in UTC.
+
 ## Units
 
 RAVEN uses metric units throughoutRAVEN uses units to ensure consistency and accuracy in data, and are
 defined in the {ref}`Units Reference <units>`.
+
 
 ## Codes
 Weather codes and HTTP response codes are used to provide more detailed information
