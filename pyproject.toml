@@ -27,6 +27,7 @@ dependencies = [
     "pandas-stubs",
     "black[jupyter]",
     "types-requests",
+    "types-dateparser",
     "requests_cache",
     "retry_requests",
     "openmeteo_requests"
