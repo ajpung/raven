@@ -4,6 +4,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Trash trial files
+/templates
+/templates/*
+
 # Distribution / packaging
 .Python
 build/
