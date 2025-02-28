@@ -1,4 +1,5 @@
 from typing import Any, Dict, Tuple
+import json
 import datetime
 import openmeteo_requests  # type: ignore
 import pandas as pd
@@ -11,13 +12,13 @@ from pandas import DataFrame
 Units taken from https://open-meteo.com/en/docs
 
 __Clouds__
-Cloud cover: 
+Cloud cover: %
 
 __Energy__
 
 
 __Health__
-UV index
+UV index: 
 
 
 __Moon__
@@ -27,56 +28,56 @@ __Particulate__
  
 
 __Precip__
-Precip. Prob.: 
-Precip: 
-Rain: 
-Showers:
-Evapotranspiration: 
-Vapor pressure deficit: 
+Precip. Prob.: %
+Precip: mm
+Rain: mm
+Showers: mm
+Evapotranspiration: mm
+Vapor pressure deficit: kPa 
 
 __Pressure__
-Sea Level:
-Surface:
+Sea Level: hPa
+Surface: hPa
 
 __Radiation__
-"cape",
-"lifted_index",
-"convective_inhibition",
-"shortwave_radiation_instant",
-"direct_radiation_instant",
-"diffuse_radiation_instant",
-"direct_normal_irradiance_instant",
-"global_tilted_irradiance_instant",
-"terrestrial_radiation_instant",
+cape: J/kg
+lifted_index:  
+convective_inhibition: 
+shortwave_radiation_instant: W/m2
+direct_radiation_instant: W/m2
+diffuse_radiation_instant: W/m2
+direct_normal_irradiance_instant: W/m2
+global_tilted_irradiance_instant: W/m2
+terrestrial_radiation_instant: W/m2
 
 __Soil__
-Temperature:
-Moisture:
+Temperature: C
+Moisture: m3/m3
 
 __Solar__
 Sun duration: 
 
 __Snow__
-Snowfall:
-Snow depth:
+Snowfall: cm
+Snow depth: m
 
 __Swells__
 
 
 __Temp__
-Temperature:
-Apparent temp:
-Rel. humidity:
-Dewpoint: 
-Wet bulb temp:
-Freezing level height:
-Boundary layer height:
+Temperature: C
+Apparent temp: C
+Rel. humidity: %
+Dewpoint: C
+Wet bulb temp: C
+Freezing level height: m
+Boundary layer height: m
 
 __Trees__
 
 
 __Visibility__
-Visibility:  
+Visibility: m
 
 __Weeds__
 
@@ -85,9 +86,9 @@ __Waves__
 
 
 __Wind__
-Speed:
-Direction:
-Gusts:
+Speed: km/hr
+Direction: deg
+Gusts: km/h
 
 
 "weather_code",
@@ -118,72 +119,72 @@ def gather_openmeteo(lat: float, lon: float):
         "latitude": lat,
         "longitude": lon,
         "current": [
-            "temperature_2m",
-            "relative_humidity_2m",
-            "dew_point_2m",
-            "apparent_temperature",
-            "precipitation_probability",
-            "precipitation",
-            "rain",
-            "showers",
-            "snowfall",
-            "snow_depth",
-            "weather_code",
-            "pressure_msl",
-            "surface_pressure",
-            "cloud_cover",
-            "cloud_cover_low",
-            "cloud_cover_mid",
-            "cloud_cover_high",
-            "visibility",
-            "evapotranspiration",
-            "et0_fao_evapotranspiration",
-            "vapour_pressure_deficit",
-            "wind_speed_10m",
-            "wind_speed_80m",
-            "wind_speed_120m",
-            "wind_speed_180m",
-            "wind_direction_10m",
-            "wind_direction_80m",
-            "wind_direction_120m",
-            "wind_direction_180m",
-            "wind_gusts_10m",
-            "temperature_80m",
-            "temperature_120m",
-            "temperature_180m",
-            "soil_temperature_0cm",
-            "soil_temperature_6cm",
-            "soil_temperature_18cm",
-            "soil_temperature_54cm",
-            "soil_moisture_0_to_1cm",
-            "soil_moisture_1_to_3cm",
-            "soil_moisture_3_to_9cm",
-            "soil_moisture_9_to_27cm",
-            "soil_moisture_27_to_81cm",
-            "uv_index",
-            "uv_index_clear_sky",
-            "is_day",
-            "sunshine_duration",
-            "wet_bulb_temperature_2m",
-            "total_column_integrated_water_vapour",
-            "cape",
-            "lifted_index",
-            "convective_inhibition",
-            "freezing_level_height",
-            "boundary_layer_height",
-            "shortwave_radiation",
-            "direct_radiation",
-            "diffuse_radiation",
-            "direct_normal_irradiance",
-            "global_tilted_irradiance",
-            "terrestrial_radiation",
-            "shortwave_radiation_instant",
-            "direct_radiation_instant",
-            "diffuse_radiation_instant",
-            "direct_normal_irradiance_instant",
-            "global_tilted_irradiance_instant",
-            "terrestrial_radiation_instant",
-            "temperature_1000hPa",
+            "temperature_2m",  # 0
+            "relative_humidity_2m",  # 1
+            "dew_point_2m",  # 2
+            "apparent_temperature",  # 3
+            "precipitation_probability",  # 4
+            "precipitation",  # 5
+            "rain",  # 6
+            "showers",  # 7
+            "snowfall",  # 8
+            "snow_depth",  # 9
+            "weather_code",  # 10
+            "pressure_msl",  # 11
+            "surface_pressure",  # 12
+            "cloud_cover",  # 13
+            "cloud_cover_low",  # 14
+            "cloud_cover_mid",  # 15
+            "cloud_cover_high",  # 16
+            "visibility",  # 17
+            "evapotranspiration",  # 18
+            "et0_fao_evapotranspiration",  # 19
+            "vapour_pressure_deficit",  # 20
+            "wind_speed_10m",  # 21
+            "wind_speed_80m",  # 22
+            "wind_speed_120m",  # 23
+            "wind_speed_180m",  # 24
+            "wind_direction_10m",  # 25
+            "wind_direction_80m",  # 26
+            "wind_direction_120m",  # 27
+            "wind_direction_180m",  # 28
+            "wind_gusts_10m",  # 29
+            "temperature_80m",  # 30
+            "temperature_120m",  # 31
+            "temperature_180m",  # 32
+            "soil_temperature_0cm",  # 33
+            "soil_temperature_6cm",  # 34
+            "soil_temperature_18cm",  # 35
+            "soil_temperature_54cm",  # 36
+            "soil_moisture_0_to_1cm",  # 37
+            "soil_moisture_1_to_3cm",  # 38
+            "soil_moisture_3_to_9cm",  # 39
+            "soil_moisture_9_to_27cm",  # 40
+            "soil_moisture_27_to_81cm",  # 41
+            "uv_index",  # 42
+            "uv_index_clear_sky",  # 43
+            "is_day",  # 44
+            "sunshine_duration",  # 45
+            "wet_bulb_temperature_2m",  # 46
+            "total_column_integrated_water_vapour",  # 47
+            "cape",  # 48
+            "lifted_index",  # 49
+            "convective_inhibition",  # 50
+            "freezing_level_height",  # 51
+            "boundary_layer_height",  # 52
+            "shortwave_radiation",  # 53
+            "direct_radiation",  # 54
+            "diffuse_radiation",  # 55
+            "direct_normal_irradiance",  # 56
+            "global_tilted_irradiance",  # 57
+            "terrestrial_radiation",  # 58
+            "shortwave_radiation_instant",  # 59
+            "direct_radiation_instant",  # 60
+            "diffuse_radiation_instant",  # 61
+            "direct_normal_irradiance_instant",  # 62
+            "global_tilted_irradiance_instant",  # 63
+            "terrestrial_radiation_instant",  # 64
+            "temperature_1000hPa",  # 65
             "temperature_975hPa",
             "temperature_950hPa",
             "temperature_925hPa",
@@ -201,8 +202,8 @@ def gather_openmeteo(lat: float, lon: float):
             "temperature_100hPa",
             "temperature_70hPa",
             "temperature_50hPa",
-            "temperature_30hPa",
-            "relative_humidity_1000hPa",
+            "temperature_30hPa",  # 83
+            "relative_humidity_1000hPa",  # 84
             "relative_humidity_975hPa",
             "relative_humidity_950hPa",
             "relative_humidity_925hPa",
@@ -220,8 +221,8 @@ def gather_openmeteo(lat: float, lon: float):
             "relative_humidity_100hPa",
             "relative_humidity_70hPa",
             "relative_humidity_50hPa",
-            "relative_humidity_30hPa",
-            "cloud_cover_1000hPa",
+            "relative_humidity_30hPa",  # 102
+            "cloud_cover_1000hPa",  # 103
             "cloud_cover_975hPa",
             "cloud_cover_950hPa",
             "cloud_cover_925hPa",
@@ -239,8 +240,8 @@ def gather_openmeteo(lat: float, lon: float):
             "cloud_cover_100hPa",
             "cloud_cover_70hPa",
             "cloud_cover_50hPa",
-            "cloud_cover_30hPa",
-            "wind_speed_1000hPa",
+            "cloud_cover_30hPa",  # 121
+            "wind_speed_1000hPa",  # 122
             "wind_speed_975hPa",
             "wind_speed_950hPa",
             "wind_speed_925hPa",
@@ -258,8 +259,8 @@ def gather_openmeteo(lat: float, lon: float):
             "wind_speed_100hPa",
             "wind_speed_70hPa",
             "wind_speed_50hPa",
-            "wind_speed_30hPa",
-            "wind_direction_1000hPa",
+            "wind_speed_30hPa",  # 140
+            "wind_direction_1000hPa",  # 141
             "wind_direction_975hPa",
             "wind_direction_950hPa",
             "wind_direction_925hPa",
@@ -277,8 +278,8 @@ def gather_openmeteo(lat: float, lon: float):
             "wind_direction_100hPa",
             "wind_direction_70hPa",
             "wind_direction_50hPa",
-            "wind_direction_30hPa",
-            "geopotential_height_1000hPa",
+            "wind_direction_30hPa",  # 159
+            "geopotential_height_1000hPa",  # 160
             "geopotential_height_975hPa",
             "geopotential_height_950hPa",
             "geopotential_height_925hPa",
@@ -296,7 +297,7 @@ def gather_openmeteo(lat: float, lon: float):
             "geopotential_height_100hPa",
             "geopotential_height_70hPa",
             "geopotential_height_50hPa",
-            "geopotential_height_30hPa",
+            "geopotential_height_30hPa",  # 178
         ],
     }
     responses = openmeteo.weather_api(url, params=params)
@@ -317,15 +318,72 @@ def correct_openmeteo(data) -> tuple[dict[str, Any], str, str, int]:
     ddate = cur_dt.date().strftime("%Y-%m-%d")
     dtime = cur_dt.time().strftime("%H:%M:%S")
 
+    return data, ddate, dtime, ctime
+
+
+def fill_json_tmrw(
+    data, date, time, utc_epoch, json_file: str = "../docs/_static/json_template.json"
+):
+    current = data.Current()
     # Extract LLA
     lat, lon, alt = data.Latitude(), data.Longitude(), data.Elevation()
 
     # Apply Unit Corrections
+    # kPa -> hPa
+    vapor_pressure = current.Variables(20).Value() * 10
 
-    return data, ddate, dtime, ctime
-    # return
+    # ----- Read / fill JSON template -----
+    openmet_dict = json.load(open(json_file))
+    # Datetime
+    openmet_dict["datetime"]["date"] = date
+    openmet_dict["datetime"]["time"] = time
+    openmet_dict["datetime"]["epoch"] = utc_epoch
+    # Location
+    openmet_dict["location"]["latitutde"] = lat
+    openmet_dict["location"]["longitutde"] = lon
+    openmet_dict["location"]["altitude"] = alt
+    # Clouds
+    openmet_dict["data"]["clouds"]["cover"] = data["data"]["values"]["cloudCover"]
+    # Energy
+    openmet_dict["data"]["energy"]["conv_avail_pot"] = current.Variables(48).Value()
+    openmet_dict["data"]["energy"]["conv_inhibition"] = current.Variables(50).Value()
+    openmet_dict["data"]["energy"]["lifted_index"] = current.Variables(49).Value()
+    openmet_dict["data"]["energy"]["bndry_layer_height"] = current.Variables(52).Value()
+    openmet_dict["data"]["energy"]["geopotential"]["tabulated"]["heights"] = [
+        30,
+        50,
+        70,
+        100,
+        150,
+        200,
+        250,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
+        850,
+        900,
+        925,
+        950,
+        975,
+        1000,
+    ]
+    openmet_dict["data"]["energy"]["geopotential"]["tabulated"]["values"] = [
+        current.Variables(i).Value() for i in range(160, 179)
+    ]
+    # Health
+    openmet_dict["data"]["health"]["uv_index"] = current.Variables(42).Value()
+    # Precipitation
+    openmet_dict["data"]["precip"]["prob"] = current.Variables(4).Value()
+    openmet_dict["data"]["precip"]["rain"]["accumulated"] = current.Variables(6).Value()
 
 
 lat, lon = 15.0, -108.5
 data = gather_openmeteo(lat, lon)
+current = data.Current()
+# Form vector from elements 161 - 179
+
+
 correct_openmeteo(data)

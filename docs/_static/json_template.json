@@ -25,10 +25,12 @@
 			"conv_inhibition": null,
 			"lifted_index": null,
 			"bndry_layer_height": null,
-			"geopotential": null,
-			"tabulated": {
-				"heights": null,
-				"values": null
+			"geopotential": {
+				"single": null,
+				"tabulated": {
+					"heights": null,
+					"values": null
+				}
 			}
 		},
 		"health": {
