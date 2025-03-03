@@ -446,7 +446,9 @@ def fill_openmeteo(
     ] + [current.Variables(i).Value() for i in range(122, 141)]
     openmet_dict["data"]["wind"]["gust"]["heights"] = [10]
     openmet_dict["data"]["wind"]["gust"]["values"] = [current.Variables(29).Value()]
-    openmet_dict["data"]["wind"]["direction"]["heights"] = wind_altitudes_km + altitudes_km
+    openmet_dict["data"]["wind"]["direction"]["heights"] = (
+        wind_altitudes_km + altitudes_km
+    )
     openmet_dict["data"]["wind"]["direction"]["values"] = [
         current.Variables(i).Value() for i in range(25, 29)
     ] + [current.Variables(i).Value() for i in range(141, 160)]
