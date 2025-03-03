@@ -7,8 +7,8 @@ defined as follows:
 ## Clouds
 |             |    |
 |:-----------:|:--:|
-| Cloud cover | %  |
 |  Altitude   | km |
+| Cloud cover | %  |
 
 
 ## Particulates
@@ -22,30 +22,31 @@ defined as follows:
 |:------------------:|:------:|
 |        Rain        |   mm   |
 |        Snow        |   mm   |
-|      Showers       |   mm   |
 |     Intensity      | mm/hr  |
+|      Showers       |   mm   |
+|    Probability     |   %    |
 |     Snow depth     |   m    |
 |  Ice accumulation  |   mm   |
 | Snow accumulation  |   mm   |
-|    Probability     |   %    |
 |  Hail prediction   | binary |
 | Evapotranspiration |   mm   |
 
 ## Pressure
-|                    |        |
-|:------------------:|:------:|
-|     Sea level      |  hPa   |
-|   Surface level    |  hPa   |
+|                        |        |
+|:----------------------:|:------:|
+|       Sea level        |  hPa   |
+|       Surface level    |  hPa   |
+| Vapor pressure deficit |  hPa   |
 
 ## Radiation / Energy
-|                                   |        |
-|:---------------------------------:|:------:|
-|         Diffuse radiation         | W/m^2  |
-|         Direct radiation          | W/m^2  |
-|              Energy               | MJ/m^2 |
-|               CAPE                |  J/kg  |
-|     Global tilted irradiance      | W/m^2  |
-| Global horizontal radiation (GHI) | W/m^2  |
+|                                       |        |
+|:-------------------------------------:|:------:|
+|                Energy                 | MJ/m^2 |
+|           Direct radiation            | W/m^2  |
+|           Diffuse radiation           | W/m^2  |
+|       Global tilted irradiance        | W/m^2  |
+|   Global horizontal radiation (GHI)   | W/m^2  |
+| Convective Available Potential Energy |  J/kg  |
 
 
 ## Soil
@@ -58,10 +59,11 @@ defined as follows:
 ## Temperature
 |          |     |
 |:--------:|:---:|
-| Measured | °C  |
-| Apparent | °C  |
-| Dewpoint | °C  |
 | Humidity | °C  |
+| Dewpoint | °C  |
+| Apparent | °C  |
+| Measured | °C  |
+
 
 ## Visibility
 |          |     |
@@ -79,6 +81,6 @@ defined as follows:
 ## Waves
 |                    |      |
 |:------------------:|:----:|
-| Significant height |  m   |
 |     Direction      |  °   |
 |    Mean period     | sec. |
+| Significant height |  m   |
