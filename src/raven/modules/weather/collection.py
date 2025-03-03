@@ -5,7 +5,7 @@ from retry_requests import retry  # type: ignore
 from raven.modules.weather.open_weather import collect_openwx
 from raven.modules.weather.tomorrow_io import collect_tomorrow
 from raven.modules.weather.open_meteo import gather_openmeteo
-from raven.modules.weather.visual_crossing import collect_viscrs
+from raven.modules.weather.visual_crossing import gather_visualcrossing
 
 
 def collect_weather(lat: float, lon: float) -> list[Collection[str | float | Any]]:
