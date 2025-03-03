@@ -18,7 +18,11 @@
 			"base": null,
 			"ceiling": null,
 			"altitude": null,
-			"cover": null
+			"cover": null,
+			"tabulated": {
+				"heights": null,
+				"values": null
+			}
 		},
 		"energy": {
 			"conv_avail_pot": null,
@@ -86,23 +90,33 @@
 			"vapor_pressure_deficit": null
 		},
 		"radiation": {
-			"diffuse_ghi": null,
-			"diffuse_inst": null,
-			"direct_ghi": null,
-			"direct_inst": null,
 			"cape": null,
-			"glob_tilt_irrad": null,
-			"glob_horz_rad": null,
-			"shortwave_ghi": null,
-			"shortwave_inst": null
+			"convective_inibition": null,
+			"diffuse": null,
+			"direct": null,
+			"global_tilted": null,
+			"global_horizontal": null,
+			"shortwave": null,
+			"terrestrial": null
 		},
 		"soil": {
-			"vol_moisture": null,
-			"temperature": null
+			"moisture": {
+				"tabulated": {
+					"depth": null,
+					"values": null
+				}
+			},
+			"temperature": {
+				"tabulated": {
+					"depth": null,
+					"values": null
+				}
+			}
 		},
 		"sun": {
 			"sunrise": null,
-			"sunset": null
+			"sunset": null,
+			"duration": null
 		},
 		"temperature": {
 			"tabulated": {
@@ -118,9 +132,18 @@
 			"distance": null
 		},
 		"wind": {
-			"speed": null,
-			"gust": null,
-			"direction": null
+			"speed": {
+				"heights": null,
+				"values": null
+			},
+			"gust": {
+				"heights": null,
+				"values": null
+			},
+			"direction": {
+				"heights": null,
+				"values": null
+			}
 		},
 		"waves": {
 			"height": null,
