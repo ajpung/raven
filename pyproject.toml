@@ -34,6 +34,13 @@ dependencies = [
     "openmeteo_requests"
 ]
 
+[tool.semantic_release]
+version_variable = ["src/raven/__init__.py:__version__"]
+branch = "main"
+upload_to_pypi = false
+upload_to_release = true
+build_command = "pip install build && python -m build"
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 packages = ["raven"]
