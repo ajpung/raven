@@ -82,6 +82,7 @@
 			},
 			"sea_level": null,
 			"surface": null,
+			"vapor_pressure": null,
 			"vapor_pressure_deficit": null
 		},
 		"radiation": {

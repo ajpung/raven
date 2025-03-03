@@ -398,6 +398,7 @@ def fill_openmeteo(
     # Pressure
     openmet_dict["data"]["pressure"]["sea_level"] = current.Variables(11).Value()
     openmet_dict["data"]["pressure"]["surface"] = current.Variables(12).Value()
+    openmet_dict["data"]["pressure"]["vapor_pressure"] = vapor_pressure
     openmet_dict["data"]["pressure"]["vapor_pressure_deficit"] = current.Variables(
         20
     ).Value()
@@ -439,15 +440,12 @@ def fill_openmeteo(
     # Visibility
     openmet_dict["data"]["visibility"] = current.Variables(17).Value()
     # Wind
-    # --- Speed
     openmet_dict["data"]["wind"]["speed"]["heights"] = wind_altitudes_km + altitudes_km
     openmet_dict["data"]["wind"]["speed"]["values"] = [
         current.Variables(i).Value() for i in range(21, 30)
     ] + [current.Variables(i).Value() for i in range(122, 141)]
-    # --- Gusts
     openmet_dict["data"]["wind"]["gust"]["heights"] = [10]
     openmet_dict["data"]["wind"]["gust"]["values"] = [current.Variables(29).Value()]
-    # --- Direction
     openmet_dict["data"]["wind"]["speed"]["heights"] = wind_altitudes_km + altitudes_km
     openmet_dict["data"]["wind"]["speed"]["values"] = [
         current.Variables(i).Value() for i in range(25, 29)
