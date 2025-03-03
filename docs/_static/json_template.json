@@ -28,12 +28,7 @@
 			"conv_avail_pot": null,
 			"conv_inhibition": null,
 			"lifted_index": null,
-			"bndry_layer_height": null,
-			"geopotential": null,
-			"tabulated": {
-				"heights": null,
-				"values": null
-			}
+			"bndry_layer_height": null
 		},
 		"health": {
 			"uv_concern": null,
@@ -81,7 +76,7 @@
 			"probability": null
 		},
 		"pressure": {
-			"tabulated": {
+			"geopotential": {
 				"heights": null,
 				"values": null
 			},

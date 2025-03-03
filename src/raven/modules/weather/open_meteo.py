@@ -311,17 +311,20 @@ def correct_openmeteo(data) -> tuple[dict[str, Any], str, str, int]:
     :param data: Weather data from Tomorrow.io API
     :return: Corrected weather data
     """
-    # Convert datetime to epoch using DateTime
+    # Read current data
     current = data.Current()
-    ctime = current.Time()
-    cur_dt = datetime.datetime.fromtimestamp(ctime)
+    # Get time of current data (epoch)
+    utc_epoch = current.Time()
+    # Convert to datetime
+    cur_dt = datetime.datetime.fromtimestamp(utc_epoch)
+    # Create date string
     ddate = cur_dt.date().strftime("%Y-%m-%d")
+    # Create time string
     dtime = cur_dt.time().strftime("%H:%M:%S")
+    return data, ddate, dtime, utc_epoch
 
-    return data, ddate, dtime, ctime
 
-
-def fill_json_tmrw(
+def fill_openmeteo(
     data, date, time, utc_epoch, json_file: str = "../docs/_static/json_template.json"
 ):
     current = data.Current()
@@ -349,6 +352,7 @@ def fill_json_tmrw(
         19.3,
         22,
     ]
+    wind_altitudes_km = [0.01, 0.08, 0.12, 0.18]
     # Apply Unit Corrections
     # kPa -> hPa
     vapor_pressure = current.Variables(20).Value() * 10
@@ -364,7 +368,7 @@ def fill_json_tmrw(
     openmet_dict["location"]["longitutde"] = lon
     openmet_dict["location"]["altitude"] = alt
     # Clouds
-    openmet_dict["data"]["clouds"]["cover"] = data["data"]["values"]["cloudCover"]
+    openmet_dict["data"]["clouds"]["cover"] = current.Variables(13).Value()
     openmet_dict["data"]["clouds"]["tabulated"]["heights"] = altitudes_km
     openmet_dict["data"]["clouds"]["tabulated"]["values"] = [
         current.Variables(i).Value() for i in range(103, 122)
@@ -375,44 +379,32 @@ def fill_json_tmrw(
     openmet_dict["data"]["energy"]["conv_inhibition"] = current.Variables(50).Value()
     openmet_dict["data"]["energy"]["lifted_index"] = current.Variables(49).Value()
     openmet_dict["data"]["energy"]["bndry_layer_height"] = current.Variables(52).Value()
-    openmet_dict["data"]["energy"]["geopotential"]["tabulated"]["heights"] = [
-        30,
-        50,
-        70,
-        100,
-        150,
-        200,
-        250,
-        300,
-        400,
-        500,
-        600,
-        700,
-        800,
-        850,
-        900,
-        925,
-        950,
-        975,
-        1000,
-    ]
-    openmet_dict["data"]["energy"]["geopotential"]["tabulated"]["values"] = [
-        current.Variables(i).Value() for i in range(160, 179)
-    ]
     # Health
     openmet_dict["data"]["health"]["uv_index"] = current.Variables(42).Value()
     # Precipitation
-    openmet_dict["data"]["precip"]["probability"] = current.Variables(4).Value()
-    openmet_dict["data"]["precip"]["rain"]["accumulated"] = current.Variables(6).Value()
-    openmet_dict["data"]["snow"]["intensity"] = current.Variables(8).Value()
-    openmet_dict["data"]["snow"]["accumulated"] = current.Variables(9).Value()
-    openmet_dict["data"]["precip"]["evapotranspiration"] = current.Variables(18).Value()
+    openmet_dict["data"]["precipitation"]["probability"] = current.Variables(4).Value()
+    openmet_dict["data"]["precipitation"]["rain"]["accumulated"] = current.Variables(
+        6
+    ).Value()
+    openmet_dict["data"]["precipitation"]["snow"]["intensity"] = current.Variables(
+        8
+    ).Value()
+    openmet_dict["data"]["precipitation"]["snow"]["accumulated"] = current.Variables(
+        9
+    ).Value()
+    openmet_dict["data"]["precipitation"]["evapotranspiration"] = current.Variables(
+        18
+    ).Value()
     # Pressure
     openmet_dict["data"]["pressure"]["sea_level"] = current.Variables(11).Value()
     openmet_dict["data"]["pressure"]["surface"] = current.Variables(12).Value()
     openmet_dict["data"]["pressure"]["vapor_pressure_deficit"] = current.Variables(
         20
     ).Value()
+    openmet_dict["data"]["pressure"]["geopotential"]["heights"] = altitudes_km
+    openmet_dict["data"]["pressure"]["geopotential"]["values"] = [
+        current.Variables(i).Value() for i in range(160, 179)
+    ]
     # Radiation
     openmet_dict["data"]["radiation"]["cape"] = current.Variables(48).Value()
     openmet_dict["data"]["radiation"]["lifted_index"] = current.Variables(49).Value()
@@ -448,37 +440,33 @@ def fill_json_tmrw(
     openmet_dict["data"]["visibility"] = current.Variables(17).Value()
     # Wind
     # --- Speed
-    openmet_dict["data"]["wind"]["speed"]["tabulated"]["heights"] = [
-        0.01,
-        0.08,
-        0.12,
-        0.18,
-    ] + altitudes_km
-    openmet_dict["data"]["wind"]["speed"]["tabulated"]["values"] = [
+    openmet_dict["data"]["wind"]["speed"]["heights"] = wind_altitudes_km + altitudes_km
+    openmet_dict["data"]["wind"]["speed"]["values"] = [
         current.Variables(i).Value() for i in range(21, 30)
     ] + [current.Variables(i).Value() for i in range(122, 141)]
     # --- Gusts
-    openmet_dict["data"]["wind"]["gust"]["tabulated"]["heights"] = [10]
-    openmet_dict["data"]["wind"]["gust"]["tabulated"]["values"] = [
-        current.Variables(29).Value()
-    ]
+    openmet_dict["data"]["wind"]["gust"]["heights"] = [10]
+    openmet_dict["data"]["wind"]["gust"]["values"] = [current.Variables(29).Value()]
     # --- Direction
-    openmet_dict["data"]["wind"]["speed"]["tabulated"]["heights"] = [
-        0.01,
-        0.08,
-        0.12,
-        0.18,
-    ] + altitudes_km
-    openmet_dict["data"]["wind"]["speed"]["tabulated"]["values"] = [
+    openmet_dict["data"]["wind"]["speed"]["heights"] = wind_altitudes_km + altitudes_km
+    openmet_dict["data"]["wind"]["speed"]["values"] = [
         current.Variables(i).Value() for i in range(25, 29)
     ] + [current.Variables(i).Value() for i in range(141, 160)]
-    # Waves
+    # Return dict
+    return openmet_dict
 
 
-lat, lon = 15.0, -108.5
-data = gather_openmeteo(lat, lon)
-current = data.Current()
-# Form vector from elements 161 - 179
-
-
-correct_openmeteo(data)
+def collect_openmeteo(lat: float, lon: float) -> Dict[str, Any]:
+    """
+    Collects, corrects, and formats weather data from Open-Meteo
+    :param lat: Latitude of the location
+    :param lon: Longitude of the location
+    :return tmrw_dict: Weather data from Open-Meteo API
+    """
+    # Collect data from API
+    data = gather_openmeteo(lat, lon)
+    # Correct data
+    data, date, time, utc_epoch = correct_openmeteo(data)
+    # Fill JSON template
+    openmeteo_dict = fill_openmeteo(data, date, time, utc_epoch)
+    return openmeteo_dict

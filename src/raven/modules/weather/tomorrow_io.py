@@ -164,7 +164,7 @@ def correct_tomorrow(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, in
     return data, date, time, utc_epoch
 
 
-def fill_json_tmrw(
+def fill_tomorrow(
     data, date, time, utc_epoch, json_file: str = "../docs/_static/json_template.json"
 ):
     """
@@ -253,5 +253,5 @@ def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:
     # Correct data
     data, date, time, utc_epoch = correct_tomorrow(data)
     # Fill JSON template
-    tmrw_dict = fill_json_tmrw(data, date, time, utc_epoch)
+    tmrw_dict = fill_tomorrow(data, date, time, utc_epoch)
     return tmrw_dict
