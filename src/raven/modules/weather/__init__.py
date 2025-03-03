@@ -10,6 +10,7 @@ from .tomorrow_io import (
     fill_tomorrow,
     collect_tomorrow,
 )
+from .visual_crossing import gather_visualcrossing
 
 __all__ = [
     "gather_tomorrow",
@@ -20,4 +21,5 @@ __all__ = [
     "correct_openmeteo",
     "fill_openmeteo",
     "collect_openmeteo",
+    "gather_visualcrossing",
 ]
