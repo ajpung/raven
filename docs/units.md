@@ -57,12 +57,12 @@ defined as follows:
 
 
 ## Temperature
-|          |     |
-|:--------:|:---:|
-| Humidity | °C  |
-| Dewpoint | °C  |
-| Apparent | °C  |
-| Measured | °C  |
+|                 |     |
+|:--------------:|:---:|
+|  Rel. Humidity  |  %  |
+|    Dewpoint     | °C  |
+|    Apparent     | °C  |
+|    Measured     | °C  |
 
 
 ## Visibility
