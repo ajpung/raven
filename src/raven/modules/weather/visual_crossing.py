@@ -1,5 +1,5 @@
 from typing import Dict, Any, cast
-
+import json
 import openmeteo_requests  # type: ignore
 import requests
 from retry_requests import retry  # type: ignore
@@ -8,144 +8,40 @@ from raven.core.api_base import collect_keys
 
 """
 'queryCost': 1
-'latitude': 38.422508
-'longitude': -85.797633
-'resolvedAddress': '38.422508,-85.797633'
-'address': '38.422508,-85.797633'
-'timezone': 'America/Kentucky/Louisville'
-'tzoffset': -5.0
-'days': {
-    'datetime': '2025-03-03'
-    'datetimeEpoch': 1740978000
-    'tempmax': 13.3
-    'tempmin': -3.1
-    'temp': 4.0
-    'feelslikemax': 13.3
-    'feelslikemin': -5.8
-    'feelslike': 3.0
-    'dew': -8.6
-    'humidity': 42.4
-    'precip': 0.0
-    'precipprob': 1.0
-    'precipcover': 0.0
-    'preciptype': None
-    'snow': 0.0
-    'snowdepth': 0.0
-    'windgust': 27.7
-    'windspeed': 15.2
-    'winddir': 152.7
-    'pressure': 1022.2
-    'cloudcover': 21.9
-    'visibility': 16.1
-    'solarradiation': 173.3
-    'solarenergy': 15.1
-    'uvindex': 6.0
-    'severerisk': 10.0
-    'sunrise': '07:11:51'
-    'sunriseEpoch': 1741003911
-    'sunset': '18:38:50'
-    'sunsetEpoch': 1741045130
-    'moonphase': 0.13
-    'conditions': 'Partially cloudy'
-    'description': 'Becoming cloudy in the afternoon.'
-    'icon': 'partly-cloudy-day'
-    'stations': ['KFTK', 'KLOU', 'AU953', 'KSDF']
-    'source': 'comb'}
-'stations': {
-    'KFTK': {
-        'distance': 60090.0
-        'latitude': 37.9
-        'longitude': -85.97
-        'useCount': 0
-        'id': 'KFTK'
-        'name': 'KFTK'
-        'quality': 97
-        'contribution': 0.0}
-    'KJVY': {
-        'distance': 8106.0
-        'latitude': 38.367
-        'longitude': -85.738
-        'useCount': 0
-        'id': 'KJVY'
-        'name': 'Clark Regional Airport IN US NWS/FAA'
-        'quality': 0
-        'contribution': 0.0}
-    'E0284': {
-        'distance': 12046.0
-        'latitude': 38.332
-        'longitude': -85.873
-        'useCount': 0
-        'id': 'E0284'
-        'name': 'EW0284 Floyds Knobs IN US'
-        'quality': 0
-        'contribution': 0.0}
-    'KLOU': {
-        'distance': 25148.0
-        'latitude': 38.22
-        'longitude': -85.67
-        'useCount': 0
-        'id': 'KLOU'
-        'name': 'KLOU'
-        'quality': 100
-        'contribution': 0.0}
-    'AU953': {
-        'distance': 12718.0
-        'latitude': 38.311
-        'longitude': -85.83
-        'useCount': 0
-        'id': 'AU953'
-        'name': 'N9OKI New Albany IN US'
-        'quality': 0
-        'contribution': 0.0}
-    'KSDF': {
-        'distance': 27635.0
-        'latitude': 38.18
-        'longitude': -85.73
-        'useCount': 0
-        'id': 'KSDF'
-        'name': 'KSDF'
-        'quality': 100
-        'contribution': 0.0}
-    'IN018': {
-        'distance': 17654.0
-        'latitude': 38.269
-        'longitude': -85.746
-        'useCount': 0
-        'id': 'IN018'
-        'name': 'Jeffersonville IN US INDOT'
-        'quality': 0
-        'contribution': 0.0}
-    }
+'latitude':  degrees
+'longitude': degrees
+'resolvedAddress': degrees, degrees
+'address': degrees, degrees
+'timezone': Country/State/City
+'tzoffset': hours
 'currentConditions': {
-    'datetime': '17:15:00'
-    'datetimeEpoch': 1741040100
-    'temp': 12.6
-    'feelslike': 12.6
-    'humidity': 21.9
-    'dew': -8.7
-    'precip': 0.0
-    'precipprob': 0.0
-    'snow': 0.0
-    'snowdepth': 0.0
+    'datetime': HH:MM:SS
+    'datetimeEpoch': seconds
+    'temp': C
+    'feelslike': C
+    'humidity': %
+    'dew': C
+    'precip': mm
+    'precipprob': %
+    'snow': cm
+    'snowdepth': cm
     'preciptype': None
-    'windgust': 12.7
-    'windspeed': 10.1
-    'winddir': 168.0
-    'pressure': 1002.0
-    'visibility': 16.0
-    'cloudcover': 0.0
-    'solarradiation': 141.0
-    'solarenergy': 0.5
+    'windgust': km/h
+    'windspeed': km/h
+    'winddir': degrees
+    'pressure': hPa
+    'visibility': km
+    'cloudcover': %
+    'solarradiation': W/m2
+    'solarenergy': MJ/m2
     'uvindex': 1.0
     'conditions': 'Clear'
     'icon': 'clear-day'
-    'stations': ['KJVY', 'E0284', 'IN018']
-    'source': 'obs'
-    'sunrise': '07:11:51'
-    'sunriseEpoch': 1741003911
-    'sunset': '18:38:50'
-    'sunsetEpoch': 1741045130
-    'moonphase': 0.13}
+    'sunrise': HH:MM:SS
+    'sunriseEpoch': seconds
+    'sunset': HH:MM:SS
+    'sunsetEpoch': seconds
+    'moonphase': normalized fraction}
 }
 """
 
@@ -163,13 +59,75 @@ def gather_visualcrossing(lat: float, lon: float) -> Dict[str, Any]:
     apikey = my_keys["Weather"]["visual-crossing"]
     # Parameters for the request
     params = {
-        "unitGroup": "metric",  # or 'us' for imperial units
+        "contentType": "json",
+        "elements": "datetime,temp,humidity,dew,precip,snow,snowdepth,windgust,windspeed,winddir,pressure,visibility,cloudcover,solarradiation,solarenergy,uvindex,conditions,icon,sunrise,sunset,moonphase,cape,cin",
         "include": "current",
         "key": apikey,
-        "contentType": "json",
+        "maxStations": 0,
+        "source": "stats",
+        "timezone": "Z",
+        "unitGroup": "metric",
     }
     response = requests.get(url, params=params)
     return cast(Dict[str, Any], response.json())
 
 
-# def correct_visualcrossing(lat: float, lon: float) -> Dict[str, Any]:
+def correct_visualcrossing(
+    data: Dict[str, Any],
+) -> tuple[dict[str, Any], str, str, int]:
+    """
+    Corrects the data from Visual Crossing (units, date/time)
+    :param data: Weather data from Visual Crossing API
+    :return: Corrected weather data
+    """
+    # Apply Unit Corrections
+    #   (snow mm->cm)
+    data["currentConditions"]["snow"] *= 10
+    #   (snow depth cm->m)
+    data["currentConditions"]["snowdepth"] /= 10
+
+    # Convert epoch to date and time strings
+    from datetime import datetime
+
+    dt = datetime.fromtimestamp(data["currentConditions"]["datetimeEpoch"])
+    date = dt.strftime("%Y-%m-%d")
+    time = dt.strftime("%H:%M:%S")
+    utc_epoch = data["currentConditions"]["datetimeEpoch"]
+    return data, date, time, utc_epoch
+
+
+def fill_visualcrossing(
+    data, date, time, utc_epoch, json_file: str = "../docs/_static/json_template.json"
+):
+    """
+    Fills the JSON template with the data from Visual Crossing
+    :param data: Weather data from Visual Crossing API
+    :param date: Date in API request
+    :param time: Time in API request
+    :param utc_epoch: Epoch time in API request
+    :param json_file: JSON template file
+    :return: JSON template filled with data from Tomorrow.io
+    """
+    # ----- Read / fill JSON template -----
+    viscross_dict = json.load(open(json_file))
+    # Datetime
+    viscross_dict["datetime"]["date"] = date
+    viscross_dict["datetime"]["time"] = time
+    viscross_dict["datetime"]["epoch"] = utc_epoch
+    # Location
+    viscross_dict["location"]["latitude"] = data["currentConditions"]["latitude"]
+    viscross_dict["location"]["longitude"] = data["currentConditions"]["longitude"]
+    # Clouds
+    viscross_dict["data"]["clouds"]["cover"] = data["currentConditions"]["cloudcover"]
+    # Energy
+    if data["currentConditions"]["cape"] == None:
+        data["currentConditions"]["cape"] = 0
+    if data["currentConditions"]["cin"] == None:
+        data["currentConditions"]["cin"] = 0
+    viscross_dict["data"]["energy"]["conv_avail_pot"] = data["currentConditions"][
+        "cape"
+    ]
+    viscross_dict["data"]["energy"]["conv_inhibition"] = data["currentConditions"][
+        "cin"
+    ]
+    return
