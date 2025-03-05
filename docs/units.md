@@ -41,12 +41,13 @@ defined as follows:
 ## Radiation / Energy
 |                                       |        |
 |:-------------------------------------:|:------:|
-|                Energy                 | MJ/m^2 |
 |           Direct radiation            | W/m^2  |
 |           Diffuse radiation           | W/m^2  |
+|         Convective Inhibition         |  J/kg  |
 |       Global tilted irradiance        | W/m^2  |
 |   Global horizontal radiation (GHI)   | W/m^2  |
 | Convective Available Potential Energy |  J/kg  |
+
 
 
 ## Soil

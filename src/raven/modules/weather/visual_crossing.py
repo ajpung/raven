@@ -41,7 +41,7 @@ from raven.core.api_base import collect_keys
     'sunriseEpoch': seconds
     'sunset': HH:MM:SS
     'sunsetEpoch': seconds
-    'moonphase': normalized fraction}
+    'moonphase': normalized fraction
 }
 """
 
@@ -60,7 +60,7 @@ def gather_visualcrossing(lat: float, lon: float) -> Dict[str, Any]:
     # Parameters for the request
     params = {
         "contentType": "json",
-        "elements": "datetime,temp,humidity,dew,precip,snow,snowdepth,windgust,windspeed,winddir,pressure,visibility,cloudcover,solarradiation,solarenergy,uvindex,conditions,icon,sunrise,sunset,moonphase,cape,cin",
+        "elements": "datetime,datetimeEpoch,temp,humidity,dew,precip,snow,snowdepth,windgust,windspeed,winddir,pressure,visibility,cloudcover,solarradiation,solarenergy,uvindex,conditions,icon,sunriseEpoch,sunsetEpoch,moonriseEpoch,moonsetEpoch,moonphase,cape,cin",
         "include": "current",
         "key": apikey,
         "maxStations": 0,
@@ -120,14 +120,69 @@ def fill_visualcrossing(
     # Clouds
     viscross_dict["data"]["clouds"]["cover"] = data["currentConditions"]["cloudcover"]
     # Energy
-    if data["currentConditions"]["cape"] == None:
-        data["currentConditions"]["cape"] = 0
-    if data["currentConditions"]["cin"] == None:
-        data["currentConditions"]["cin"] = 0
     viscross_dict["data"]["energy"]["conv_avail_pot"] = data["currentConditions"][
         "cape"
     ]
     viscross_dict["data"]["energy"]["conv_inhibition"] = data["currentConditions"][
         "cin"
     ]
-    return
+    # Health
+    viscross_dict["data"]["health"]["uvindex"] = data["currentConditions"]["uvindex"]
+    # Moon
+    viscross_dict["data"]["moon"]["phase"] = data["currentConditions"]["moonphase"]
+    viscross_dict["data"]["moon"]["moonrise"] = data["currentConditions"][
+        "moonriseEpoch"
+    ]
+    viscross_dict["data"]["moon"]["moonset"] = data["currentConditions"]["moonsetEpoch"]
+    # Precipitation
+    viscross_dict["data"]["precipitation"]["rain"] = data["currentConditions"]["precip"]
+    viscross_dict["data"]["precipitation"]["probability"] = data["currentConditions"][
+        "precipprob"
+    ]
+    # Snow
+    viscross_dict["data"]["snow"]["intensity"] = data["currentConditions"]["snow"]
+    viscross_dict["data"]["snow"]["accumulated"] = data["currentConditions"][
+        "snowdepth"
+    ]
+    # Pressure
+    viscross_dict["data"]["pressure"]["sea_level"] = data["currentConditions"][
+        "pressure"
+    ]
+    # Radiation
+    viscross_dict["data"]["radiation"]["cape"] = data["currentConditions"]["cape"]
+    viscross_dict["data"]["radiation"]["convective_inhibition"] = data[
+        "currentConditions"
+    ]["cin"]
+    viscross_dict["data"]["radiation"]["direct"] = data["currentConditions"][
+        "solarradiation"
+    ]
+    # Sun
+    viscross_dict["data"]["sun"]["sunrise"] = data["currentConditions"]["sunriseEpoch"]
+    viscross_dict["data"]["sun"]["sunset"] = data["currentConditions"]["sunsetEpoch"]
+    # Temperature
+    viscross_dict["data"]["temperature"]["measured"] = data["currentConditions"]["temp"]
+    viscross_dict["data"]["temperature"]["apparent"] = data["currentConditions"][
+        "feelslike"
+    ]
+    viscross_dict["data"]["temperature"]["dewpoint"] = data["currentConditions"]["dew"]
+    viscross_dict["data"]["temperature"]["humidity"] = data["currentConditions"][
+        "humidity"
+    ]
+    # Visibility
+    viscross_dict["data"]["visibility"]["distance"] = data["currentConditions"][
+        "visibility"
+    ]
+    # Wind
+    viscross_dict["data"]["wind"]["speed"]["heights"] = [0]
+    viscross_dict["data"]["wind"]["speed"]["values"] = [
+        data["currentConditions"]["windspeed"]
+    ]
+    viscross_dict["data"]["wind"]["gust"]["heights"] = [0]
+    viscross_dict["data"]["wind"]["gust"]["values"] = [
+        data["currentConditions"]["windgust"]
+    ]
+    viscross_dict["data"]["wind"]["direction"]["heights"] = [0]
+    viscross_dict["data"]["wind"]["direction"]["values"] = [
+        data["currentConditions"]["winddir"]
+    ]
+    return viscross_dict
