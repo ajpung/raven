@@ -87,7 +87,7 @@
 		},
 		"radiation": {
 			"cape": null,
-			"convective_inibition": null,
+			"convective_inhibition": null,
 			"diffuse": null,
 			"direct": null,
 			"global_tilted": null,
