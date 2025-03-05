@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.0 (2025-03-05)
+
+### Features
+
+- Visual Crossing now added to weather API list
+  ([`843e31e`](https://github.com/ajpung/raven/commit/843e31ea32b8e0e5e8d08a9c758ffccc927c9795))
+
+
 ## v0.1.0 (2025-03-04)
 
 ### Bug Fixes
