@@ -2,7 +2,6 @@ from typing import Any, Collection
 import openmeteo_requests  # type: ignore
 from retry_requests import retry  # type: ignore
 
-from raven.modules.weather.open_weather import collect_openwx
 from raven.modules.weather.tomorrow_io import collect_tomorrow
 from raven.modules.weather.open_meteo import gather_openmeteo
 from raven.modules.weather.visual_crossing import gather_visualcrossing
@@ -18,6 +17,5 @@ def collect_weather(lat: float, lon: float) -> list[Collection[str | float | Any
     """
     # Call appropriate provider
     wx_data0 = collect_tomorrow(lat, lon)
-    wx_data1 = collect_openwx(lat, lon)
     wx_data2 = gather_openmeteo(lat, lon)
-    return [wx_data0, wx_data1, wx_data2]
+    return [wx_data0, wx_data2]

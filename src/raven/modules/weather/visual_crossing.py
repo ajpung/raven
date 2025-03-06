@@ -186,3 +186,19 @@ def fill_visualcrossing(
         data["currentConditions"]["winddir"]
     ]
     return viscross_dict
+
+
+def collect_visualcrossing(lat: float, lon: float) -> Dict[str, Any]:
+    """
+    Collects, corrects, and formats weather data from Visual Crossing
+    :param lat: Latitude of the location
+    :param lon: Longitude of the location
+    :return tmrw_dict: Weather data from Visual Crossing API
+    """
+    # Collect data from API
+    data = gather_visualcrossing(lat, lon)
+    # Correct data
+    data, date, time, utc_epoch = correct_visualcrossing(data)
+    # Fill JSON template
+    vscrs_dict = fill_visualcrossing(data, date, time, utc_epoch)
+    return vscrs_dict
