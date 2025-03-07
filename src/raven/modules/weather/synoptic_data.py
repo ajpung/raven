@@ -8,16 +8,45 @@ from raven.core.api_base import collect_keys
 from retry_requests import retry  # type: ignore
 
 """
-Units taken from Units taken from https://docs.synopticdata.com/services/latest
+Units taken from Units taken from https://demos.synopticdata.com/variables/index.html
 
+^^^None^^^
+latitude: deg
+longitude: deg
+resolvedAddress: deg, deg
+address: deg, deg
 
+timezone: Z
+tzoffset: 0.0
 
-
+^^^currentConditions^^^
+datetime: HH:MM:SS
+temp: C
+humidity: %
+dew: C
+precip: mm
+snow: mm
+snowdepth: mm
+windgust: km/hr
+windspeed: km/hr
+winddir: deg
+pressure: mb
+visibility: statute miles (-0.25 means < 0.25 miles)
+cloudcover: %
+solarradiation: W/m^2
+solarenergy: ?
+uvindex: -
+cape: ?
+cin: ?
+conditions: 'Partially cloudy'
+sunrise: HH:MM:SS
+sunset: HH:MM:SS
+moonphase: Fraction
 """
 
 
 def gather_synoptic(
-    lat: float, lon: float, radius_mi: float = 10, Nstations: int = 5
+    lat: float, lon: float, radius_mi: float = 10, n_stations: int = 5
 ) -> Dict[str, Any]:
     """
     Collects weather data from Synoptic Data
@@ -37,7 +66,7 @@ def gather_synoptic(
     api_arguments = {
         "token": apikey,
         "radius": f"{lat},{lon},{radius_mi}",
-        "limit": Nstations,
+        "limit": n_stations,
         "units": "metric,temp|C,speed|kph,pres|mb,height|m,precip|mm,alti|pa",
     }
     req = requests.get(api_request_url, params=api_arguments)
