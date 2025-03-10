@@ -1,8 +1,9 @@
 from typing import Dict, Any, cast
 import json
+from pandas import DataFrame
 import openmeteo_requests  # type: ignore
 import requests
-from retry_requests import retry  # type: ignore
+from retry_requests import retry
 
 from raven.core.api_base import collect_keys
 
@@ -97,8 +98,12 @@ def correct_visualcrossing(
 
 
 def fill_visualcrossing(
-    data, date, time, utc_epoch, json_file: str = "../docs/_static/json_template.json"
-):
+    data: dict[str, Any],
+    date: str,
+    time: str,
+    utc_epoch: int,
+    json_file: str = "../docs/_static/json_template.json",
+) -> dict[str, Any]:
     """
     Fills the JSON template with the data from Visual Crossing
     :param data: Weather data from Visual Crossing API
@@ -185,10 +190,10 @@ def fill_visualcrossing(
     viscross_dict["data"]["wind"]["direction"]["values"] = [
         data["currentConditions"]["winddir"]
     ]
-    return viscross_dict
+    return viscross_dict  # type: ignore
 
 
-def collect_visualcrossing(lat: float, lon: float) -> Dict[str, Any]:
+def collect_visualcrossing(lat: float, lon: float) -> Dict:
     """
     Collects, corrects, and formats weather data from Visual Crossing
     :param lat: Latitude of the location
