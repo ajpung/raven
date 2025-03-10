@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.3 (2025-03-10)
+
+### Bug Fixes
+
+- Trying to fix version numbering
+  ([`f8fd03e`](https://github.com/ajpung/raven/commit/f8fd03e427dc32a4d1ea9ba63c2b46b3f08f5e68))
+
+
 ## v0.2.2 (2025-03-10)
 
 ### Bug Fixes
