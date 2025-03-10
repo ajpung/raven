@@ -1,6 +1,24 @@
 # CHANGELOG
 
 
+## v0.2.1 (2025-03-10)
+
+### Bug Fixes
+
+- Trying to figure out synoptic failure; adding auto-release update
+  ([`d41c242`](https://github.com/ajpung/raven/commit/d41c24289b61b6e275f1535cc0da9471db15836a))
+
+### Chores
+
+- Standing up synoptic weather API
+  ([`a51cb4b`](https://github.com/ajpung/raven/commit/a51cb4b1c654aef1da44f59029c91f9d7363b475))
+
+### Documentation
+
+- Updating / finding units on website, adding to docstrings
+  ([`2f6521f`](https://github.com/ajpung/raven/commit/2f6521f339f0fae8df9eb0a912e7f43d45e010f6))
+
+
 ## v0.2.0 (2025-03-05)
 
 ### Features
