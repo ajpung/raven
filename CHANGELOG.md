@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v0.2.2 (2025-03-10)
+
+### Bug Fixes
+
+- Fixing file formats
+  ([`bbc4c69`](https://github.com/ajpung/raven/commit/bbc4c6930a8cdc7f53d6ed87025a435396135013))
+
+- Updating pytests
+  ([`b5b91cc`](https://github.com/ajpung/raven/commit/b5b91cc482cea38df628e57ff92fad25322837cc))
+
+
 ## v0.2.1 (2025-03-10)
 
 ### Bug Fixes
