@@ -1,6 +1,5 @@
 import datetime
-import json
-from typing import Dict, Any, cast
+from typing import Dict, Any
 
 import openmeteo_requests  # type: ignore
 import requests
@@ -15,7 +14,6 @@ latitude: deg
 longitude: deg
 resolvedAddress: deg, deg
 address: deg, deg
-
 timezone: Z
 tzoffset: 0.0
 
@@ -61,14 +59,48 @@ def gather_synoptic(
     # Build the API URL
     import os
 
+    # API_ROOT = "https://api.synopticdata.com/v2/"
+    # api_request_url = os.path.join(API_ROOT, "stations/latest")
+    # api_arguments = {"token": apikey, "stid": "KLAX"}
+    # req = requests.get(api_request_url, params=api_arguments)
+    # data = req.json()
+
     API_ROOT = "https://api.synopticdata.com/v2/"
     api_request_url = os.path.join(API_ROOT, "stations/latest")
     api_arguments = {
         "token": apikey,
         "radius": f"{lat},{lon},{radius_mi}",
-        "limit": n_stations,
         "units": "metric,temp|C,speed|kph,pres|mb,height|m,precip|mm,alti|pa",
     }
     req = requests.get(api_request_url, params=api_arguments)
     data = req.json()
     return data
+
+
+def correct_synoptic(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, int]:
+    """
+    Corrects the data from Synoptic (units, date/time)
+    :param data: Weather data from Synoptic API
+    :return: Corrected weather data
+    """
+    # Apply Unit Corrections
+    # (snow)
+
+    # (visibility) statute miles > km
+
+    # Convert datetime to epoch using DateTime
+    time_format = "%Y-%m-%dT%H:%M:%SZ"
+    date = (
+        datetime.datetime.strptime(data["data"]["time"], time_format)
+        .date()
+        .strftime("%Y-%m-%d")
+    )
+    time = (
+        datetime.datetime.strptime(data["data"]["time"], time_format)
+        .time()
+        .strftime("%H:%M:%S")
+    )
+    utc_epoch = int(
+        datetime.datetime.strptime(data["data"]["time"], time_format).timestamp()
+    )
+    return data, date, time, utc_epoch

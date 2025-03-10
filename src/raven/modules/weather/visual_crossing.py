@@ -141,31 +141,31 @@ def fill_visualcrossing(
     ]
     # Snow
     viscross_dict["data"]["snow"]["intensity"] = data["currentConditions"]["snow"]
-    viscross_dict["data"]["snow"]["accumulated"] = data["currentConditions"][
+    viscross_dict["data"]["snow"]["accumulated"] = data["historicalWeather"][
         "snowdepth"
     ]
     # Pressure
-    viscross_dict["data"]["pressure"]["sea_level"] = data["currentConditions"][
+    viscross_dict["data"]["pressure"]["sea_level"] = data["historicalWeather"][
         "pressure"
     ]
     # Radiation
-    viscross_dict["data"]["radiation"]["cape"] = data["currentConditions"]["cape"]
+    viscross_dict["data"]["radiation"]["cape"] = data["historicalWeather"]["cape"]
     viscross_dict["data"]["radiation"]["convective_inhibition"] = data[
-        "currentConditions"
+        "historicalWeather"
     ]["cin"]
-    viscross_dict["data"]["radiation"]["direct"] = data["currentConditions"][
+    viscross_dict["data"]["radiation"]["direct"] = data["historicalWeather"][
         "solarradiation"
     ]
     # Sun
-    viscross_dict["data"]["sun"]["sunrise"] = data["currentConditions"]["sunriseEpoch"]
-    viscross_dict["data"]["sun"]["sunset"] = data["currentConditions"]["sunsetEpoch"]
+    viscross_dict["data"]["sun"]["sunrise"] = data["historicalWeather"]["sunriseEpoch"]
+    viscross_dict["data"]["sun"]["sunset"] = data["historicalWeather"]["sunsetEpoch"]
     # Temperature
-    viscross_dict["data"]["temperature"]["measured"] = data["currentConditions"]["temp"]
-    viscross_dict["data"]["temperature"]["apparent"] = data["currentConditions"][
+    viscross_dict["data"]["temperature"]["measured"] = data["historicalWeather"]["temp"]
+    viscross_dict["data"]["temperature"]["apparent"] = data["historicalWeather"][
         "feelslike"
     ]
-    viscross_dict["data"]["temperature"]["dewpoint"] = data["currentConditions"]["dew"]
-    viscross_dict["data"]["temperature"]["humidity"] = data["currentConditions"][
+    viscross_dict["data"]["temperature"]["dewpoint"] = data["historicalWeather"]["dew"]
+    viscross_dict["data"]["temperature"]["humidity"] = data["historicalWeather"][
         "humidity"
     ]
     # Visibility
