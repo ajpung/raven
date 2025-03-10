@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.4 (2025-03-10)
+
+### Bug Fixes
+
+- Trying version again
+  ([`1e92d81`](https://github.com/ajpung/raven/commit/1e92d815ab4f2242841810461c4591de4be4b498))
+
+
 ## v0.2.3 (2025-03-10)
 
 ### Bug Fixes
