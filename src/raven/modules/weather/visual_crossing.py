@@ -200,7 +200,8 @@ def collect_visualcrossing(lat: float, lon: float) -> Dict:
     :param lon: Longitude of the location
     :return tmrw_dict: Weather data from Visual Crossing API
     """
-    # Collect data from API
+
+    # Collect data from VC API
     data = gather_visualcrossing(lat, lon)
     # Correct data
     data, date, time, utc_epoch = correct_visualcrossing(data)
