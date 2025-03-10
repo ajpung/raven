@@ -4,7 +4,7 @@ from typing import Dict, Any
 import openmeteo_requests  # type: ignore
 import requests
 from raven.core.api_base import collect_keys
-from retry_requests import retry  # type: ignore
+from retry_requests import retry
 
 """
 Units taken from Units taken from https://demos.synopticdata.com/variables/index.html
@@ -43,12 +43,9 @@ moonphase: Fraction
 """
 
 
-def gather_synoptic(
-    lat: float, lon: float, radius_mi: float = 10, n_stations: int = 5
-) -> Dict[str, Any]:
+def gather_synoptic(lat: float, lon: float, radius_mi: float = 10) -> Dict:
     """
     Collects weather data from Synoptic Data
-
     :param lat: Latitude of the location
     :param lon: Longitude of the location
     :return data: Weather data from Synoptic Data API
@@ -59,22 +56,17 @@ def gather_synoptic(
     # Build the API URL
     import os
 
-    # API_ROOT = "https://api.synopticdata.com/v2/"
-    # api_request_url = os.path.join(API_ROOT, "stations/latest")
-    # api_arguments = {"token": apikey, "stid": "KLAX"}
-    # req = requests.get(api_request_url, params=api_arguments)
-    # data = req.json()
-
     API_ROOT = "https://api.synopticdata.com/v2/"
     api_request_url = os.path.join(API_ROOT, "stations/latest")
     api_arguments = {
         "token": apikey,
         "radius": f"{lat},{lon},{radius_mi}",
+        "limit": 5,
         "units": "metric,temp|C,speed|kph,pres|mb,height|m,precip|mm,alti|pa",
     }
     req = requests.get(api_request_url, params=api_arguments)
     data = req.json()
-    return data
+    return data  # type: ignore
 
 
 def correct_synoptic(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, int]:

@@ -5,7 +5,8 @@ from typing import Dict, Any, cast
 import openmeteo_requests  # type: ignore
 import requests
 from raven.core.api_base import collect_keys
-from retry_requests import retry  # type: ignore
+from pandas import DataFrame
+from retry_requests import retry
 
 """
 Units taken from https://docs.tomorrow.io/reference/weather-data-layers#field-descriptors
@@ -165,8 +166,12 @@ def correct_tomorrow(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, in
 
 
 def fill_tomorrow(
-    data, date, time, utc_epoch, json_file: str = "../docs/_static/json_template.json"
-):
+    data: dict[str, Any],
+    date: str,
+    time: str,
+    utc_epoch: int,
+    json_file: str = "../docs/_static/json_template.json",
+) -> dict:
     """
     Fills the JSON template with the data from Tomorrow.io
     :param data: Weather data from Tomorrow.io API
@@ -238,7 +243,7 @@ def fill_tomorrow(
     tmrw_dict["data"]["wind"]["direction"] = data["data"]["values"]["windDirection"]
     tmrw_dict["data"]["wind"]["gust"] = data["data"]["values"]["windGust"]
     tmrw_dict["data"]["wind"]["speed"] = data["data"]["values"]["windSpeed"]
-    return tmrw_dict
+    return tmrw_dict  # type: ignore
 
 
 def collect_tomorrow(lat: float, lon: float) -> Dict[str, Any]:

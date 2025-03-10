@@ -1,6 +1,6 @@
 from typing import Any, Collection
 import openmeteo_requests  # type: ignore
-from retry_requests import retry  # type: ignore
+from retry_requests import retry
 
 from raven.modules.weather.tomorrow_io import collect_tomorrow
 from raven.modules.weather.open_meteo import gather_openmeteo

@@ -4,7 +4,7 @@ from raven.core.date_time import correct_timezone
 from raven.core.date_time import datetime_to_epoch
 
 
-def test_dt_convert():
+def test_dt_convert() -> None:
     date_string = "February 26, 2025, 12:00 PM"
     datetime_object = correct_timezone(date_string)
     assert datetime_object.tzinfo == datetime.timezone.utc
@@ -25,7 +25,7 @@ def test_dt_convert():
     )
 
 
-def test_calculate_utc():
+def test_calculate_utc() -> None:
     date_string = "February 26, 2025, 12:00 PM"
     datetime_object = correct_timezone(date_string)
     datetime_epoch = datetime_to_epoch(datetime_object)

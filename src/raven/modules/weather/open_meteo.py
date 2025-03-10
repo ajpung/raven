@@ -5,7 +5,7 @@ import openmeteo_requests  # type: ignore
 import pandas as pd
 from typing import Dict, Any, cast
 import requests_cache
-from retry_requests import retry  # type: ignore
+from retry_requests import retry
 from pandas import DataFrame
 
 """
@@ -103,7 +103,7 @@ Gusts: km/h
 """
 
 
-def gather_openmeteo(lat: float, lon: float):
+def gather_openmeteo(lat: float, lon: float) -> DataFrame:
     # NOTE:
     #   - Current conditions are based on 15-minutely weather model data
     #   - Every weather variable available in hourly data is available as current condition as well!
@@ -302,34 +302,38 @@ def gather_openmeteo(lat: float, lon: float):
     }
     responses = openmeteo.weather_api(url, params=params)
     response = responses[0]
-    return response
+    return response  # type: ignore
 
 
-def correct_openmeteo(data) -> tuple[dict[str, Any], str, str, int]:
+def correct_openmeteo(data: dict[str, Any]) -> tuple[dict[str, Any], str, str, Any]:
     """
     Corrects the data from Tomorrow.io (units, date/time)
     :param data: Weather data from Tomorrow.io API
     :return: Corrected weather data
     """
     # Read current data
-    current = data.Current()
+    current = data.Current()  # type: ignore
     # Get time of current data (epoch)
-    utc_epoch = current.Time()
+    utc_epoch = current.Time
     # Convert to datetime
     cur_dt = datetime.datetime.fromtimestamp(utc_epoch)
     # Create date string
-    ddate = cur_dt.date().strftime("%Y-%m-%d")
+    ddate = str(cur_dt.date.strftime("%Y-%m-%d"))  # type: ignore
     # Create time string
-    dtime = cur_dt.time().strftime("%H:%M:%S")
+    dtime = str(cur_dt.time.strftime("%H:%M:%S"))  # type: ignore
     return data, ddate, dtime, utc_epoch
 
 
 def fill_openmeteo(
-    data, date, time, utc_epoch, json_file: str = "../docs/_static/json_template.json"
-):
-    current = data.Current()
+    data: DataFrame,
+    date: str,
+    time: str,
+    utc_epoch: int,
+    json_file: str = "../docs/_static/json_template.json",
+) -> dict[str, Any]:
+    current = data.Current
     # Extract LLA
-    lat, lon, alt = data.Latitude(), data.Longitude(), data.Elevation()
+    lat, lon, alt = data.Latitude, data.Longitude, data.Elevation
     # Vertical altitudes
     altitudes_km = [
         0.1,
@@ -453,10 +457,10 @@ def fill_openmeteo(
         current.Variables(i).Value() for i in range(25, 29)
     ] + [current.Variables(i).Value() for i in range(141, 160)]
     # Return dict
-    return openmet_dict
+    return openmet_dict  # type: ignore
 
 
-def collect_openmeteo(lat: float, lon: float) -> Dict[str, Any]:
+def collect_openmeteo(lat: float, lon: float) -> Dict:
     """
     Collects, corrects, and formats weather data from Open-Meteo
     :param lat: Latitude of the location
@@ -466,7 +470,7 @@ def collect_openmeteo(lat: float, lon: float) -> Dict[str, Any]:
     # Collect data from API
     data = gather_openmeteo(lat, lon)
     # Correct data
-    data, date, time, utc_epoch = correct_openmeteo(data)
+    data, date, time, utc_epoch = correct_openmeteo(data)  # type: ignore
     # Fill JSON template
     openmeteo_dict = fill_openmeteo(data, date, time, utc_epoch)
     return openmeteo_dict
