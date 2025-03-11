@@ -109,6 +109,18 @@ Get-ChildItem -Path $repoPath -Directory -Recurse |
 # Git garbage collect (safe)
 cd $repoPath
 git gc
+
+# Remove files in the virtual environment
+# Create an empty directory 
+mkdir "$env:TEMP\empty"
+# Use robocopy to mirror the empty directory to the virtual environment
+robocopy "$env:TEMP\empty" "$repoPath\raven-env" /MIR
+# Remove the empty directory in temp
+rmdir "$env:TEMP\empty"
+# Try to remove the now-empty target directory
+Remove-Item -Path "$repoPath\raven-env" -Force -ErrorAction SilentlyContinue
+# Re-count all files in the repository
+(Get-ChildItem -Path $repoPath -File -Recurse).Count
 ```
 
 or in Bash (Linux):

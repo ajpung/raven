@@ -112,11 +112,10 @@ Region: {
         "Value":19.8,
         "Unit":"C",
         "UnitType":17,
-        "Phrase":
-        "Pleasant"
+        "Phrase": "Pleasant"
     }
 },
-"RelativeHumidity":32,
+"RelativeHumidity":32,       # %
 "IndoorRelativeHumidity":32,
 "DewPoint":{
     "Metric":{
@@ -152,10 +151,11 @@ Region: {
 "UVIndexText":"Moderate",
 "Visibility":{
     "Metric":{
-    "Value":25.7,
-    "Unit":"km",
-    "UnitType":6
-},
+        "Value":25.7,
+        "Unit":"km",
+        "UnitType":6
+    },
+}
 "ObstructionsToVisibility":"",
 "CloudCover":0,
 "Ceiling":{
@@ -345,7 +345,7 @@ def gather_location(lat: float, lon: float, apikey: str) -> Dict[str, Any]:
     return data
 
 
-def gather_accuwx(lat: float, lon: float) -> Dict[str, Any]:
+def gather_accuwx(lat: float, lon: float) -> dict[str, Any]:
     """
     Collects weather data from Accuweather
 
@@ -356,13 +356,37 @@ def gather_accuwx(lat: float, lon: float) -> Dict[str, Any]:
     my_keys = collect_keys()
     apikey = my_keys["Weather"]["accu-weather"]
     # Collect location
-    locationkey = gather_location(lat, lon, apikey)
+    loc_data = gather_location(lat, lon, apikey)
     # If location key is found, collect weather data
-    if locationkey != {}:
-        locationkey = locationkey["Key"]
+    if loc_data != {}:
+        locationkey = loc_data["Key"]
         url = f"https://dataservice.accuweather.com/currentconditions/v1/{locationkey}?apikey={apikey}&details=true"
         response = requests.get(url)
-        data = cast(Dict[str, Any], response.json())
-        return data
+        wx_data = cast(Dict[str, Any], response.json())
     else:
-        return {}
+        wx_data = {}
+    return wx_data
+
+
+def correct_accuwx(wx_data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, int]:
+    """
+    Corrects the data from AccuWeather (units, date/time)
+    :param wx_data: Weather data from AccuWeather API
+    :return: Corrected weather data
+    """
+    # Apply Unit Corrections
+    # (cloud altitude, m -> km)
+    wx_data["Ceiling"]["Metric"]["Value"] = wx_data["Ceiling"]["Metric"]["Value"] / 1000
+
+    # Convert datetime to epoch using DateTime
+    date_format = "%Y-%m-%dT%H:%M:%S%z"
+    # Parse the string to datetime object
+    datetime_obj = datetime.datetime.strptime(
+        wx_data["LocalObservationDateTime"], date_format
+    )
+    # Extracte date and time
+    date = datetime_obj.date().strftime("%Y-%m-%d")
+    time = datetime_obj.time().strftime("%H:%M:%S")
+    # Convert to UTC epoch
+    utc_epoch = int(datetime_obj.timestamp())
+    return wx_data, date, time, utc_epoch
