@@ -65,7 +65,6 @@ pytest==8.3.5
 pytest-cov==6.0.0
 python-dateutil==2.9.0.post0
 pytz==2025.1
-pywin32==309
 pyzmq==26.2.1
 -e git+https://github.com/ajpung/raven.git@24ee7ce81fab12e56eb55cdbc3170b95ffcfec05#egg=raven
 regex==2024.11.6

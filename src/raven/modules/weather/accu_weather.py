@@ -330,8 +330,15 @@ Region: {
 
 
 def gather_location(lat: float, lon: float, apikey: str) -> Dict[str, Any]:
+    """
+    Collects location data from Accuweather
 
-    my_keys = collect_keys()
+    :param lat: Latitude of the location
+    :param lon: Longitude of the location
+    :param apikey: Accuweather API key
+    :return: Location data from Accuweather API
+    """
+
     url = f"https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey={apikey}&q={lat}%2C{lon}"
     response = requests.get(url)
     data = cast(Dict[str, Any], response.json())
