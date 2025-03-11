@@ -1,12 +1,12 @@
-from typing import Any, Dict, Tuple
-import json
 import datetime
+import json
+import time
+from typing import Dict, Any
+
 import openmeteo_requests  # type: ignore
-import pandas as pd
-from typing import Dict, Any, cast
 import requests_cache
-from retry_requests import retry
 from pandas import DataFrame
+from retry_requests import retry
 
 """
 Units taken from https://open-meteo.com/en/docs
@@ -311,16 +311,14 @@ def correct_openmeteo(data: dict[str, Any]) -> tuple[dict[str, Any], str, str, A
     :param data: Weather data from Tomorrow.io API
     :return: Corrected weather data
     """
-    # Read current data
-    current = data.Current()  # type: ignore
     # Get time of current data (epoch)
-    utc_epoch = current.Time
+    utc_epoch = time.time()
     # Convert to datetime
     cur_dt = datetime.datetime.fromtimestamp(utc_epoch)
-    # Create date string
-    ddate = str(cur_dt.date.strftime("%Y-%m-%d"))  # type: ignore
+    # Calculate date from cur_dt
+    ddate = str(cur_dt.strftime("%Y-%m-%d"))
     # Create time string
-    dtime = str(cur_dt.time.strftime("%H:%M:%S"))  # type: ignore
+    dtime = str(cur_dt.strftime("%H:%M:%S"))
     return data, ddate, dtime, utc_epoch
 
 
@@ -331,7 +329,7 @@ def fill_openmeteo(
     utc_epoch: int,
     json_file: str = "../docs/_static/json_template.json",
 ) -> dict[str, Any]:
-    current = data.Current
+    current = data.Current()  # type: ignore
     # Extract LLA
     lat, lon, alt = data.Latitude, data.Longitude, data.Elevation
     # Vertical altitudes
