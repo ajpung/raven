@@ -353,7 +353,7 @@ def gather_accuwx(lat: float, lon: float) -> Dict[str, Any]:
     # If location key is found, collect weather data
     if locationkey != {}:
         locationkey = locationkey["Key"]
-        url = f"http://dataservice.accuweather.com/currentconditions/v1/{locationkey}?apikey={apikey}&details=true"
+        url = f"https://dataservice.accuweather.com/currentconditions/v1/{locationkey}?apikey={apikey}&details=true"
         response = requests.get(url)
         data = cast(Dict[str, Any], response.json())
         return data
