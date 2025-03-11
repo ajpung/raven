@@ -9,7 +9,9 @@ from pandas import DataFrame
 from retry_requests import retry
 
 """
-Units taken from:  
+Units taken from:
+    (location) https://developer.accuweather.com/accuweather-locations-api/apis/get/locations/v1/cities/geoposition/search
+    (weather) https://developer.accuweather.com/accuweather-current-conditions-api/apis/get/currentconditions/v1/%7BlocationKey%7D
 
 ***** LOCATION *****
 {
@@ -93,7 +95,7 @@ def gather_location(lat: float, lon: float) -> Dict[str, Any]:
 
     my_keys = collect_keys()
     apikey = my_keys["Weather"]["accu-weather"]
-    url = f"http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey={apikey}&q={lat}%2C{lon}"
+    url = f"https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey={apikey}&q={lat}%2C{lon}"
     response = requests.get(url)
     data = cast(Dict[str, Any], response.json())
     return data
