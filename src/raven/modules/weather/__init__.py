@@ -18,6 +18,11 @@ from .visual_crossing import (
 
 from .synoptic_data import gather_synoptic
 
+from .accu_weather import (
+    gather_accuwx,
+    gather_location,
+)
+
 __all__ = [
     "gather_tomorrow",
     "correct_tomorrow",
@@ -31,4 +36,6 @@ __all__ = [
     "correct_visualcrossing",
     "fill_visualcrossing",
     "gather_synoptic",
+    "gather_accuwx",
+    "gather_location",
 ]
