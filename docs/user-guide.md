@@ -9,38 +9,43 @@
 
 ### Installation Steps
 
-1. Clone the repository:
+1. Clone and enter the repository:
    ```bash
    git clone https://github.com/yourusername/raven.git
    cd raven
    ```
 
-2. Create and activate a virtual environment:
+2. Create a virtual environment and install packages:
    ```bash
-    python -m venv raven-env
-    # On Windows:
-    .\raven-env\Scripts\activate
-    # On Unix or MacOS:
-    source raven-env/bin/activate
-   ```
-   
-3. Install RAVEN and its dependencies:
-   ```bash
+   python -m venv raven-env
+   .\raven-env\Scripts\activate
    python -m pip install -e .
-   ```
-   
-4. (Optional) Set up a Jupyter notebook kernel:
-   ```bash
    python -m ipykernel install --user --name=raven-env --display-name="RAVEN Environment"
    ```
-   
+
 ## Configuration
 
 ### API keys
+API keys are stored in a JSON file, `raven/config/api_keys.json`. The file contains
+two main keys, `Weather` and `CosmosDB`. Key-value pairs in "Weather" correspond to
+API keys of different weather data providers, while key-value pairs in "CosmosDB"
+contain connection information for the CosmosDB database.
 
-- Instructions for obtaining necessary API keys
-
-- How to set up environment variables
+```json
+{
+  "Weather": {
+    "accu-weather": "your-key-here",
+    "open-weather": "your-key-here",
+    "synoptic-data": "your-key-here"
+  },
+  "CosmosDB": {
+    "host": "https://apung.documents.azure.com:443/",
+    "master_key": "master-key-here",
+    "database_id": "WeatherDatabase",
+    "container_id": "WeatherContainer"
+  }
+}
+```
 
 ## Basic Usage
 
