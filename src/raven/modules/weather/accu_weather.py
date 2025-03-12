@@ -147,8 +147,6 @@ Region: {
         }
     }
 },
-"UVIndex":4,
-"UVIndexText":"Moderate",
 "Visibility":{
     "Metric":{
         "Value":25.7,
@@ -156,6 +154,8 @@ Region: {
         "UnitType":6
     },
 }
+"UVIndex":4,
+"UVIndexText":"Moderate",
 "ObstructionsToVisibility":"",
 "CloudCover":0,
 "Ceiling":{
@@ -362,31 +362,122 @@ def gather_accuwx(lat: float, lon: float) -> dict[str, Any]:
         locationkey = loc_data["Key"]
         url = f"https://dataservice.accuweather.com/currentconditions/v1/{locationkey}?apikey={apikey}&details=true"
         response = requests.get(url)
-        wx_data = cast(Dict[str, Any], response.json())
+        data = cast(Dict[str, Any], response.json())
+        data["latitude"] = loc_data["GeoPosition"]["Latitude"]
+        data["longitude"] = loc_data["GeoPosition"]["Longitude"]
+        data["altitude"] = loc_data["GeoPosition"]["Elevation"]["Metric"]["Value"]
     else:
-        wx_data = {}
-    return wx_data
+        data = {}
+    return data
 
 
-def correct_accuwx(wx_data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, int]:
+def correct_accuwx(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, int]:
     """
     Corrects the data from AccuWeather (units, date/time)
     :param wx_data: Weather data from AccuWeather API
     :return: Corrected weather data
     """
-    # Apply Unit Corrections
-    # (cloud altitude, m -> km)
-    wx_data["Ceiling"]["Metric"]["Value"] = wx_data["Ceiling"]["Metric"]["Value"] / 1000
+    if data != {}:
+        # Apply Unit Corrections
+        # (cloud altitude, m -> km)
+        data["Ceiling"]["Metric"]["Value"] = data["Ceiling"]["Metric"]["Value"] / 1000
 
-    # Convert datetime to epoch using DateTime
-    date_format = "%Y-%m-%dT%H:%M:%S%z"
-    # Parse the string to datetime object
-    datetime_obj = datetime.datetime.strptime(
-        wx_data["LocalObservationDateTime"], date_format
-    )
-    # Extracte date and time
-    date = datetime_obj.date().strftime("%Y-%m-%d")
-    time = datetime_obj.time().strftime("%H:%M:%S")
-    # Convert to UTC epoch
-    utc_epoch = int(datetime_obj.timestamp())
-    return wx_data, date, time, utc_epoch
+        # Convert datetime to epoch using DateTime
+        date_format = "%Y-%m-%dT%H:%M:%S%z"
+        # Parse the string to datetime object
+        datetime_obj = datetime.datetime.strptime(
+            data["LocalObservationDateTime"], date_format
+        )
+        # Extracte date and time
+        date = datetime_obj.date().strftime("%Y-%m-%d")
+        time = datetime_obj.time().strftime("%H:%M:%S")
+        # Convert to UTC epoch
+        utc_epoch = int(datetime_obj.timestamp())
+    else:
+        date = ""
+        time = ""
+        utc_epoch = 0
+    return data, date, time, utc_epoch
+
+
+def fill_accuwx(
+    data: dict[str, Any],
+    date: str,
+    time: str,
+    utc_epoch: int,
+    json_file: str = "../docs/_static/json_template.json",
+) -> dict[str, Any]:
+    """
+    Fills the JSON template with the data from AccuWeather
+    :param data: Weather data from AccuWeather API
+    :param date: Date in API request
+    :param time: Time in API request
+    :param utc_epoch: Epoch time in API request
+    :param json_file: JSON template file
+    :return: JSON template filled with data from AccuWeather
+    """
+    # ----- Read / fill JSON template -----
+    accu_dict = json.load(open(json_file))
+
+    # Handle case where location is not found
+    if data == {}:
+        return accu_dict  # type: ignore
+    else:
+        # Datetime
+        accu_dict["datetime"]["date"] = date
+        accu_dict["datetime"]["time"] = time
+        accu_dict["datetime"]["epoch"] = utc_epoch
+        # Location
+        accu_dict["location"]["latitutde"] = data["latitude"]
+        accu_dict["location"]["longitutde"] = data["longitude"]
+        accu_dict["location"]["altitude"] = data["altitude"]
+        # Clouds
+        accu_dict["data"]["clouds"]["ceiling"] = data["Ceiling"]["Metric"]["Value"]
+        accu_dict["data"]["clouds"]["cover"] = data["CloudCover"]
+        # Health
+        accu_dict["data"]["health"]["uv_index"] = data["UVIndex"]
+        # Precipitation
+        accu_dict["data"]["precipitation"]["rain"]["accumulated"] = data[
+            "PrecipitationSummary"
+        ]["Precipitation"]["Metric"]["Value"]
+        # Temp
+        accu_dict["data"]["temperature"]["dewpoint"] = data["DewPoint"]["Metric"][
+            "Value"
+        ]
+        accu_dict["data"]["temperature"]["humidity"] = data["RelativeHumidity"]
+        accu_dict["data"]["temperature"]["measured"] = data["Temperature"]["Metric"][
+            "Value"
+        ]
+        accu_dict["data"]["temperature"]["apparent"] = data["RealFeelTemperature"][
+            "Metric"
+        ]["Value"]
+        accu_dict["data"]["temperature"]["wetbulb"] = data["WetBulbTemperature"][
+            "Metric"
+        ]["Value"]
+        # Pressure
+        accu_dict["data"]["pressure"]["sea_level"] = data["Pressure"]["Metric"]["Value"]
+        # Visibility
+        accu_dict["data"]["visibility"] = data["Visibility"]["Metric"]["Value"]
+        # Weather code
+        accu_dict["data"]["code"] = data["data"]["values"]["weatherCode"]
+        # Wind
+        accu_dict["data"]["wind"]["direction"] = data["Wind"]["Direction"]["Degrees"]
+        accu_dict["data"]["wind"]["gust"] = data["WindGust"]["Speed"]["Metric"]["Value"]
+        accu_dict["data"]["wind"]["speed"] = data["Wind"]["Speed"]["Metric"]["Value"]
+        return accu_dict  # type: ignore
+
+
+def collect_accuwx(lat: float, lon: float) -> Dict[str, Any]:
+    """
+    Collects, corrects, and formats weather data from AccuWeather
+    :param lat: Latitude of the location
+    :param lon: Longitude of the location
+    :return tmrw_dict: Weather data from AccuWeather API
+    """
+    # Collect data from API
+    data = gather_accuwx(lat, lon)
+    # Correct data
+    data, date, time, utc_epoch = correct_accuwx(data)
+    # Fill JSON template
+    accu_dict = fill_accuwx(data, date, time, utc_epoch)
+    return accu_dict

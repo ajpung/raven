@@ -122,7 +122,8 @@
 			"measured": null,
 			"apparent": null,
 			"dewpoint": null,
-			"humidity": null
+			"humidity": null,
+			"wetbulb": null
 		},
 		"visibility": {
 			"distance": null
