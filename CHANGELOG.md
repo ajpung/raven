@@ -1,6 +1,38 @@
 # CHANGELOG
 
 
+## v0.3.0 (2025-03-12)
+
+### Bug Fixes
+
+- Demonstrating accu-wx in jupyter, adding to docs
+  ([`2210bd5`](https://github.com/ajpung/raven/commit/2210bd5773b0fcba3c1e90705ef4e7f7678ce08a))
+
+### Chores
+
+- Continuing work on AccuWeather
+  ([`196bff0`](https://github.com/ajpung/raven/commit/196bff0ce9827da1dcbf4564b395618a5f30b027))
+
+- Standing up Accuweather, fixing code in Open-meteo
+  ([`dde3da2`](https://github.com/ajpung/raven/commit/dde3da2085c7d519d1437aa1fd780d0eb959f377))
+
+### Features
+
+- Completed AccuWeather infrastructure
+  ([`69fa707`](https://github.com/ajpung/raven/commit/69fa7078d4cc021b6d4e5dc5d6a5c62e34cd20f5))
+
+
+## v0.2.5 (2025-03-11)
+
+### Chores
+
+- Fixing security with web addresses
+  ([`e26ec24`](https://github.com/ajpung/raven/commit/e26ec241c839d0411e5406030ebfd933ac9a9e01))
+
+- Standing up AccuWeather
+  ([`0e5826b`](https://github.com/ajpung/raven/commit/0e5826bb0d1cc5b4d7d0d4107d287ca3facfecb3))
+
+
 ## v0.2.4 (2025-03-10)
 
 ### Bug Fixes
