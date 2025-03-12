@@ -21,6 +21,9 @@ from .synoptic_data import gather_synoptic
 from .accu_weather import (
     gather_accuwx,
     gather_location,
+    correct_accuwx,
+    fill_accuwx,
+    collect_accuwx,
 )
 
 __all__ = [
@@ -36,6 +39,9 @@ __all__ = [
     "correct_visualcrossing",
     "fill_visualcrossing",
     "gather_synoptic",
-    "gather_accuwx",
     "gather_location",
+    "gather_accuwx",
+    "correct_accuwx",
+    "fill_accuwx",
+    "collect_accuwx",
 ]

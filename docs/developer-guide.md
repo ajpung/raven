@@ -3,42 +3,33 @@
 ## Project Structure
 ```
 src/raven/
-├── core/         # Core functionality
-├── modules/      # Feature modules
-├── api/          # API integrations
-└── ml/          # Machine learning components
+├── .github/    # Github CI/CD / ReadTheDocs
+├── config/     # API keys and configuration
+├── docs/       # Documentation
+├── examples/   # Example code / Jupyter notebooks
+├── src/raven/  # Source code
+└── tests/      # Unit tests
 ```
 ## Development Setup
 1. Clone the repository
 2. Set up virtual environment
 3. Install development dependencies
 
+## Installing the Environment
+```
+# Create a virtual environment
+python -m venv raven-env
+# Activate the virtual environment
+.\raven-env\Scripts\activate
+# Install the package in editable mode
+python -m pip install -e .
+# Install the environment in Jupyter
+python -m ipykernel install --user --name=raven-env --display-name="RAVEN Environment"
+```
+
 ## Testing
 How to run tests and add new ones...
 
-## Removing unwanted files
-To remove unwanted files, exit the IDE and run the following command via
-command prompt:
-```bash
-cd <repository directory>
-rmdir /s /q <environment directory>
-
-git clean -f
-```
-
-To count the number of files within the repository, use either of the following
-commands:
-```bash
-git ls-files | wc -l
-```
-(Total files)
-```bash
-dir /s /a /b | find /c ":"
-```
-(Total files and directories)
-```bash
-for /d %d in (*) do @echo %d & dir /s /a /b "%d" | find /c ":"
-```
 
 To aggressively kill all Python and PyCharm processes, use:
 ```bash
@@ -71,7 +62,6 @@ RAVEN utilizes the [`dateparser` package](https://dateparser.readthedocs.io/en/l
 - Datetime-to-epoch conversions are done in UTC.
 
 ## Units
-
 RAVEN uses metric units throughoutRAVEN uses units to ensure consistency and accuracy in data, and are
 defined in the {ref}`Units Reference <units>`.
 
@@ -82,8 +72,9 @@ about the weather and status of certain API requests. Weather codes can be found
 the [Weather Codes Guide](./weather-codes.md), and HTTP response codes can be found in
 the [HTTP Codes Guide](./http-codes.md).
 
-## Cleanup
-To clean up the repository, run the following commands in Powershell (Windows):
+
+## Removing unwanted files
+To clean up the repository while in the IDE, run the following commands in Powershell (Windows):
 ```powershell
 $repoPath = "G:\Dropbox\AI Projects\raven"
 # Count all files in the repository
@@ -121,28 +112,4 @@ rmdir "$env:TEMP\empty"
 Remove-Item -Path "$repoPath\raven-env" -Force -ErrorAction SilentlyContinue
 # Re-count all files in the repository
 (Get-ChildItem -Path $repoPath -File -Recurse).Count
-```
-
-or in Bash (Linux):
-```bash
-# Set repository path
-repoPath="/path/to/your/repo"  # Replace with your actual path
-
-# Count all files in the repository
-find "$repoPath" -type f | wc -l
-
-# Remove Python cache files
-find "$repoPath" -name "*.pyc" -type f -delete
-find "$repoPath" -name "__pycache__" -type d -exec rm -rf {} +
-rm -rf "$repoPath/.mypy_cache"
-
-# Find directories with the most files
-find "$repoPath" -type d -print0 | while IFS= read -r -d '' dir; do
-  count=$(find "$dir" -type f | wc -l)
-  echo "$count $dir"
-done | sort -rn | head -10
-
-# Git garbage collect
-cd "$repoPath"
-git gc
 ```

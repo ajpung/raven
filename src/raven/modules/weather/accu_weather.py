@@ -362,13 +362,13 @@ def gather_accuwx(lat: float, lon: float) -> dict[str, Any]:
         locationkey = loc_data["Key"]
         url = f"https://dataservice.accuweather.com/currentconditions/v1/{locationkey}?apikey={apikey}&details=true"
         response = requests.get(url)
-        data = cast(Dict[str, Any], response.json())
+        data = cast(Dict[str, Any], response.json())[0]  # type: ignore
         data["latitude"] = loc_data["GeoPosition"]["Latitude"]
         data["longitude"] = loc_data["GeoPosition"]["Longitude"]
         data["altitude"] = loc_data["GeoPosition"]["Elevation"]["Metric"]["Value"]
     else:
         data = {}
-    return data
+    return data  # type: ignore
 
 
 def correct_accuwx(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, int]:
@@ -458,8 +458,6 @@ def fill_accuwx(
         accu_dict["data"]["pressure"]["sea_level"] = data["Pressure"]["Metric"]["Value"]
         # Visibility
         accu_dict["data"]["visibility"] = data["Visibility"]["Metric"]["Value"]
-        # Weather code
-        accu_dict["data"]["code"] = data["data"]["values"]["weatherCode"]
         # Wind
         accu_dict["data"]["wind"]["direction"] = data["Wind"]["Direction"]["Degrees"]
         accu_dict["data"]["wind"]["gust"] = data["WindGust"]["Speed"]["Metric"]["Value"]
