@@ -1,6 +1,22 @@
 # CHANGELOG
 
 
+## v0.4.0 (2025-03-13)
+
+### Features
+
+- Now utilizing over 9,000 METAR stations by location
+  ([`a2ec8bb`](https://github.com/ajpung/raven/commit/a2ec8bb4cfe48c55e5b2184f17279ee091ec8fc0))
+
+
+## v0.3.1 (2025-03-12)
+
+### Chores
+
+- Began processing all metar stations for ML pipeline
+  ([`1c2d9ac`](https://github.com/ajpung/raven/commit/1c2d9acc1839e28c61350ee3f0e4a62d07d50613))
+
+
 ## v0.3.0 (2025-03-12)
 
 ### Bug Fixes
