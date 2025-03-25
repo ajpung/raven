@@ -16,6 +16,7 @@ dependencies = [
     "fastapi",
     "requests",
     "psycopg2",
+    "xmltodict",
     "haversine",
     "ipykernel",
     "dateparser",

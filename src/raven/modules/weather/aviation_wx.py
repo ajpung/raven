@@ -1,10 +1,10 @@
 import datetime
 import json
-from typing import Dict, Any, cast
+from typing import Dict, Any, cast, Tuple
 
 import openmeteo_requests  # type: ignore
 import requests
-from raven.core.api_base import collect_keys
+import xmltodict
 from pandas import DataFrame
 from retry_requests import retry
 
@@ -112,69 +112,72 @@ windWaveMeanPeriod: seconds
 """
 
 
-# def gather_aviation_wx(station_id: str) -> Dict[str, Any]:
-#    """
-#    Collects weather data from Tomorrow.io
-#
-#    :param station_id: ICAO code of the station
-#    :return data: Weather data from Tomorrow.io API
-#    """
+def create_time_window() -> Tuple[str, str]:
+    """
+    Creates a time window for the Aviation Wx API
+
+    :return: Tuple of start and end time strings
+    """
+    # Build time window; start time is one hour prior to current time, end time is current time
+    start_stamp = datetime.datetime.now() - datetime.timedelta(hours=1)
+
+    # Build start time string
+    start_date = start_stamp.strftime("%Y-%m-%d")
+    start_hour = start_stamp.hour
+    if start_hour < 10:
+        start_hour = "0" + str(start_hour)  # type: ignore
+    else:
+        start_hour = str(start_hour)  # type: ignore
+    start_minute = start_stamp.minute
+    if start_minute < 10:
+        start_minute = "0" + str(start_minute)  # type: ignore
+    else:
+        start_minute = str(start_minute)  # type: ignore
+    start_second = start_stamp.second
+    if start_second < 10:
+        start_second = "0" + str(start_second)  # type: ignore
+    else:
+        start_second = str(start_second)  # type: ignore
+    start_string = (
+        start_date + "T" + start_hour + "%3A" + start_minute + "%3A" + start_second + "Z"  # type: ignore
+    )
+
+    # Build end time string
+    end_stamp = datetime.datetime.now()
+    end_date = end_stamp.strftime("%Y-%m-%d")
+    end_hour = end_stamp.hour
+    if end_hour < 10:
+        end_hour = "0" + str(end_hour)  # type: ignore
+    else:
+        end_hour = str(end_hour)  # type: ignore
+    end_minute = end_stamp.minute
+    if end_minute < 10:
+        end_minute = "0" + str(end_minute)  # type: ignore
+    else:
+        end_minute = str(end_minute)  # type: ignore
+    end_second = end_stamp.second
+    if end_second < 10:
+        end_second = "0" + str(end_second)  # type: ignore
+    else:
+        end_second = str(end_second)  # type: ignore
+    end_string = end_date + "T" + end_hour + "%3A" + end_minute + "%3A" + end_second + "Z"  # type: ignore
+
+    return start_string, end_string
 
 
-# Build time window; start time is one hour prior to current time, end time is current time
-start_stamp = datetime.datetime.now() - datetime.timedelta(hours=1)
-start_date = start_stamp.strftime("%Y-%m-%d")
-start_hour = start_stamp.hour
-if start_hour < 10:
-    start_hour = "0" + str(start_hour)  # type: ignore
-else:
-    start_hour = str(start_hour)  # type: ignore
-start_minute = start_stamp.minute
-if start_minute < 10:
-    start_minute = "0" + str(start_minute)  # type: ignore
-else:
-    start_minute = str(start_minute)  # type: ignore
-start_second = start_stamp.second
-if start_second < 10:
-    start_second = "0" + str(start_second)  # type: ignore
-else:
-    start_second = str(start_second)  # type: ignore
-start_string = (
-    start_date + "T" + start_hour + "%3A" + start_minute + "%3A" + start_second + "Z"  # type: ignore
-)
-print(start_string)
-# Build end time string
-end_stamp = datetime.datetime.now()
-end_date = end_stamp.strftime("%Y-%m-%d")
-end_hour = end_stamp.hour
-if end_hour < 10:
-    end_hour = "0" + str(end_hour)  # type: ignore
-else:
-    end_hour = str(end_hour)  # type: ignore
-end_minute = end_stamp.minute
-if end_minute < 10:
-    end_minute = "0" + str(end_minute)  # type: ignore
-else:
-    end_minute = str(end_minute)  # type: ignore
-end_second = end_stamp.second
-if end_second < 10:
-    end_second = "0" + str(end_second)  # type: ignore
-else:
-    end_second = str(end_second)  # type: ignore
-end_string = end_date + "T" + end_hour + "%3A" + end_minute + "%3A" + end_second + "Z"  # type: ignore
-print(end_string)
+def gather_aviation_wx(
+    station_id: str, start_string: str, end_string: str
+) -> Dict[str, Any]:
+    """
+    Collects weather data from Tomorrow.io
 
-## Build current start time into datetime string
-# start_date = datetime.datetime.now().date().strftime("%Y-%m-%d")
-## Start hour should be one hour prior to current
-# start_hour = datetime.datetime.now().hour - 1
-# end_hour = datetime.datetime.now().hour
-# start_minute = datetime.datetime.now().minute
-# start_second = datetime.datetime.now().second
-## Build datetime strings for URL
+    :param station_id: ICAO code of the station
+    :return data: Weather data from Tomorrow.io API
+    """
+    # Create query URL
+    url = f"https://aviationweather.gov/api/data/dataserver?requestType=retrieve&dataSource=metars&stationString={station_id}&startTime={start_string}&endTime={end_string}&format=xml&mostRecent=true"
+    response = requests.get(url)
 
-
-# url = f"https://aviationweather.gov/api/data/dataserver?requestType=retrieve&dataSource=metars&stationString={station_id}&startTime=2025-03-24T00%3A00%3A00Z&endTime=2025-03-24T01%3A00%3A00Z&format=xml&mostRecent=true"
-# response = requests.get(url)
-# data = cast(Dict[str, Any], response.json())
-# return data
+    # Parse the XML string to a dictionary
+    data = xmltodict.parse(response.text)
+    return data
