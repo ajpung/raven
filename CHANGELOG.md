@@ -1,6 +1,22 @@
 # CHANGELOG
 
 
+## v0.5.0 (2025-03-25)
+
+### Features
+
+- Stood up Aviation Weather, enabling Truth values for weathers using METARS
+  ([`0fcb671`](https://github.com/ajpung/raven/commit/0fcb6717107ca2a416223892e1e62b8b7ec859d5))
+
+
+## v0.4.1 (2025-03-24)
+
+### Chores
+
+- Standing up aviation_weather
+  ([`41dfca3`](https://github.com/ajpung/raven/commit/41dfca3c9f887fde284a875e1b56a5f50f39c8b6))
+
+
 ## v0.4.0 (2025-03-13)
 
 ### Features
