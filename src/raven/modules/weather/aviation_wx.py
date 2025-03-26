@@ -165,19 +165,124 @@ def create_time_window() -> Tuple[str, str]:
     return start_string, end_string
 
 
-def gather_aviation_wx(
-    station_id: str, start_string: str, end_string: str
-) -> Dict[str, Any]:
+def gather_aviation_wx(station_id: str) -> Dict[str, Any]:
     """
     Collects weather data from Tomorrow.io
 
     :param station_id: ICAO code of the station
     :return data: Weather data from Tomorrow.io API
     """
+    # Get time window
+    start_string, end_string = create_time_window()
+
     # Create query URL
     url = f"https://aviationweather.gov/api/data/dataserver?requestType=retrieve&dataSource=metars&stationString={station_id}&startTime={start_string}&endTime={end_string}&format=xml&mostRecent=true"
     response = requests.get(url)
 
     # Parse the XML string to a dictionary
     data = xmltodict.parse(response.text)
+    # data = json.dumps(data, indent=4)  # type: ignore
     return data
+
+
+def correct_aviation(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, int]:
+    """
+    Corrects the data from Aviation Weather (units, date/time)
+    :param data: Weather data from Aviation Weather API
+    :return: Corrected weather data
+    """
+    # Windspeed (kts -> km/hr)
+    data["response"]["data"]["METAR"]["wind_speed_kph"] = (
+        float(data["response"]["data"]["METAR"]["wind_speed_kt"]) * 1.852
+    )
+
+    # Visibility (statue miles -> km)
+    data["response"]["data"]["METAR"]["visibility_km"] = (
+        data["response"]["data"]["METAR"]["visibility_statute_mi"]
+    ) * 1.60934
+
+    # Apply Unit Corrections
+    time_format = "%Y-%m-%dT%H:%M:%SZ"
+    dt_val = data["response"]["data"]["METAR"]["observation_time"]
+    date = datetime.datetime.strptime(dt_val, time_format).date().strftime("%Y-%m-%d")
+    time = datetime.datetime.strptime(dt_val, time_format).time().strftime("%H:%M:%S")
+    utc_epoch = int(datetime.datetime.strptime(dt_val, time_format).timestamp())
+    return data, date, time, utc_epoch
+
+
+def fill_aviation(
+    data: dict[str, Any],
+    date: str,
+    time: str,
+    utc_epoch: int,
+    json_file: str = "../docs/_static/json_template.json",
+) -> dict:
+    """
+    Fills the JSON template with METAR data from Aviatoin Weather
+    :param data: Weather data from Aviation Weather API
+    :param date: Date in API request
+    :param time: Time in API request
+    :param utc_epoch: Epoch time in API request
+    :param json_file: JSON template file
+    :return: JSON template filled with data from Tomorrow.io
+    """
+    # ----- Read / fill JSON template -----
+    avwx_dict = json.load(open(json_file))
+    # Datetime
+    avwx_dict["datetime"]["date"] = date
+    avwx_dict["datetime"]["time"] = time
+    avwx_dict["datetime"]["epoch"] = utc_epoch
+    # Location
+    avwx_dict["location"]["latitutde"] = data["response"]["data"]["METAR"]["latitude"]
+    avwx_dict["location"]["longitutde"] = data["response"]["data"]["METAR"]["longitude"]
+    # Clouds
+    cc = data["response"]["data"]["METAR"]["sky_condition"]["@sky_cover"]
+    if cc == "SKC":
+        cover = 0.0
+    elif cc == "NSC":
+        cover = 6.0
+    elif cc == "FEW":
+        cover = 25.0
+    elif cc == "SCT":
+        cover = 50.0
+    elif cc == "BKN":
+        cover = 75.0
+    elif cc == "OVC":
+        cover = 100
+    else:
+        cover = 999
+    avwx_dict["data"]["clouds"]["cover"] = cover
+    # Temp
+    avwx_dict["data"]["temperature"]["measured"] = data["response"]["data"]["METAR"][
+        "temp_c"
+    ]
+    avwx_dict["data"]["temperature"]["dewpoint"] = data["response"]["data"]["METAR"][
+        "dewpoint_c"
+    ]
+    # Visibility
+    avwx_dict["data"]["visibility"] = data["response"]["data"]["METAR"]["visibility_km"]
+    # Weather code
+    avwx_dict["data"]["code"] = data["response"]["data"]["METAR"]["wx_string"]
+    # Wind
+    avwx_dict["data"]["wind"]["direction"] = data["response"]["data"]["METAR"][
+        "wind_dir_degrees"
+    ]
+    avwx_dict["data"]["wind"]["speed"] = data["response"]["data"]["METAR"][
+        "wind_speed_kph"
+    ]
+    return avwx_dict  # type: ignore
+
+
+def collect_aviationwx(station_id: str) -> Dict[str, Any]:
+    """
+    Collects, corrects, and formats weather data from Tomorrow.io
+    :param station_id: ICAO code of the station
+    :return avia_dict: Weather data from Tomorrow.io API
+    """
+    # Collect data from API
+    data = gather_aviation_wx(station_id)
+    # Correct data
+    data, date, time, utc_epoch = correct_aviation(data)
+    # Fill JSON template
+    avia_dict = fill_aviation(data, date, time, utc_epoch)
+    return avia_dict

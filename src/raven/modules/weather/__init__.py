@@ -26,6 +26,13 @@ from .accu_weather import (
     collect_accuwx,
 )
 
+from .aviation_wx import (
+    gather_aviation_wx,
+    correct_aviation,
+    fill_aviation,
+    collect_aviationwx,
+)
+
 __all__ = [
     "gather_tomorrow",
     "correct_tomorrow",
@@ -44,4 +51,8 @@ __all__ = [
     "correct_accuwx",
     "fill_accuwx",
     "collect_accuwx",
+    "gather_aviation_wx",
+    "correct_aviation",
+    "fill_aviation",
+    "collect_aviationwx",
 ]
