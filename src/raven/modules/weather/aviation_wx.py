@@ -1,12 +1,11 @@
 import datetime
 import json
-from typing import Dict, Any, cast, Tuple
+import re
+from typing import Dict, Any, Tuple
 
 import openmeteo_requests  # type: ignore
 import requests
 import xmltodict
-from pandas import DataFrame
-from retry_requests import retry
 
 """
 Units taken from https://aviationweather.gov/data/api/#/Dataserver/dataserverMetars
@@ -195,11 +194,10 @@ def correct_aviation(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, in
     data["response"]["data"]["METAR"]["wind_speed_kph"] = (
         float(data["response"]["data"]["METAR"]["wind_speed_kt"]) * 1.852
     )
-
     # Visibility (statue miles -> km)
-    data["response"]["data"]["METAR"]["visibility_km"] = (
-        data["response"]["data"]["METAR"]["visibility_statute_mi"]
-    ) * 1.60934
+    vis = data["response"]["data"]["METAR"]["visibility_statute_mi"]
+    vis = re.sub("[^A-Za-z0-9]+", "", vis)
+    data["response"]["data"]["METAR"]["visibility_km"] = float(vis) * 1.60934
 
     # Apply Unit Corrections
     time_format = "%Y-%m-%dT%H:%M:%SZ"
@@ -249,6 +247,8 @@ def fill_aviation(
         cover = 75.0
     elif cc == "OVC":
         cover = 100
+    elif cc == "CAVOK":
+        cover = 0.0
     else:
         cover = 999
     avwx_dict["data"]["clouds"]["cover"] = cover
@@ -262,7 +262,8 @@ def fill_aviation(
     # Visibility
     avwx_dict["data"]["visibility"] = data["response"]["data"]["METAR"]["visibility_km"]
     # Weather code
-    avwx_dict["data"]["code"] = data["response"]["data"]["METAR"]["wx_string"]
+    if "wx_string" in data["response"]["data"]["METAR"]:
+        avwx_dict["data"]["code"] = data["response"]["data"]["METAR"]["wx_string"]
     # Wind
     avwx_dict["data"]["wind"]["direction"] = data["response"]["data"]["METAR"][
         "wind_dir_degrees"

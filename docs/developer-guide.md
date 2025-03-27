@@ -109,7 +109,7 @@ robocopy "$env:TEMP\empty" "$repoPath\raven-env" /MIR
 # Remove the empty directory in temp
 rmdir "$env:TEMP\empty"
 # Try to remove the now-empty target directory
-Remove-Item -Path "$repoPath\raven-env" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "$repoPath\raven-env" -Force -ErrorAction SilentlyContinue -Y
 # Re-count all files in the repository
 (Get-ChildItem -Path $repoPath -File -Recurse).Count
 ```
