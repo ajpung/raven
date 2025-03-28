@@ -81,21 +81,3 @@ def find_airport_distances(lat: float, lon: float) -> pd.DataFrame:
     data_df = data_df.sort_values(by="Distance")
 
     return data_df
-
-
-def find_five_nearest(lat: float, lon: float, data_df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Find the five nearest airports to a given location.
-
-    :param lat: Latitude of the location
-    :param lon: Longitude of the location
-    :param data_df: DataFrame with airport locations
-    :return: DataFrame with five nearest airports
-    """
-    # Find distances to all airports
-    data_df = find_airport_distances(lat, lon)
-
-    # Select the five nearest airports
-    nearest_airports = data_df.iloc[:5]
-
-    return nearest_airports
