@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Environmental Analysis Platform"
 requires-python = ">=3.10"
 dependencies = [
+    "geopy",
     "numpy",
     "scipy",
     "config",
@@ -31,6 +32,10 @@ dependencies = [
     "black[jupyter]",
     "types-requests",
     "types-dateparser",
+    "black[jupyter]",
+    "pytest-cov",
+    "types-requests",
+    "types-xmltodict",
     "requests_cache",
     "retry_requests",
     "openmeteo_requests"
