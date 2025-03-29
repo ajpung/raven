@@ -21,6 +21,9 @@ data streams like weather, air quality, seismic, oceanic, and electromagnetic da
 to detect, analyze, and predict environmental patterns and anomalies, providing
 researchers and urban planners with actionable insights through an API.
 
+Although some environment parameters are obtained through models (ex. weather), 
+RAVEN is designed to work with real-time data streams of empirical measurements.
+
 ## Documentation
 Complete documentation is available at [ReadTheDocs](https://raven-tool.readthedocs.io/en/latest/).
 
