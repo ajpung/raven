@@ -14,6 +14,7 @@ from .visual_crossing import (
     gather_visualcrossing,
     correct_visualcrossing,
     fill_visualcrossing,
+    collect_visualcrossing,
 )
 
 from .synoptic_data import gather_synoptic
@@ -45,6 +46,7 @@ __all__ = [
     "gather_visualcrossing",
     "correct_visualcrossing",
     "fill_visualcrossing",
+    "collect_visualcrossing",
     "gather_synoptic",
     "gather_location",
     "gather_accuwx",

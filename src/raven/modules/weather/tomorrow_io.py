@@ -208,12 +208,14 @@ def fill_tomorrow(
     tmrw_dict["data"]["precipitation"]["rain"]["intensity"] = data["data"]["values"][
         "rainIntensity"
     ]
-    tmrw_dict["data"]["precipitation"]["hail"]["probability"] = data["data"]["values"][
-        "hailProbability"
-    ]
-    tmrw_dict["data"]["precipitation"]["hail"]["size"] = data["data"]["values"][
-        "hailSize"
-    ]
+    if "hailProbability" in data["data"]["values"]:
+        tmrw_dict["data"]["precipitation"]["hail"]["probability"] = data["data"][
+            "values"
+        ]["hailProbability"]
+    if "hailSize" in data["data"]["values"]:
+        tmrw_dict["data"]["precipitation"]["hail"]["size"] = data["data"]["values"][
+            "hailSize"
+        ]
     tmrw_dict["data"]["precipitation"]["sleet"]["intensity"] = data["data"]["values"][
         "sleetIntensity"
     ]

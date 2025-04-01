@@ -119,9 +119,10 @@ def fill_visualcrossing(
     viscross_dict["datetime"]["date"] = date
     viscross_dict["datetime"]["time"] = time
     viscross_dict["datetime"]["epoch"] = utc_epoch
+    print(data)
     # Location
-    viscross_dict["location"]["latitude"] = data["currentConditions"]["latitude"]
-    viscross_dict["location"]["longitude"] = data["currentConditions"]["longitude"]
+    viscross_dict["location"]["latitude"] = data["latitude"]
+    viscross_dict["location"]["longitude"] = data["longitude"]
     # Clouds
     viscross_dict["data"]["clouds"]["cover"] = data["currentConditions"]["cloudcover"]
     # Energy
@@ -134,16 +135,23 @@ def fill_visualcrossing(
     # Health
     viscross_dict["data"]["health"]["uvindex"] = data["currentConditions"]["uvindex"]
     # Moon
-    viscross_dict["data"]["moon"]["phase"] = data["currentConditions"]["moonphase"]
-    viscross_dict["data"]["moon"]["moonrise"] = data["currentConditions"][
-        "moonriseEpoch"
-    ]
-    viscross_dict["data"]["moon"]["moonset"] = data["currentConditions"]["moonsetEpoch"]
+    if "moonphase" in data["currentConditions"]:
+        viscross_dict["data"]["moon"]["phase"] = data["currentConditions"]["moonphase"]
+    if "moonriseEpoch" in data["currentConditions"]:
+        viscross_dict["data"]["moon"]["moonrise"] = data["currentConditions"][
+            "moonriseEpoch"
+        ]
+    if "moonsetEpoch" in data["currentConditions"]:
+        viscross_dict["data"]["moon"]["moonset"] = data["currentConditions"][
+            "moonsetEpoch"
+        ]
     # Precipitation
     viscross_dict["data"]["precipitation"]["rain"] = data["currentConditions"]["precip"]
-    viscross_dict["data"]["precipitation"]["probability"] = data["currentConditions"][
-        "precipprob"
-    ]
+    if "precipprob" in data["currentConditions"]:
+        precip_prob = data["currentConditions"]["precipprob"]
+    else:
+        precip_prob = 0
+    viscross_dict["data"]["precipitation"]["probability"] = precip_prob
     # Snow
     viscross_dict["data"]["snow"]["intensity"] = data["currentConditions"]["snow"]
     viscross_dict["data"]["snow"]["accumulated"] = data["historicalWeather"][
