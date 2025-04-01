@@ -30,8 +30,7 @@ def _parse_airport_locations(
     data = [item for i, item in enumerate(data) if i not in sort_idx]
 
     # Parse relevant information from strings
-    iata = [data[i][26:29] for i in np.arange(len(data) - 1)]
-    syno = [data[i][32:37] for i in np.arange(len(data) - 1)]
+    icao = [data[i][19:24] for i in np.arange(len(data) - 1)]
     clat = [
         data[i][39:45].split(" ")[0] + "." + data[i][39:45].split(" ")[1]
         for i in np.arange(len(data) - 1)
@@ -47,8 +46,7 @@ def _parse_airport_locations(
     # Generate dataframe
     data_df = pd.DataFrame(
         {
-            "IATA": iata,
-            "Synop": syno,
+            "ICAO": icao,
             "Latitude": lati,
             "Longitude": long,
             "Elevation": elev,
