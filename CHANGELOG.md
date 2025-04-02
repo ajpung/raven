@@ -1,7 +1,52 @@
 # CHANGELOG
 
 
+## v0.6.0 (2025-04-02)
+
+### Chores
+
+- Making sure all weather sources pass before Azure pull
+  ([`e808206`](https://github.com/ajpung/raven/commit/e80820677fc203a58d9cea93adb9a08787e4816f))
+
+### Documentation
+
+- Updating README
+  ([`f7341c2`](https://github.com/ajpung/raven/commit/f7341c20979dc9d06c6473a117cf0ed76e9398d4))
+
+### Features
+
+- Completed Visual Crossing implementation, validated via Jupyter
+  ([`c077cec`](https://github.com/ajpung/raven/commit/c077cecf930a21534292736c0a9092b32f25f0c3))
+
+
+## v0.5.3 (2025-03-28)
+
+### Chores
+
+- Distance calculation added for user LLA and METARs
+  ([`24f3877`](https://github.com/ajpung/raven/commit/24f3877301900c8cedb9361ac2b13fd6b168bc0c))
+
+
+## v0.5.2 (2025-03-27)
+
+### Chores
+
+- Finishing up aviation weather
+  ([`1d74026`](https://github.com/ajpung/raven/commit/1d74026f65b0516252740fb2ba5d6ccd1fc2d870))
+
+
+## v0.5.1 (2025-03-26)
+
+### Chores
+
+- Completing aviation wx implementation
+  ([`d1c9bd8`](https://github.com/ajpung/raven/commit/d1c9bd8ba395ef09ab7642d98f3b8c6d99466006))
+
+
 ## v0.5.0 (2025-03-25)
+
+
+## v0.4.2 (2025-03-25)
 
 ### Features
 
