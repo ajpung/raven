@@ -166,10 +166,10 @@ def create_time_window() -> Tuple[str, str]:
 
 def gather_aviation_wx(station_id: str) -> Dict[str, Any]:
     """
-    Collects weather data from Tomorrow.io
+    Collects weather data from Aviation Weather
 
     :param station_id: ICAO code of the station
-    :return data: Weather data from Tomorrow.io API
+    :return data: Weather data from Aviation Weather API
     """
     # Get time window
     start_string, end_string = create_time_window()
@@ -199,7 +199,7 @@ def correct_aviation(data: Dict[str, Any]) -> tuple[dict[str, Any], str, str, in
     vis = re.sub("[^A-Za-z0-9]+", "", vis)
     data["response"]["data"]["METAR"]["visibility_km"] = float(vis) * 1.60934
 
-    # Apply Unit Corrections
+    # Capture date/time
     time_format = "%Y-%m-%dT%H:%M:%SZ"
     dt_val = data["response"]["data"]["METAR"]["observation_time"]
     date = datetime.datetime.strptime(dt_val, time_format).date().strftime("%Y-%m-%d")
@@ -216,13 +216,13 @@ def fill_aviation(
     json_file: str = "../docs/_static/json_template.json",
 ) -> dict:
     """
-    Fills the JSON template with METAR data from Aviatoin Weather
+    Fills the JSON template with METAR data from Aviation Weather
     :param data: Weather data from Aviation Weather API
     :param date: Date in API request
     :param time: Time in API request
     :param utc_epoch: Epoch time in API request
     :param json_file: JSON template file
-    :return: JSON template filled with data from Tomorrow.io
+    :return: JSON template filled with data from Aviation Weather
     """
     # ----- Read / fill JSON template -----
     avwx_dict = json.load(open(json_file))
