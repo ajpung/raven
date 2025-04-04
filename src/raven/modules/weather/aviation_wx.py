@@ -276,9 +276,9 @@ def fill_aviation(
 
 def collect_aviationwx(station_id: str) -> Dict[str, Any]:
     """
-    Collects, corrects, and formats weather data from Tomorrow.io
+    Collects, corrects, and formats weather data from Avaiation Weather
     :param station_id: ICAO code of the station
-    :return avia_dict: Weather data from Tomorrow.io API
+    :return avia_dict: Weather data from Aviation Weather API
     """
     # Collect data from API
     data = gather_aviation_wx(station_id)
