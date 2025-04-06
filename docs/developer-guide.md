@@ -113,3 +113,9 @@ Remove-Item -Path "$repoPath\raven-env" -Force -ErrorAction SilentlyContinue -Y
 # Re-count all files in the repository
 (Get-ChildItem -Path $repoPath -File -Recurse).Count
 ```
+
+## Data Sources
+Note that while many weather APIs have been integrated into RAVEN, not all of them
+are available for one reason or another. For instance, NOAA does not provide 
+international weather, while other APIs -- though noted in the Issues -- are too 
+janky to use in a reliable manner.
