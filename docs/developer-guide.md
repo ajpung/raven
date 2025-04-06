@@ -119,3 +119,6 @@ Note that while many weather APIs have been integrated into RAVEN, not all of th
 are available for one reason or another. For instance, NOAA does not provide 
 international weather, while other APIs -- though noted in the Issues -- are too 
 janky to use in a reliable manner.
+
+Specific APIs that have been developed and *not* included in the analysis include
+Ambee, Meteomatics, and Synoptic Data.
