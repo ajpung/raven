@@ -282,8 +282,14 @@ def collect_aviationwx(station_id: str) -> Dict[str, Any]:
     """
     # Collect data from API
     data = gather_aviation_wx(station_id)
-    # Correct data
-    data, date, time, utc_epoch = correct_aviation(data)
-    # Fill JSON template
-    avia_dict = fill_aviation(data, date, time, utc_epoch)
-    return avia_dict
+    # If basic data not accessible in API call
+    if "METAR" not in data["response"]["data"]:
+        # Return empty JSON template
+        json_file: str = "../docs/_static/json_template.json"
+        avia_dict = json.load(open(json_file))
+    else:
+        # Correct data
+        data, date, time, utc_epoch = correct_aviation(data)
+        # Fill JSON template
+        avia_dict = fill_aviation(data, date, time, utc_epoch)
+    return avia_dict  # type: ignore
