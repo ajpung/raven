@@ -67,13 +67,13 @@ def gather_weatherapi(lat: float, lon: float) -> dict[str, Any]:
     apikey = my_keys["Weather"]["weather-api"]
     # If location key is found, collect weather data
     # Current
-    # url = http://api.weatherapi.com/v1/current.json?key=93fdbcf1324d4e359b8112458250804 &q=31.5/-51.3&aqi=yes
+    # url = http://api.weatherapi.com/v1/current.json?key={apikey}&q=31.5/-51.3&aqi=yes
     # Marine
-    # url = http://api.weatherapi.com/v1/marine.json?key=93fdbcf1324d4e359b8112458250804 &q=31.5/-51.3&days=1
+    # url = http://api.weatherapi.com/v1/marine.json?key={apikey}&q=31.5/-51.3&days=1
     # Astronomy
-    # url = http://api.weatherapi.com/v1/astronomy.json?key=93fdbcf1324d4e359b8112458250804 &q=31.5/-51.3&dt=2025-04-08
+    # url = http://api.weatherapi.com/v1/astronomy.json?key={apikey}&q=31.5/-51.3&dt=2025-04-08
     # Sports
-    # url = http://api.weatherapi.com/v1/sports.json?key=93fdbcf1324d4e359b8112458250804 &q=31.5/-51.3
+    # url = http://api.weatherapi.com/v1/sports.json?key={apikey}&q=31.5/-51.3
 
     url = f"http://api.weatherapi.com/v1/current.json?key={apikey}&q={lat},{lon}&aqi=yes&alerts=yes&tides=yes&solar=yes&et0=yes"
     response = requests.get(url)
