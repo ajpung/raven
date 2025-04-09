@@ -47,6 +47,7 @@ branch = "main"
 upload_to_pypi = false
 upload_to_release = true
 build_command = "pip install build && python -m build"
+repository_url = "https://github.com/ajpung/raven.git"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
