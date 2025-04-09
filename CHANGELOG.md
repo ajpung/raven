@@ -1,6 +1,36 @@
 # CHANGELOG
 
 
+## v0.7.0 (2025-04-09)
+
+### Chores
+
+- Adding safety checks for aviation weather
+  ([`c3e5f36`](https://github.com/ajpung/raven/commit/c3e5f366908681eddc70d4ec7af40e3b9bd5fb2f))
+
+- Removing meteo-stat, too janky and unkept
+  ([`51b5d89`](https://github.com/ajpung/raven/commit/51b5d89b3f3b5c4f2dede88cf7f5225159ede794))
+
+- Setting up meteo-stat functions
+  ([`4fb9792`](https://github.com/ajpung/raven/commit/4fb9792ad6976d8a2c725b46d3c377b00ce2a0fd))
+
+- Standing up weather-api
+  ([`3e6bc8e`](https://github.com/ajpung/raven/commit/3e6bc8e76a5040511709ca27e0a589c04ec74327))
+
+### Features
+
+- Completed standing up WeatherAPI...API...
+  ([`658301a`](https://github.com/ajpung/raven/commit/658301acf58dda6433eccb098575ee528386a5fa))
+
+
+## v0.6.1 (2025-04-02)
+
+### Chores
+
+- Standing up meteo-stat
+  ([`34ba25b`](https://github.com/ajpung/raven/commit/34ba25b8f972a6c9613c20586c885824d641d7b7))
+
+
 ## v0.6.0 (2025-04-02)
 
 ### Chores
