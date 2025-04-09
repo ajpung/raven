@@ -13,7 +13,10 @@
 	},
 	"data":{
 		"model": null,
-		"code": null,
+		"condition": {
+			"code": null,
+			"text": null
+		},
 		"clouds": {
 			"base": null,
 			"ceiling": null,

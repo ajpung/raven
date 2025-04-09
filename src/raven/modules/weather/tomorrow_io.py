@@ -239,7 +239,7 @@ def fill_tomorrow(
     # Visibility
     tmrw_dict["data"]["visibility"] = data["data"]["values"]["visibility"]
     # Weather code
-    tmrw_dict["data"]["code"] = data["data"]["values"]["weatherCode"]
+    tmrw_dict["data"]["condition"]["code"] = data["data"]["values"]["weatherCode"]
     # Wind
     tmrw_dict["data"]["wind"]["direction"] = data["data"]["values"]["windDirection"]
     tmrw_dict["data"]["wind"]["gust"] = data["data"]["values"]["windGust"]
