@@ -122,6 +122,10 @@ def fill_visualcrossing(
     # Location
     viscross_dict["location"]["latitude"] = data["latitude"]
     viscross_dict["location"]["longitude"] = data["longitude"]
+    # Conditions
+    viscross_dict["data"]["conditions"]["text"] = data["currentConditions"][
+        "conditions"
+    ]
     # Clouds
     viscross_dict["data"]["clouds"]["cover"] = data["currentConditions"]["cloudcover"]
     # Energy
